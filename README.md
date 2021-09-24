@@ -1,2 +1,2 @@
-# GRP3-SFTWR-ENGR
-BSCS-3C &amp; D
+Team 03
+BSCS - 3C & D
