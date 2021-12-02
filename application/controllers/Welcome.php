@@ -98,9 +98,6 @@ class Welcome extends CI_Controller {
 			else{
 				$this->index();
 			}
-		    else{
-			   $this->index();
-		     }
 		}
 		
 	}
