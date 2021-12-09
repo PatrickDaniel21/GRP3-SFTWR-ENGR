@@ -171,6 +171,39 @@
 			<!-- FORM SECTION -->
 			<div class="right">
 			<h3>Welcome to C.L.I.K.I.T</h3>
+
+				<?php
+					// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
+					// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
+					if($this->uri->segment(2) == "email"){
+						// base url - http://localhost/cilogin/
+						// redirect url - http://localhost/cilogin/welcome/email
+						// welcome = segment(1)
+						// failed - segment(2)
+	
+						echo '
+						<div class="alert alert-success"> 
+							<span>A verification link has been sent to your email account</span>
+						</div>';
+					}
+				?>
+
+				<?php
+					// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
+					// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
+					if($this->uri->segment(2) == "failedemail"){
+						// base url - http://localhost/cilogin/
+						// redirect url - http://localhost/cilogin/welcome/failedemail
+						// welcome = segment(1)
+						// failed - segment(2)
+	
+						echo '
+						<div class="alert alert-danger"> 
+							<span>The email verification was not sent successfully.</span>
+						</div>';
+					}
+				?>
+
 				<div class="form">
 
 					<!-- MAIN FORM -->
@@ -190,14 +223,14 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<label for="exampleInputEmail1" class="form-label">Full Name</label>
-								<input type="text" placeholder="Enter your Name here" name="fullname" class="form-control" id="fullname" aria-describedby="name">
+								<input type="text" placeholder="Enter your Name here" name="fullname" class="form-control" id="fullname" aria-describedby="name" value="<?php echo set_value('fullname'); ?>">
 
 								<span class="text-danger"><?php echo form_error("fullname")?></span>
 							</div>
 
 							<div class="col-lg-6">
 							<label for="exampleInputEmail1" class="form-label">Username</label>
-								<input type="text" placeholder="Enter your username here" name="username" class="form-control" id="name" aria-describedby="name">
+								<input type="text" placeholder="Enter your username here" name="username" class="form-control" id="name" aria-describedby="name" value="<?php echo set_value('username'); ?>">
 
 								<span class="text-danger"><?php echo form_error("username")?></span>
 							</div>
@@ -207,7 +240,7 @@
 						<div class="row pt-2">
 							<div class="col-lg-6">
 								<label for="exampleInputEmail1" class="form-label">TUP Address</label>
-								<input type="email"  placeholder="Enter your TUP Email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+								<input type="email"  placeholder="Enter your TUP Email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo set_value('email'); ?>">
 
 								<span class="text-danger"><?php echo form_error("email")?></span>
 							</div>
@@ -217,7 +250,7 @@
 						<div class="row pt-4">
 							<div class="col-lg-6">
 								<label for="exampleInputPassword1" class="form-label">Password</label>
-								<input type="password" name="password"  placeholder="Enter your Password"  class="form-control" id="exampleInputPassword1">
+								<input type="password" name="password"  placeholder="Enter your Password"  class="form-control" id="exampleInputPassword1" value="<?php echo set_value('password'); ?>">
 
 								<span class="text-danger"><?php echo form_error("password")?></span>
 							</div>

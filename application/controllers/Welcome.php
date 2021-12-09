@@ -3,6 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 
+	// WILL EXECUTE THIS CODE WHEN NEW OBJECT OF THIS CLASS HAS BEEN CREATED
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->library('form_validation');
+		$this->load->library('encryption');
+		$this->load->model('user_model');
+	}
+
 	// LOAD THE MAIN VIEW
 	public function index()
 	{
@@ -16,18 +25,20 @@ class Welcome extends CI_Controller {
 		if($_SERVER['REQUEST_METHOD']=='POST')
 		{
 			// MAKE AN ALERTS OR SET ERRORS FOR UNWANTED INPUT
-			$this->load->library('form_validation');
-			$this->form_validation->set_rules('fullname','Full Name','required|alpha');
+			$this->form_validation->set_rules('fullname','Full Name','required');
 			$this->form_validation->set_rules('username','User Name','required');
-			$this->form_validation->set_rules('email','Email','required|valid_emails');
+			$this->form_validation->set_rules('email','Email','required|valid_emails|is_unique[users.email]');
 			$this->form_validation->set_rules('password','Password','required');
-			$this->form_validation->set_rules('password1','Password','required');
+			$this->form_validation->set_rules('password1','Confirm Password','required');
 
 			// VERIFY IF ERRORS ARE NOT OCCUR
 			if($this->form_validation->run()==TRUE)
 			{
 				//CHECK IF THE ENTER PASSWORD IS THE SAME
 				if($this->input->post('password') === $this->input->post('password1')){
+
+					// USED FOR EMAIL VERIFICATION
+					$verification_key = md5(rand());
 
 					// TRANSFER INPUT NAME VALUE IN VARIABLES
 					$fullname = $this->input->post('fullname');
@@ -37,25 +48,121 @@ class Welcome extends CI_Controller {
 
 					// PUT THE INPUT NAME VALUE IN A DATABASE VARIABLES
 					$data = array(
-						'fullname'	=>$fullname,
-						'username'	=>$username,
-						'email'		=>$email,
-						'password'	=>sha1($password),
-						'status'	=>'1'
+						'fullname'			=>$fullname,
+						'username'			=>$username,
+						'email'				=>$email,
+						'password'			=>sha1($password),
+						'verification_key'  =>$verification_key,
+						'status'			=>'0'
 					);
 
-					// LOAD MAIN MODEL
-					$this->load->model('user_model');
-					// CALL THE FUNCTION IN MAIN MODEL
-					$this->user_model->insertuser($data);
-					// MAKES AN ALERT 
-					redirect(base_url('welcome/inserted'));
+						$id = $this->user_model->insertuser($data);
+
+						// SENT VERIFICATION
+						if($id > 0){
+							
+							$subject = "Email Verification";
+							// $message = "
+							// 	<p>Hi, ".$this->input->post('fullname')."</p>
+							// 	<p> Thanks for registration! Please verify that your email address is ".$this->input->post('email')."
+
+							// 	<a href='".base_url()."welcome/verify_email/". $verification_key."'>Verify your email by clicking this link</a>.</p><br>
+
+							// 	<p>Once you click this link your email will be verified and you can login into system.</p>
+							// 	<p>Thanks</p>
+							//";
+
+							$message = "
+								<html>
+									<body style=\"color: #000; 
+												font-size: 16px; 
+												text-decoration: none; 
+												font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+												justify-content: center; 
+												background-color: #F2E7E8;\">
+										
+										<div style=\"max-width: 600px; 
+													margin: auto auto; 
+													padding: 20px;\">
+											
+												
+											<div style=\"font-size: 14px; 
+														padding: 25px; 
+														background-color: #E5CFD0;
+														moz-border-radius: 10px; 
+														-webkit-border-radius: 10px; 
+														border-radius: 10px; 
+														-khtml-border-radius: 10px;
+														border-color: #7B1114; 
+														border-width: 4px 1px; 
+														border-style: solid;\">
+								
+												<h1 style=\"font-size: 22px;\">
+													<center>Hi ".$this->input->post('fullname').", Thanks for your registration!</center>
+												</h1>
+												
+												<center>
+													<p><b>You're almost ready to start enjoying C.L.I.K.I.T.</b></p>
+													<p>Please verify that your email address is ".$this->input->post('email')."<br> Simply click the button below to verify your email address.</p>
+												</center>
+
+												<p style=\"display: flex; 
+														justify-content: center; 
+														margin-top: 10px;\">
+
+														
+														
+													<center>
+														<a href='".base_url()."welcome/verify_email/". $verification_key."'   	 target=\"_blank\" style=\"border: 1px solid #620E10; background-color: #3E090A; color: #fff; text-decoration: none; font-size: 16px; padding: 10px 20px; border-radius: 10px;\">
+															
+																Verify email address
+
+														</a>
+													</center>
+												</p>
+												
+											</div>
+										</div>
+									</body>
+								</html>	
+							";
+
+							$config = array(
+								'protocol'		=> 'smtp',
+								'smtp_host'     => 'ssl://smtp.gmail.com',
+								'smtp_port' 	=>  465,
+								'smtp_user'     => 'clikit01@gmail.com',
+								'smtp_pass'		=> 'kozqjgymkkoeecmo',
+								'smtp_timeout'	=> '60',
+								'mailtype' 		=> 'html',
+								'charset'		=> 'iso-8859-1',
+								'wordwrap'		=> 	TRUE
+							);
+
+							$this->email->initialize($config);
+							$this->email->set_newline("\r\n");
+							$this->email->from('clikit01@gmail.com','Clikit Admin');
+							$this->email->to($this->input->post('email'));
+							$this->email->subject($subject);
+							$this->email->message($message);
+
+							if($this->email->send())
+							{
+								redirect(base_url('welcome/email'));
+							}
+							else{
+								redirect(base_url('welcome/failed-email'));
+							}
+													 
+						}
+
+						// MAKES AN ALERT 
+						//redirect(base_url('welcome/inserted'));
 				}
 				// IF NOT THE SAME: MAKE AN ERROR MESSAGES
 				else{
 					redirect(base_url('welcome/failed'));
 				}
-				
 			}
 			else{
 				$this->index();
@@ -74,6 +181,32 @@ class Welcome extends CI_Controller {
 		$this->index();
 	}
 
+	// ALERT FOR EMAIL
+	public function email(){
+		$this->index();
+	}
+
+	// ALERT FOR EMAIL
+	public function failedemail(){
+		$this->index();
+	}
+
+	// EMAIL VERIFICATION
+	function verify_email(){
+		if($this->uri->segment(3)){
+  			$verification_key = $this->uri->segment(3); 
+
+		    if($this->user_model->verify_email($verification_key))
+		   {
+			  $data['message'] = '1';
+		   }
+		   else
+		   {
+			  $data['message'] = '0';
+		   }
+		   $this->load->view('email_verification', $data);
+		}
+	}
 	// CALL VIEW LOGIN
 	function login(){
 		$this->load->view('login');
@@ -85,7 +218,6 @@ class Welcome extends CI_Controller {
 		if($_SERVER['REQUEST_METHOD']=='POST')
 		{	
 			// MAKE AN ALERTS OR SET ERRORS FOR UNWANTED INPUT
-			$this->load->library('form_validation');
 			$this->form_validation->set_rules('email','Email','required');
 			$this->form_validation->set_rules('password','Password','required');
 
@@ -97,8 +229,9 @@ class Welcome extends CI_Controller {
 				$password = $this->input->post('password');
 				$password = sha1($password);
 
-				//LOAD MAIN MODEL
-				$this->load->model('user_model');
+				// //LOAD MAIN MODEL
+				// $this->load->model('user_model');
+
 				// CALL FUNCTION TO CHECK THE EMAIL AND PASSWORD
 				// TRANSFER IN $status THE RETURN VALUE IN checkPassword 
 				$status = $this->user_model->checkPassword($password,$email);
