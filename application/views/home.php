@@ -172,6 +172,7 @@
 			<div class="right">
 			<h3>Welcome to C.L.I.K.I.T</h3>
 
+				<!-- ALERT MESSAGES FOR SENT EMAIL -->
 				<?php
 					// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
 					// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
@@ -179,7 +180,7 @@
 						// base url - http://localhost/cilogin/
 						// redirect url - http://localhost/cilogin/welcome/email
 						// welcome = segment(1)
-						// failed - segment(2)
+						// email - segment(2)
 	
 						echo '
 						<div class="alert alert-success"> 
@@ -188,6 +189,7 @@
 					}
 				?>
 
+				<!-- ERROR MESSAGES FOR UNSENT EMAIL -->
 				<?php
 					// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
 					// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
@@ -195,11 +197,28 @@
 						// base url - http://localhost/cilogin/
 						// redirect url - http://localhost/cilogin/welcome/failedemail
 						// welcome = segment(1)
-						// failed - segment(2)
+						// failedemail - segment(2)
 	
 						echo '
 						<div class="alert alert-danger"> 
 							<span>The email verification was not sent successfully.</span>
+						</div>';
+					}
+				?>
+
+				<!-- ERROR MESSAGES FOR DOES NOT MATCH PASSWORD -->
+				<?php
+					// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
+					// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
+					if($this->uri->segment(2) == "failed"){
+						// base url - http://localhost/cilogin/
+						// redirect url - http://localhost/cilogin/welcome/failedform
+						// welcome = segment(1)
+						// failedform - segment(2)
+	
+						echo '
+						<div class="alert alert-danger"> 
+							<span>Password does not match</span>
 						</div>';
 					}
 				?>
@@ -271,23 +290,7 @@
 						<!-- LINK TO LOGIN -->
 						<h4>Already have an Account? 
 							<a class="" href="<?=base_url('welcome/login')?>">Login</a>
-						</h4>  
-
-						<!-- ALERT WHEN DOES NOT MATCH PASSWORD -->
-						<?php
-							// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
-							// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
-							if($this->uri->segment(2) == "failed"){
-							// base url - http://localhost/cilogin/
-							// redirect url - http://localhost/cilogin/welcome/failed
-								// welcome = segment(1)
-								// failed - segment(2)
-	
-								echo '<p class="pass text-danger text-center">Password does not match</p>';
-
-							}
-						?>
-							
+						</h4>  			
 					</form>
 				</div>
 			</div>

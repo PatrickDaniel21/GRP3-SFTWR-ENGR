@@ -10,6 +10,7 @@ class Welcome extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('encryption');
 		$this->load->model('user_model');
+		$this->load->database();
 	}
 
 	// LOAD THE MAIN VIEW
@@ -62,15 +63,6 @@ class Welcome extends CI_Controller {
 						if($id > 0){
 							
 							$subject = "Email Verification";
-							// $message = "
-							// 	<p>Hi, ".$this->input->post('fullname')."</p>
-							// 	<p> Thanks for registration! Please verify that your email address is ".$this->input->post('email')."
-
-							// 	<a href='".base_url()."welcome/verify_email/". $verification_key."'>Verify your email by clicking this link</a>.</p><br>
-
-							// 	<p>Once you click this link your email will be verified and you can login into system.</p>
-							// 	<p>Thanks</p>
-							//";
 
 							$message = "
 								<html>
@@ -155,9 +147,6 @@ class Welcome extends CI_Controller {
 							}
 													 
 						}
-
-						// MAKES AN ALERT 
-						//redirect(base_url('welcome/inserted'));
 				}
 				// IF NOT THE SAME: MAKE AN ERROR MESSAGES
 				else{
@@ -171,10 +160,6 @@ class Welcome extends CI_Controller {
 		
 	}
 
-	// ALERT FOR SUCCESSFULLY CREATED ACCOUNT
-	public function inserted(){
-		$this->index();
-	}
 
 	// ALERT FOR NOT MATCH PASSWORD
 	public function failed(){
@@ -229,9 +214,6 @@ class Welcome extends CI_Controller {
 				$password = $this->input->post('password');
 				$password = sha1($password);
 
-				// //LOAD MAIN MODEL
-				// $this->load->model('user_model');
-
 				// CALL FUNCTION TO CHECK THE EMAIL AND PASSWORD
 				// TRANSFER IN $status THE RETURN VALUE IN checkPassword 
 				$status = $this->user_model->checkPassword($password,$email);
@@ -277,6 +259,210 @@ class Welcome extends CI_Controller {
 	function validation1(){
 		$this->login();
 	}
+
+	// CALL VIEW FORGOT
+	function forgot(){
+		$this->load->view('forgot');
+	}
+
+	// FORGOT PASSWORD
+	function forgotpassword(){
+
+		if($_SERVER['REQUEST_METHOD']=='POST')
+		{	
+			// MAKE AN ALERTS OR SET ERRORS FOR UNWANTED INPUT
+			$this->form_validation->set_rules('email','Email','required');
+
+			// VERIFY IF ERRORS ARE NOT OCCUR
+			if($this->form_validation->run()==TRUE)
+			{
+				// TRANSFER INPUT NAME VALUE IN VARIABLES
+				$email = $this->input->post('email');
+
+				// CALL FUNCTION TO CHECK THE EMAIL 
+				// TRANSFER IN $status THE RETURN VALUE IN checkemail 
+				$status = $this->user_model->checkemail($email);
+
+				// SENT OTP CODE TO REST PASSWORD
+				if( $status!=false){
+
+					$generator = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+					$code = substr(str_shuffle($generator), 0, 8);
+
+					$status = $this->user_model->code_verification($email, $code);
+
+					$subject = "Forgot Password";
+					$message = "
+						<html>
+							<body style=\"color: #000; 
+										font-size: 16px; 
+										text-decoration: none; 
+										font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+										justify-content: center; 
+										background-color: #F2E7E8;\">
+								
+								<div style=\"max-width: 600px; 
+											margin: auto auto; 
+											padding: 20px;\">
+									
+										
+									<div style=\"font-size: 14px; 
+												padding: 25px; 
+												background-color: #E5CFD0;
+												moz-border-radius: 10px; 
+												-webkit-border-radius: 10px; 
+												border-radius: 10px; 
+												-khtml-border-radius: 10px;
+												border-color: #7B1114; 
+												border-width: 4px 1px; 
+												border-style: solid;\">
+						
+										<h1 style=\"font-size: 22px;\">
+											<center>Verification Code</center>
+										</h1>
+			
+										<p style=\"display: flex; 
+												justify-content: center; 
+												margin-top: 10px;\">	
+											<center>
+												<p style=\"border: 1px solid #620E10; background-color: #3E090A; color: #fff; text-decoration: none; font-size: 16px; padding: 10px 20px; border-radius: 10px;\">
+													
+														".$code."
+												</p>
+											</center>
+										</p>
+										
+									</div>
+								</div>
+							</body>
+						</html>	
+					";
+			
+					$config = array(
+						'protocol'		=> 'smtp',
+						'smtp_host'     => 'ssl://smtp.gmail.com',
+						'smtp_port' 	=>  465,
+						'smtp_user'     => 'clikit01@gmail.com',
+						'smtp_pass'		=> 'kozqjgymkkoeecmo',
+						'smtp_timeout'	=> '60',
+						'mailtype' 		=> 'html',
+						'charset'		=> 'iso-8859-1',
+						'wordwrap'		=> 	TRUE
+					);
+			
+					$this->email->initialize($config);
+					$this->email->set_newline("\r\n");
+					$this->email->from('clikit01@gmail.com','Clikit Admin');
+					$this->email->to($email);
+					$this->email->subject($subject);
+					$this->email->message($message);
+			
+					if($this->email->send())
+					{
+						redirect(base_url('welcome/otpsent'));
+					}
+					else{
+						redirect(base_url('welcome/otpnotsent'));
+					}
+				}
+				else {	
+					// MAKE AN ALERT FOR NOT MATCHING EMAIL
+					redirect(base_url('welcome/notemail'));
+				}
+				
+
+			}
+			else{
+				// MAKE AN ALERT TO FILL UP THE FORM
+				redirect(base_url('welcome/ferror'));
+			}
+		}
+	}
+
+	// ALERT FOR INCOMPELETE FORM
+	function ferror(){
+		$this->forgot();
+	}
+
+	// ALERT FOR NOT EMAIL NOT FOUND
+	function notemail(){
+		$this->forgot();
+	}
+
+	// ALERT WHEN SENT EMAIL
+	function otpsent(){
+		$this->load->view('otp');
+	}
+
+	// ALERT WHEN UNSENT EMAIL
+	function otpnotsent(){
+		$this->load->view('otp');
+	}
+
+	// CALL OTP VIEW
+	function otp(){
+		$this->load->view('otp');
+	}
+
+	function otpcode(){
+
+		if($_SERVER['REQUEST_METHOD']=='POST')
+		{	
+			// MAKE AN ALERTS OR SET ERRORS FOR UNWANTED INPUT
+			$this->form_validation->set_rules('code','Verification Code','required');
+
+			// VERIFY IF ERRORS ARE NOT OCCUR
+			if($this->form_validation->run()==TRUE)
+			{
+				// TRANSFER INPUT NAME VALUE IN VARIABLES
+				$code = $this->input->post('code');
+
+				$status = $this->user_model->find_code($code);
+
+				// GO TO DASHBOARD VIEW IF STATEMENT IS TRUE
+				if($status!=false){
+
+					// TRANSFER THE DATABASE VALUE IN VARIABLES
+					$username = $status->username;
+					$email = $status->email;
+
+					$this->user_model->reset_code($email, $username);
+
+					// STORE AS AN ARRAY IN $session_data  
+					$session_data = array(
+						'username'=>$username,
+						'email' => $email,
+					);
+
+					// SET THE $session_data TO UserLoginSession
+					$this->session->set_userdata('UserLoginSession',$session_data);
+
+					// LINK TO Welcome/Dashboard.php
+					redirect(base_url('welcome/dashboard'));
+				}
+				else {
+					// MAKE AN ALERT FOR NOT MATCHING CODE
+					redirect(base_url('welcome/fcode'));
+				}
+
+			}
+			else{
+				// MAKE AN ALERT TO FILL UP THE FORM
+				redirect(base_url('welcome/otperror'));
+			}
+		}		
+	}
+
+	// ALERT FOR INCOMPELETE FORM
+	function fcode(){
+		$this->otp();
+	}
+
+	// ALERT FOR WRONG CODE FORM
+	function otperror(){
+		$this->otp();
+	}
+
 
 	// GO TO views/dashboard.php
 	function dashboard(){
