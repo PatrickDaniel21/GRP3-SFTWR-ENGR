@@ -192,7 +192,7 @@
         
                             echo '
                             <div class="alert alert-danger"> 
-                                <span>The email is not registered in the system</span>
+                                <span>Please wait while we verify your email</span>
                             </div>';
                         }
                     ?>

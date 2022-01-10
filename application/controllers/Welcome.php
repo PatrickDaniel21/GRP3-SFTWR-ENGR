@@ -11,6 +11,11 @@ class Welcome extends CI_Controller {
 		$this->load->library('encryption');
 		$this->load->model('user_model');
 		$this->load->database();
+
+		// if($this->session->userdata('id') == '1')
+        //     return redirect('admin');
+        // else if($this->session->userdata('id') >'1')
+        //     return redirect('user');
 	}
 
 	// LOAD THE MAIN VIEW
@@ -22,7 +27,7 @@ class Welcome extends CI_Controller {
 	// FORM VALIDATION
 	function registerNow()
 	{
-
+		
 		if($_SERVER['REQUEST_METHOD']=='POST')
 		{
 			// MAKE AN ALERTS OR SET ERRORS FOR UNWANTED INPUT
@@ -105,7 +110,7 @@ class Welcome extends CI_Controller {
 														
 														
 													<center>
-														<a href='".base_url()."welcome/verify_email/". $verification_key."'   	 target=\"_blank\" style=\"border: 1px solid #620E10; background-color: #3E090A; color: #fff; text-decoration: none; font-size: 16px; padding: 10px 20px; border-radius: 10px;\">
+														<a href='".base_url()."welcome/verify_email/". $verification_key."'style=\"border: 1px solid #620E10; background-color: #3E090A; color: #fff; text-decoration: none; font-size: 16px; padding: 10px 20px; border-radius: 10px;\">
 															
 																Verify email address
 
@@ -123,8 +128,8 @@ class Welcome extends CI_Controller {
 								'protocol'		=> 'smtp',
 								'smtp_host'     => 'ssl://smtp.gmail.com',
 								'smtp_port' 	=>  465,
-								'smtp_user'     => 'clikit01@gmail.com',
-								'smtp_pass'		=> 'kozqjgymkkoeecmo',
+								'smtp_user'     => 'clikitstuff@gmail.com',
+								'smtp_pass'		=> 'sbigavnmutuoikgo',
 								'smtp_timeout'	=> '60',
 								'mailtype' 		=> 'html',
 								'charset'		=> 'iso-8859-1',
@@ -133,7 +138,7 @@ class Welcome extends CI_Controller {
 
 							$this->email->initialize($config);
 							$this->email->set_newline("\r\n");
-							$this->email->from('clikit01@gmail.com','Clikit Admin');
+							$this->email->from('clikitstuff@gmail.com','Clikit Admin');
 							$this->email->to($this->input->post('email'));
 							$this->email->subject($subject);
 							$this->email->message($message);
@@ -143,7 +148,7 @@ class Welcome extends CI_Controller {
 								redirect(base_url('welcome/email'));
 							}
 							else{
-								redirect(base_url('welcome/failed-email'));
+								redirect(base_url('welcome/failedemail'));
 							}
 													 
 						}
@@ -210,32 +215,45 @@ class Welcome extends CI_Controller {
 			if($this->form_validation->run()==TRUE)
 			{
 				// TRANSFER INPUT NAME VALUE IN VARIABLES
-				$email = $this->input->post('email');
+				$email    = $this->input->post('email');
 				$password = $this->input->post('password');
 				$password = sha1($password);
 
 				// CALL FUNCTION TO CHECK THE EMAIL AND PASSWORD
 				// TRANSFER IN $status THE RETURN VALUE IN checkPassword 
-				$status = $this->user_model->checkPassword($password,$email);
+				$status1 = $this->user_model->checkPassword($password,$email);
 
 				// GO TO DASHBOARD VIEW IF STATEMENT IS TRUE
-				if($status!=false){
+				if($status1!=false){
 
 					// TRANSFER THE DATABASE VALUE IN VARIABLES
-					$username = $status->username;
-					$email = $status->email;
+					$id 	  = $status1->id;
+					$username = $status1->username;
+					$email 	  = $status1->email;
+					$status   = $status1->status;
+					$image   = $status1->image;
 
 					// STORE AS AN ARRAY IN $session_data  
 					$session_data = array(
-						'username'=>$username,
-						'email' => $email,
+						'username' => $username,
+						'email'    => $email,
+						'id'	   => $id,
+						'status'   => $status,	
+						'image'    => $image,
 					);
 
 					// SET THE $session_data TO UserLoginSession
-					$this->session->set_userdata('UserLoginSession',$session_data);
+					$this->session->set_userdata($session_data);
+					$status = $this->session->userdata('status');
 
-					// LINK TO Welcome/Dashboard.php
-					redirect(base_url('welcome/dashboard'));
+					if($status == '1'){
+						redirect('admin');
+					}
+					else{
+						redirect('user');
+					}
+
+					
 				}
 				else {
 					// MAKE AN ALERT FOR NOT MATCHING PASSWORD AND EMAIL
@@ -438,7 +456,7 @@ class Welcome extends CI_Controller {
 					$this->session->set_userdata('UserLoginSession',$session_data);
 
 					// LINK TO Welcome/Dashboard.php
-					redirect(base_url('welcome/dashboard'));
+					redirect('user');
 				}
 				else {
 					// MAKE AN ALERT FOR NOT MATCHING CODE
@@ -463,15 +481,11 @@ class Welcome extends CI_Controller {
 		$this->otp();
 	}
 
-
-	// GO TO views/dashboard.php
-	function dashboard(){
-		$this->load->view('dashboard');
-	}
-
 	// LOGOUT
 	function logout(){
-		session_destroy();
+		$this->session->unset_userdata('id');
 		redirect(base_url('welcome/login'));
 	}
+
+	
 }
