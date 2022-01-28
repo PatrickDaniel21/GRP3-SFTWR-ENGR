@@ -17,7 +17,9 @@
         box-sizing: border-box;
     }
     body{
-        background: #4A2324;
+        background: url('../assets/img/bg10.jpg');	
+        background-repeat: no-repeat;
+		background-size: cover;
     }
     ion-icon{
         font-size: 1.5rem;
@@ -27,11 +29,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #181818;
-        padding: 7px 7%;
+        background: #1E0E0E;
+        padding: 13px 7%;
         position: sticky;
         top: 0;
         z-index: 100;
+        margin-bottom: 10px;
     }
     .nav-left p{
         width: 160px;
@@ -59,8 +62,8 @@
         display: flex;
         align-items: center;
         padding: 0 15px;
-        margin-bottom: 10px;
-        height: 30px;
+        margin-bottom: 20px;
+        height: 1px;
     }
     .search-box p{
         width: 18px;
@@ -101,6 +104,7 @@
         margin-right: 15px;
         border-radius: 50%;
     }
+    
 
 
 
@@ -223,7 +227,7 @@
     }
 
     .button2{
-        background-color: rgba(204,153,153,.5);
+        background-color: #905152;
         color: white;
         padding: 4px 180px;
         text-align: center;
@@ -233,6 +237,9 @@
         border-radius: 50px;
         letter-spacing: 2px;
         transform: translate(-5%, 50%);
+    }
+    .button2:hover{
+        background-color: #763739;
     }
 
     .form-label{
@@ -399,7 +406,7 @@
         }
     }
     .button1{
-        background-color: rgba(204,153,153,.5);
+        background-color: #905152;
         color: white;
         padding: 4px 32px;
         text-align: center;
@@ -409,6 +416,11 @@
         border-radius: 50px;
         transform: translate(155%, -180%);
     }
+
+    .button1:hover{
+        background-color: #763739;
+    }
+
 
     .post-text{
         color: #9a9a9a;
@@ -522,10 +534,10 @@
         color: white;
     }
     .tab_triger ul li:nth-child(1) label{
-        background: rgba(0,0,0,.6);
+        background: rgba(144,81,82, 0.7);
     }
     .tab_triger ul li:nth-child(2) label{
-        background: rgba(0,0,0,.4);
+        background:  rgba(169,106,108, 0.7);
     }
     .tab_container_wrap input{
         position: absolute;
@@ -546,10 +558,10 @@
         border-radius: 0 10px 10px 10px;
     }
     .tab_content_box:nth-of-type(1){
-        background: rgba(0,0,0,.6);
+        background: rgba(144,81,82, 0.7);
     }
     .tab_content_box:nth-of-type(2){
-        background:  rgba(0,0,0,.4);
+        background:  rgba(169,106,108, 0.7);
     }
     .profile{
         transform: translateX(-8px);
@@ -583,6 +595,9 @@
     }
     .logo{
         text-decoration: none;
+    }
+    .logo img{
+        width: 20%;
     }
     .btn{
 		color: #fff;
@@ -620,8 +635,34 @@
     }
     .post_status1{
         position: absolute; 
-        transform: translate(445%, -175%);
+        transform: translate(410%, -175%);
     }
+    .main-content{
+        padding-right: 20px;
+    }
+    .orgcontainer{
+        background:  url( <?= base_url() ?>assets/img/bg1.jpg );
+        background-repeat: no-repeat;
+		background-size: cover;
+        padding: 15px 40px 15px 40px;
+        border-radius: 4px;       
+        height: 5rem;
+        text-align: center;
+        justify-content: center;
+       
+    }
+    .orgcontainer img{
+        text-align: center;
+        transform: translateY(-26%);
+        
+    }
+    .orgcontainer p{
+        color: #2C1515;  
+        letter-spacing: 0.5px;  
+        font-weight: bold;
+        
+    }
+
     </style>
     
 </head>
@@ -637,7 +678,9 @@
 
         <nav>
         <div class="nav-left">
-            <a class="logo" href="<?=base_url('user')?>"><p>CLIKIT</p></a>
+            <a class="logo" href="<?=base_url('index.php/user')?>">
+                <img src=<?= base_url('assets/img/DEN-LOGO.png')?>> 
+            </a>
         </div>
         <div class="nav-right">
             
@@ -655,7 +698,7 @@
                                 <img src=<?= base_url('assets/img/default_dp.png')?>          
                                     style="height: 35px;
                                     width: 35px;
-                                    border-radius: 50%; I
+                                    border-radius: 50%; 
                                     display: table-cell;margin: e auto;" alt="Profile image">
                             <?php
                             }else{
@@ -663,7 +706,7 @@
                                 <img src=<?= base_url('upload/'.($this->session->userdata('image')))?>          
                                     style="height: 35px;
                                     width: 35px;
-                                    border-radius: 50%; I
+                                    border-radius: 50%; 
                                     display: table-cell;margin: e auto;" alt="Profile image">
                             <?php
                             }
@@ -678,7 +721,8 @@
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?=base_url('user')?>">Go to Freedom Wall</a></li>
+                        <li><a class="dropdown-item" href="<?=base_url('index.php/user')?>">Go to Freedom Wall</a></li>
+                        <li><a class="dropdown-item" href="<?=base_url('orgs')?>">Go to Organization</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="<?=base_url('user/editprofile')?>">View Profile</a></li>
                         <li><a class="dropdown-item" href="#changepass">Change Password</a></li>
@@ -696,13 +740,54 @@
 
     <div class="container">
         <div class="left-sidebar">
-            <div class="imp-links">
-                <a href="#"><ion-icon name="people-circle"></ion-icon>Freedom Wall</a>
-                <a href="#"><ion-icon name="library"></ion-icon>Organizations</a>
+            <div class="imp-links mt-3">
+                <a href="<?=base_url('index.php/user')?>"><ion-icon name="people-circle"></ion-icon>Freedom Wall</a>
+                <a href="<?=base_url('orgs')?>"><ion-icon name="library"></ion-icon>Organizations</a>
                 <div class="search-box">
-                    <p><i class="fas fa-search"></i></p>
-                    <input type="text" placeholder="Search orgs...">
                 </div>
+                 
+                <?php
+                foreach($data->result() as $row)
+                {
+            
+                    if($this->session->userdata('id') == $row->orgadmin_id && $row->org_status == '1')
+                    {
+
+                        if($row->org_image == ""){
+                        ?>  
+                                <div class="orgcontainer" > 
+                                <a href="<?=base_url('admin/admincontrol')?>">
+                                    <img src=<?= base_url('assets/img/orgs_logo.png')?>          
+                                        style="
+                                        width: 30%;
+                                        height: 30%;
+                                        border-radius: 50%; 
+                                        " alt="Profile image"> <br>
+                                    <p><?php echo $row->org_name?></p>
+                                </a>
+                                </div>
+                        <?php
+                        }else{
+                            ?>
+                                <div class="orgcontainer" > 
+                                <a href="<?=base_url('admin/admincontrol')?>">
+                                    <img src=<?= base_url('upload/'.$row->org_image)?>          
+                                        style="width: 30%;
+                                        height: 30%;
+                                        border-radius: 50%; 
+                                        " alt="Profile image"><br>
+                                     <p><?php echo $row->org_name?></p>
+                                </a>
+                                </div>  
+                            <?php
+                            }
+                            ?>
+                                              
+                <?php
+                        break; 
+                    }
+                }
+                ?>                
 
             </div>
         </div>
@@ -740,19 +825,88 @@
                     }
             ?>
 
+            <?php
+                        
+                if($this->uri->segment(2) == "validation"){
+                    // base url - http://localhost/cilogin/
+                    // redirect url - http://localhost/cilogin/user/validation
+                    // user = segment(1)
+                    // validation - segment(2)
+        
+                    echo '
+                    <div class="alert alert-success"> 
+                        <span>Username is Successfully Changed</span>
+                    </div>';
+                }
+                ?>
+
+                <?php
+                            
+                    if($this->uri->segment(2) == "validation1"){
+                        // base url - http://localhost/cilogin/
+                        // redirect url - http://localhost/cilogin/user/validation1
+                        // user = segment(1)
+                        // validation1 - segment(2)
+            
+                        echo '
+                        <div class="alert alert-danger"> 
+                            <span>Username is Unsuccessfully Changed</span>
+                        </div>';
+                    }
+                ?>
+
+                <?php
+                        
+                    if($this->uri->segment(2) == "error"){
+                    // base url - http://localhost/cilogin/
+                    // redirect url - http://localhost/cilogin/user/error
+                    // user = segment(1)
+                    // error - segment(2)
+        
+                    echo '
+                    <div class="alert alert-danger"> 
+                        <span>Password does not match</span>
+                    </div>';
+                }
+                ?>
+
+                <?php
+                        
+                    if($this->uri->segment(2) == "error1"){
+                    // base url - http://localhost/cilogin/
+                    // redirect url - http://localhost/cilogin/user/error1
+                    // user = segment(1)
+                    // error1 - segment(2)
+        
+                    echo '
+                    <div class="alert alert-danger"> 
+                        <span>Current Password does not match</span>
+                    </div>';
+                }
+                ?>
+
+                <?php
+                        
+                    if($this->uri->segment(2) == "valid"){
+                    // base url - http://localhost/cilogin/
+                    // redirect url - http://localhost/cilogin/user/error1
+                    // user = segment(1)
+                    // error1 - segment(2)
+        
+                    echo '
+                    <div class="alert alert-success"> 
+                        <span>Password is Successfully Changed</span>
+                    </div>';
+                }
+                ?>
+
             <div class="tab_triger">
                 <ul>
                     <li><label for="tab1">Profile</label></li>
                     <li><label for="tab2">Post Archives</label></li>
                 </ul>
             </div>
-            <?php
-            foreach($data->result() as $row)
-             {
-           
-                if($this->session->userdata('id') == $row->id)
-                {
-            ?>
+
             
             <div class="tab_container_wrap">
                 <input type="radio" checked id="tab1" name="1">
@@ -763,19 +917,19 @@
                     <tr>
                         <td><p>Fullname: &emsp;</p></td>
                         <td>&emsp;&emsp;</td>
-                        <td><p><?= $row->fullname?></p></td>
+                        <td><p><?= $this->session->userdata('fullname')?></p></td>
                     </tr> 
 
                     <tr>
                         <td><p>Username: </p></td>
                         <td>&emsp;&emsp;</td>
-                        <td><p><?= $row->username?></p></td>
+                        <td><p><?= $this->session->userdata('username')?></p></td>
                     </tr>
 
                     <tr>
                         <td><p>Email: &emsp;</p></td>
                         <td>&emsp;&emsp;</td>
-                        <td><p><?= $row->email?></p></td>
+                        <td><p><?= $this->session->userdata('email')?></p></td>
                     </tr>
                       
                     </div>
@@ -793,11 +947,10 @@
                         if($this->session->userdata('id') == $row->id)
                         {
                     ?>
-
                         <div class="post-container">
                             <div class="post-row">
                                
-
+                            
                                 <div class="user-profile">
                                     <?php if($this->session->userdata('image') == ""){
                                     ?>
@@ -854,8 +1007,8 @@
                                                 {   
                                             ?>
                                                     <div  class="post_status1">
-                                                        <a href='#' style="border: 1px solid #ea8900;background-color:#9e5c00;color: #fff; text-decoration: none; font-size: 10px; padding: 7px 15px; border-radius: 10px; border-radius: 10px;">
-                                                            Pending
+                                                        <a href='#' style="border: 1px solid #360000; background-color:#610500;color: #fff; text-decoration: none; font-size: 10px; padding: 7px 15px; border-radius: 10px; border-radius: 10px;">
+                                                            Scanning
                                                         </a>
                                                     </div>
                                             <?php 
@@ -887,43 +1040,12 @@
                 </div>
             </div>
             
-            <?php
-                 }
-            }
-            ?>
+        
    
             <div class="setting">
                  <p id="logo">Change Username</p> <hr>
 
-                 <?php
-                        
-                if($this->uri->segment(2) == "validation"){
-                    // base url - http://localhost/cilogin/
-                    // redirect url - http://localhost/cilogin/user/validation
-                    // user = segment(1)
-                    // validation - segment(2)
-        
-                    echo '
-                    <div class="alert alert-success"> 
-                        <span>Username is Successfully Changed</span>
-                    </div>';
-                }
-                ?>
-
-                <?php
-                            
-                    if($this->uri->segment(2) == "validation1"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validation1
-                        // user = segment(1)
-                        // validation1 - segment(2)
-            
-                        echo '
-                        <div class="alert alert-danger"> 
-                            <span>Username is Unsuccessfully Changed</span>
-                        </div>';
-                    }
-                ?>
+                 
 
                         <div class="alert1 alert-dark"> 
                             <p class="mt-2">Your username may reload after you re-open your account</p>
@@ -952,50 +1074,6 @@
             <div id ="changepass" class="setting1">
                  <p id="logo">Change Password</p> <hr>
 
-                 <?php
-                        
-                    if($this->uri->segment(2) == "error"){
-                    // base url - http://localhost/cilogin/
-                    // redirect url - http://localhost/cilogin/user/error
-                    // user = segment(1)
-                    // error - segment(2)
-        
-                    echo '
-                    <div class="alert alert-danger"> 
-                        <span>Password does not match</span>
-                    </div>';
-                }
-                ?>
-
-                <?php
-                        
-                    if($this->uri->segment(2) == "error1"){
-                    // base url - http://localhost/cilogin/
-                    // redirect url - http://localhost/cilogin/user/error1
-                    // user = segment(1)
-                    // error1 - segment(2)
-        
-                    echo '
-                    <div class="alert alert-danger"> 
-                        <span>Current Password does not match</span>
-                    </div>';
-                }
-                ?>
-
-                <?php
-                        
-                    if($this->uri->segment(2) == "valid"){
-                    // base url - http://localhost/cilogin/
-                    // redirect url - http://localhost/cilogin/user/error1
-                    // user = segment(1)
-                    // error1 - segment(2)
-        
-                    echo '
-                    <div class="alert alert-success"> 
-                        <span>Password is Successfully Changed</span>
-                    </div>';
-                }
-                ?>
 
                  <form method="post" autocomplete="off" action="<?=base_url('user/changepass')?>">
 
@@ -1066,7 +1144,9 @@
                             <div class="profile-img">
                                 <div class="file btn btn-lg btn-primary">
                                     <ion-icon class="icon" name="camera-outline"></ion-icon>
-                                    <input type="file" name="image">
+                                    <input type="file" name="image" required 
+									oninvalid="this.setCustomValidity('Insert Picture Here')" 
+									oninput="this.setCustomValidity('')">
                                 </div>
                             </div>
                         

@@ -16,9 +16,14 @@
         box-sizing: border-box;
     }
     body{
-        background: url('../assets/img/bg10.jpg');	
-        background-repeat: no-repeat;
-		background-size: cover;
+        background-image: url( <?= base_url() ?>assets/img/bg10.jpg );
+        	background-repeat: no-repeat;
+			background-size: cover;
+    }
+    .background{
+        position: absolute;
+        height: 100%;
+        width: 100%;
     }
     ion-icon{
         font-size: 1.5rem;
@@ -94,7 +99,7 @@
         position: sticky;
         top: 70px;
         align-self: flex-start;
-        background: url('../assets/img/bg1.jpg');
+        background-image: url( <?= base_url() ?>assets/img/bg1.jpg );
         padding: 20px;
         border-radius: 4px;
         color: #2C1515;
@@ -113,7 +118,7 @@
         color: #efefef;
         width: fit-content;
     }
-    .imp-links a img{
+    .imp-links a img, .imp-linkss a img{
         width: 25px;
         height: 25px;
         margin-right: 15px;
@@ -122,6 +127,27 @@
     .imp-links{
         border-bottom: 1px solid #ccc;
     }
+
+    .imp-linkss a{
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        color: #efefef;
+        width: fit-content;
+    }
+
+    .imp-linkss{
+        background:#905152;
+        width: 80%;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .imp-linkss:hover{
+        background:#683032;
+        width: 80%;
+        border-radius: 10px;
+    }
+    
     .sidebar-title{
         display: flex;
         align-items: center;
@@ -139,11 +165,9 @@
         color: #3B1C1C;
         font-weight: 600;
     }
-    
     .sidebar-title a{
-        text-decoration: none;
-        color: #1876f2;
-        font-size: 12px;
+        color: #3B1C1C;
+        font-weight: 600;
     }
     .event{
         display: flex;
@@ -265,6 +289,7 @@
         margin-right: 10px;
     }
     .post-container{
+        position: relative;
         width: 100%;
         background: #F5F5F5;
         border-radius: 6px;
@@ -355,7 +380,7 @@
     .btn{
 		color: #fff;
 		text-align: center;
-		background:  #4d0400;
+		background:  #800000;
 		width: 450px;
 		height: 35px;
 		transform: translateX(-5.5%);
@@ -363,7 +388,7 @@
 
 	.btn:hover{
         color: #fff;
-		background-color: #260200;
+		background-color: #522020;
 	}
     .btn-group ion-icon{
         color: #55504E;
@@ -379,14 +404,14 @@
     .dropdown-menu1{
         background-color: rgba(0,0,0,.7);
     }
-    .report-feedback{
+    textarea{
         font-size: 15px;
         background-color: #905152;
         border: none;
         color: white;
         padding: 4px;
     }
-    .report-feedback::placeholder{
+    textarea::placeholder{
         color: white;
     }
     .posting::placeholder{
@@ -409,13 +434,51 @@
         background:#905152;
         opacity: 1px;
 	}
+    .book{
+        color:#ff9e14;
+        position: absolute;
+        transform: translateX(1270%);
+    }
+    .book ion-icon{
+        color:#ff9e14;
+    }
+    .orgpic{
+        position: relative;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+        margin-bottom: 13px;
+    }
+    .orgname{
+        position: relative;
+        color: white;
+        font-size: 35px;
+    }
+    .join{
+        text-decoration: none;
+        color: white;
+        float: right;
+        margin: 20px 10px;
+    }
+    .join:hover{
+        color: white;
+    }
+    .join1{
+        background-color: #52D452;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        padding: 7px;
+        float: right;
+        margin: 20px 10px;
+        
+    }
    
     
     </style>
 </head>
 <body>
-
-
     
     <!-- <?php 
     // if($this->session->userdata('UserLoginSession')){
@@ -488,221 +551,104 @@
             <div class="imp-links mt-3">
                 <a href="<?=base_url('index.php/user')?>"><ion-icon name="people-circle"></ion-icon>Freedom Wall</a>
                 <a href="<?=base_url('orgs')?>"><ion-icon name="library"></ion-icon>Organizations</a>
-            </div>
+            </div>   
+
+            <div class="imp-linkss mt-5">
+                <a href="<?=base_url('orgs/contact/'.$this->uri->segment(3))?>"><ion-icon name="call"></ion-icon>Contact Us</a>
+            </div> 
+            <div class="imp-linkss mt-3">
+                <a href="<?=base_url('orgs/aboutus')?>"><ion-icon name="call"></ion-icon>About</a>
+            </div>   
         </div>
+        
         <div class="main-content">
             <div class="mt-2 mb-2">
-                <?php       
-                    if($this->uri->segment(2) == "reports"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-success"> 
-                            <span>Reported Successfully</span>
-                        </div>';
-                    }
-                ?>
-
-                <?php       
-                    if($this->uri->segment(2) == "reporterror"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-danger"> 
-                            <span>Reported Unsuccessfully</span>
-                        </div>';
-                    }
-                ?>
-
-                <?php       
-                    if($this->uri->segment(2) == "feedbacks"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-success"> 
-                            <span>Bugs / Feedback is Successfully Sent</span>
-                        </div>';
-                    }
-                ?>
-
-                <?php       
-                    if($this->uri->segment(2) == "feedbackerror"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-danger"> 
-                            <span>Bugs / Feedback is Unsuccessfully Sent</span>
-                        </div>';
-                    }
-                ?>
-
-                <?php       
-                    if($this->uri->segment(2) == "success"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-success"> 
-                            <span>Organization Form Sent Successfully</span>
-                        </div>';
-                    }
-                ?>
-
-                <?php       
-                    if($this->uri->segment(2) == "failed"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-danger"> 
-                            <span>Organization Form Sent Unsuccessfully</span>
-                        </div>';
-                    }
-                ?>
+        
             </div>
 
-            <div class="write-post-container"> 
-
-                <form method="post" autocomplete="off" action="<?=base_url('user/post')?>">
-
-                           
-                    <div class="user-profile">
-                            <?php if($this->session->userdata('image') == ""){
-                            ?>
-                                <img src=<?= base_url('assets/img/default_dp.png')?>          
-                                    style="height: 35px;
-                                    width: 35px;
-                                    border-radius: 50%; 
-                                    display: table-cell;margin: e auto;" alt="Profile image">
-                            <?php
-                            }else{
-                            ?>
-                                <img src=<?= base_url('upload/'.($this->session->userdata('image')))?>          
-                                    style="height: 35px;
-                                    width: 35px;
-                                    border-radius: 50%; 
-                                    display: table-cell;margin: e auto;" alt="Profile image">
-                            <?php
-                            }
-                            ?>
-                        <div>
-                            <p><?php echo $this->session->userdata('username');?></p>
-                            
-                            <label><input class="status mt-2" type="radio" name="status1" value="public"> Public </input></label>
-                            <label><input class="status" type="radio" name="status1" value="anonymous"> Anonymous</input></label>
-
-                        </div>
-                    </div>
-
-
-                    <div class="post-input-container">
-                        <textarea class="posting" rows="2" name="post" placeholder="What's on your mind, <?php echo $this->session->userdata('username');?>?"></textarea>
-
-                            <?php 
-                                date_default_timezone_set('Asia/Manila');
-                                $datetime =  date('Y/m/d H:i:s');
-                            ?>
-                            <input type="hidden" name="published_date" value='<?php echo $datetime; ?>'>
-
-                        <div class="rounded-0 text-center">
-							<button type="submit" class="btn">Post</button>
-						</div>
-                    </div>
-                </form>
-
-            </div>
             <?php
                 foreach($data->result() as $row)
                 {
-                    if($row->status_post == '1'){
+                    if($this->uri->segment(3) == $row->org_id){
             ?>
+
+                <?php if($row->org_image == ""){
+                ?>
+                    <img class="orgpic" src=<?= base_url('assets/img/orgs_logo.png')?>>
+                <?php
+                    }else{
+                 ?>
+                    <img class="orgpic" src=<?= base_url('upload/'.$row->org_image)?>>
+                <?php
+                    }
+                ?>
+                
+                <span class="orgname"><?php echo $row->org_name?></span>
+
+                
+
+                <?php if(($row->orgadmin_id == $this->session->userdata('id')) || 
+                         ($row->orgmember_id == $this->session->userdata('id') && $row->orgmember_status == '1' && $this->uri->segment(3) == $row->orgm_id)){
+                ?>
+                    <button style="position: relative;"  type="submit" class="join1">Joined</button>
+                <?php
+                }else{
+                ?>
+                    <a style="position: relative;" class="join" href="<?=base_url('orgs/orgjoined/'.$row->org_id)?>">Join / Register</a>
+                <?php
+                }
+                ?>
+
+               
+
+            <?php
+                    break;
+                    }
+                }
+            ?>
+
+            
+
+            <?php
+                foreach($data->result() as $row)
+                {
+                    if($this->uri->segment(3) == $row->	org_id){
+            ?>
+
                 <div class="post-container">
                     
                     <div class="post-row">
                         <div class="user-profile">
                             
-                            <?php if($row->status1 == 'public')
-                                {
+                            <?php if($row->org_image == ""){
                             ?>
-                                   
-
-                                    <?php if($row->image == ""){
-                                    ?>
-                                        <img src=<?= base_url('assets/img/default_dp.png')?>>
-                                    <?php
-                                    }else{
-                                    ?>
-                                        <img src=<?= base_url('upload/'.$row->image)?>>
-                                    <?php
-                                    }
-                                    ?>
-
-                                <?php
+                                    <img src=<?= base_url('assets/img/orgs_logo.png')?>>
+                            <?php
                                 }else{
-                                ?>
-                                    <img src=<?php echo base_url('/assets/img/dp.png');?>>
-                            <?php    
-                                }
+                            ?>
+                                    <img src=<?= base_url('upload/'.$row->org_image)?>>
+                             <?php
+                                 }
                             ?>
 
                             <div>
-                                <?php if($row->status1 == 'public'){
+                                <?php if($row->org_status == "1"){
                                 ?>
-                                    <p><?php echo $row->username?></p>
-                                    <span><?php echo $row->published_date ?></span>
-
+                                    <span class="book"><ion-icon name="bookmarks"></ion-icon></span>
                                 <?php
-                                }else{
-                                ?>
-                                    <p>anonymous</p>
-                                    <span><?php echo $row->published_date ?></span>
-                                <?php    
                                 }
                                 ?>
 
-                                <div class="btn-group1 btn-group" >
-                                    <button type="button" class="btn2 dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <ion-icon name="ellipsis-vertical"></ion-icon>
-                                        <span class="visually-hidden">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu1 dropdown-menu">
-                                        
-                                        <li><a class="dropdown-item" href="<?=base_url('user/report/'.$row->id.'/'.$row->post_id)?>">Report</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        
-                                        <form method="post" autocomplete="off" action="<?=base_url('user/feedback/'.$row->id.'/'.$row->post_id)?>">
-
-                                            <textarea class="report-feedback" rows="2" name="post" placeholder="What's your bugs / feedback about the post, <?php echo $this->session->userdata('username');?>?"></textarea>
-
-                                            <div class="rounded-0 text-center">
-                                                <button type="submit" class="btnf">Send Bugs / Feedback</button>
-                                            </div>
-                                        </form>
-                                    </ul>
-                                </div>
-
+                                <p><?php echo $row->org_name?></p>
+                                <span><?php echo $row->org_published_date ?></span>
+                                
                             </div>
                         </div>
                         <a href="#"><i class="fas fa-ellipsis-v"></i></a>
                     </div>
 
-                    <p class="post-text"><?php echo $row->post?></p>
+                    <p class="post-text"><?php echo $row->org_post?></p>
+
                 </div>
 
             <?php

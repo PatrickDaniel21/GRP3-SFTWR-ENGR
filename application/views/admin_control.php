@@ -88,6 +88,7 @@
         align-self: flex-start;
         color: #800;
         padding-right: 15px;
+        padding-top: 15px;
     }
     .right-sidebar{
         flex-basis: 25%;
@@ -109,7 +110,6 @@
         text-decoration: none;
         display: flex;
         align-items: center;
-        margin-bottom: 30px;
         color: #efefef;
         width: fit-content;
     }
@@ -120,13 +120,20 @@
         border-radius: 50%;
     }
     .imp-links{
-        border-bottom: 1px solid #ccc;
+        background:#905152;
+        width: 80%;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 30px;
     }
     .sidebar-title{
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 18px;
+    }
+    .sidebar-title ion-icon{
+        transform: translate(100%, 20%);
     }
     .right-sidebar h4{
         color: #59292B;
@@ -139,7 +146,6 @@
         color: #3B1C1C;
         font-weight: 600;
     }
-    
     .sidebar-title a{
         text-decoration: none;
         color: #1876f2;
@@ -273,7 +279,7 @@
         margin: 20px 0;
     }
     .post-text{
-        color: #606162;
+        color: #55504E;
         margin: 15px 0;
         font-size: 15px;
     }
@@ -355,7 +361,7 @@
     .btn{
 		color: #fff;
 		text-align: center;
-		background:  #4d0400;
+		background:  #800000;
 		width: 450px;
 		height: 35px;
 		transform: translateX(-5.5%);
@@ -363,7 +369,7 @@
 
 	.btn:hover{
         color: #fff;
-		background-color: #260200;
+		background-color: #522020;
 	}
     .btn-group ion-icon{
         color: #55504E;
@@ -379,15 +385,12 @@
     .dropdown-menu1{
         background-color: rgba(0,0,0,.7);
     }
-    .report-feedback{
+    textarea{
         font-size: 15px;
         background-color: #905152;
         border: none;
-        color: white;
+        color: #55504E;
         padding: 4px;
-    }
-    .report-feedback::placeholder{
-        color: white;
     }
     .posting::placeholder{
         color: #9a9a9a;
@@ -409,13 +412,40 @@
         background:#905152;
         opacity: 1px;
 	}
+    .book{
+        color:#ff9e14;
+        position: absolute;
+        transform: translateX(1300%);
+    }
+    .book ion-icon{
+        color:#ff9e14;
+    }
+    .announcement-text{
+        background:  #683032;
+        color: #EADADA;
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 30px;
+    }
+    .announcement-text .date{ 
+        font-size: 12px;
+    }
+
+    .announcement-text .date ion-icon{
+        transform: translateY(25%);
+    }
+
+    .announcement-text .post{ 
+        font-size: 15px;
+        text-align: center;
+    }
+
+
    
     
     </style>
 </head>
 <body>
-
-
     
     <!-- <?php 
     // if($this->session->userdata('UserLoginSession')){
@@ -436,7 +466,7 @@
             <div id="bs-example-navbar-collapse-2">
                 <div class="btn-group" style="float:right;">
 
-                    <div class="profile">
+                <div class="profile">
                         <a href=<?php echo base_url('/user');?>>
                             <?php if($this->session->userdata('image') == ""){
                             ?>
@@ -458,7 +488,7 @@
                             ?>
                             
                         </a>
-                    </div>
+                </div>
                     
                     <div class="btn-group">
                     <button type="button" class="btn1"><?php echo $this->session->userdata('username');?></button>
@@ -482,137 +512,47 @@
         </div>
     </nav>
 
+
     <div class="container">
     
         <div class="left-sidebar">
-            <div class="imp-links mt-3">
-                <a href="<?=base_url('index.php/user')?>"><ion-icon name="people-circle"></ion-icon>Freedom Wall</a>
+            <div class="imp-links">
                 <a href="<?=base_url('orgs')?>"><ion-icon name="library"></ion-icon>Organizations</a>
             </div>
         </div>
+
+        
+
         <div class="main-content">
             <div class="mt-2 mb-2">
-                <?php       
-                    if($this->uri->segment(2) == "reports"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-success"> 
-                            <span>Reported Successfully</span>
-                        </div>';
-                    }
-                ?>
-
-                <?php       
-                    if($this->uri->segment(2) == "reporterror"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-danger"> 
-                            <span>Reported Unsuccessfully</span>
-                        </div>';
-                    }
-                ?>
-
-                <?php       
-                    if($this->uri->segment(2) == "feedbacks"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-success"> 
-                            <span>Bugs / Feedback is Successfully Sent</span>
-                        </div>';
-                    }
-                ?>
-
-                <?php       
-                    if($this->uri->segment(2) == "feedbackerror"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-danger"> 
-                            <span>Bugs / Feedback is Unsuccessfully Sent</span>
-                        </div>';
-                    }
-                ?>
-
-                <?php       
-                    if($this->uri->segment(2) == "success"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-success"> 
-                            <span>Organization Form Sent Successfully</span>
-                        </div>';
-                    }
-                ?>
-
-                <?php       
-                    if($this->uri->segment(2) == "failed"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-                        
-                        echo '
-                        <div class="alert alert-danger"> 
-                            <span>Organization Form Sent Unsuccessfully</span>
-                        </div>';
-                    }
-                ?>
+               
             </div>
 
             <div class="write-post-container"> 
 
-                <form method="post" autocomplete="off" action="<?=base_url('user/post')?>">
+                <form method="post" autocomplete="off" action="<?=base_url('admin/orgpost')?>">
 
                            
                     <div class="user-profile">
-                            <?php if($this->session->userdata('image') == ""){
-                            ?>
-                                <img src=<?= base_url('assets/img/default_dp.png')?>          
-                                    style="height: 35px;
-                                    width: 35px;
-                                    border-radius: 50%; 
-                                    display: table-cell;margin: e auto;" alt="Profile image">
-                            <?php
-                            }else{
-                            ?>
-                                <img src=<?= base_url('upload/'.($this->session->userdata('image')))?>          
-                                    style="height: 35px;
-                                    width: 35px;
-                                    border-radius: 50%; 
-                                    display: table-cell;margin: e auto;" alt="Profile image">
-                            <?php
-                            }
-                            ?>
+                         <a href="<?=base_url('admin/admincontrol')?>">
+                        <img src=<?= base_url('assets/img/orgs_logo.png')?>
+                            style="height: 35px;
+                                   width: 35px;
+                                   border-radius: 50%; I
+                                   display: table-cell;margin: e auto;" alt="Profile image">
+                        </a>           
                         <div>
-                            <p><?php echo $this->session->userdata('username');?></p>
-                            
-                            <label><input class="status mt-2" type="radio" name="status1" value="public"> Public </input></label>
-                            <label><input class="status" type="radio" name="status1" value="anonymous"> Anonymous</input></label>
-
+                            <p>Organization Post</p>
+                            <label><input class="status mt-2" type="radio" name="status1" value="1"> Announcement </input></label>
+                            <label><input class="status" type="radio" name="status1" value="2"> Post</input></label>
                         </div>
+
+
                     </div>
 
 
                     <div class="post-input-container">
-                        <textarea class="posting" rows="2" name="post" placeholder="What's on your mind, <?php echo $this->session->userdata('username');?>?"></textarea>
+                        <textarea class="posting" rows="2" name="post" placeholder="What's on your mind ?" required></textarea>
 
                             <?php 
                                 date_default_timezone_set('Asia/Manila');
@@ -627,82 +567,49 @@
                 </form>
 
             </div>
+
             <?php
                 foreach($data->result() as $row)
                 {
-                    if($row->status_post == '1'){
+                    if( ($this->session->userdata('id')) == $row->orgpadmin_id){
             ?>
                 <div class="post-container">
                     
                     <div class="post-row">
                         <div class="user-profile">
-                            
-                            <?php if($row->status1 == 'public')
-                                {
-                            ?>
                                    
-
-                                    <?php if($row->image == ""){
+                                    <?php if($row->org_image == ""){
                                     ?>
-                                        <img src=<?= base_url('assets/img/default_dp.png')?>>
+                                        <img src=<?= base_url('assets/img/orgs_logo.png')?>>
                                     <?php
                                     }else{
                                     ?>
-                                        <img src=<?= base_url('upload/'.$row->image)?>>
+                                        <img src=<?= base_url('upload/'.$row->org_image)?>>
                                     <?php
                                     }
                                     ?>
 
-                                <?php
-                                }else{
-                                ?>
-                                    <img src=<?php echo base_url('/assets/img/dp.png');?>>
-                            <?php    
-                                }
-                            ?>
-
                             <div>
-                                <?php if($row->status1 == 'public'){
-                                ?>
-                                    <p><?php echo $row->username?></p>
-                                    <span><?php echo $row->published_date ?></span>
 
-                                <?php
-                                }else{
+                                
+
+                                <?php if($row->org_status == "1"){
                                 ?>
-                                    <p>anonymous</p>
-                                    <span><?php echo $row->published_date ?></span>
-                                <?php    
+                                    <span class="book"><ion-icon name="bookmarks"></ion-icon></span>
+                                <?php
                                 }
                                 ?>
 
-                                <div class="btn-group1 btn-group" >
-                                    <button type="button" class="btn2 dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <ion-icon name="ellipsis-vertical"></ion-icon>
-                                        <span class="visually-hidden">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu1 dropdown-menu">
-                                        
-                                        <li><a class="dropdown-item" href="<?=base_url('user/report/'.$row->id.'/'.$row->post_id)?>">Report</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        
-                                        <form method="post" autocomplete="off" action="<?=base_url('user/feedback/'.$row->id.'/'.$row->post_id)?>">
+                                <p><?php echo $row->org_name?></p>
+                                <span><?php echo $row->org_published_date ?></span>
 
-                                            <textarea class="report-feedback" rows="2" name="post" placeholder="What's your bugs / feedback about the post, <?php echo $this->session->userdata('username');?>?"></textarea>
-
-                                            <div class="rounded-0 text-center">
-                                                <button type="submit" class="btnf">Send Bugs / Feedback</button>
-                                            </div>
-                                        </form>
-                                    </ul>
-                                </div>
-
+                                
                             </div>
                         </div>
                         <a href="#"><i class="fas fa-ellipsis-v"></i></a>
                     </div>
 
-                    <p class="post-text"><?php echo $row->post?></p>
+                    <p class="post-text"><?php echo $row->org_post?></p>
                 </div>
 
             <?php
@@ -736,9 +643,32 @@
                 </div>
             </div>
             <div class="sidebar-title">
-                <h4>Org Advertisements</h4>
+                <h4>Org Announcement <ion-icon name="bookmarks"></ion-icon></h4>     
             </div>
-            <img src="images/advertisement.png" class="sidebar-ads">
+            <div>
+                    <?php
+                        foreach($data->result() as $row)
+                        {
+                            if( ($this->session->userdata('id')) == $row->orgpadmin_id && $row->org_status == "1"){
+                    ?>
+                            
+                             <?php if($row->org_status == "1"){
+                            ?>
+                                <div class="announcement-text">
+                                    <p class="date"> <ion-icon name="time-outline"></ion-icon><?php echo $row->org_published_date ?></p>
+                                    <p class="post"><?php echo $row->org_post?></p> 
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+
+                    <?php
+                            }
+                        }
+                    ?>
+            </div>
+           
         </div>
 
         

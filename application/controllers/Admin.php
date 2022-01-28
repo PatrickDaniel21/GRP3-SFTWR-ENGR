@@ -4,13 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin extends CI_Controller {
    public function __construct(){
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->library('form_validation');
+		$this->load->library('encryption');
+		$this->load->model('user_model');
+		$this->load->database();
 
         if(!$this->session->userdata('id'))
             return redirect('welcome');
-        if($this->session->userdata('status') == '0')
-            return redirect('user');
-
     }
    public function index(){
         $id = $this->session->userdata('id');
@@ -18,6 +18,11 @@ class Admin extends CI_Controller {
         /*To check if personal information is saved or not*/
         $user['data'] = $this->user_model->allusers1();  
         $this->load->view('admin_dashboard', $user);
+   }
+
+   public function organization(){ 
+        $user['data'] = $this->user_model->allorgs();
+        $this->load->view('organization_dashboard', $user);
    }
 
    public function editprofileadmin(){
@@ -110,17 +115,23 @@ class Admin extends CI_Controller {
         if($this->user_model->pending($user_id, $post_id)){  
             return redirect("admin");
         }
-
-
     }
 
+    public function report($user_id, $post_id){
+        
+        if($this->user_model->report($user_id, $post_id)){  
+            redirect(base_url('admin'));
+        }
+        else{
+        }
+    }
+    function validation(){
+		$this->editprofileadmin();
+	}
     function validimage(){
 		$this->editprofileadmin();
 	}
     function notvalidimage(){
-		$this->editprofileadmin();
-	}
-    function validation(){
 		$this->editprofileadmin();
 	}
     function validation1(){
@@ -135,6 +146,54 @@ class Admin extends CI_Controller {
     function valid(){
 		$this->editprofileadmin();
 	}
+
+    public function orgpending($org_id, $orgadmin_id){
+        
+        if($this->user_model->orgpending($org_id, $orgadmin_id)){  
+            return redirect("admin/organization");
+        }
+    }
+
+    public function orgreport($org_id, $orgadmin_id){
+        
+        if($this->user_model->orgreport($org_id, $orgadmin_id)){  
+            return redirect("admin/organization");
+        }
+    }
+
+    public function admincontrol(){
+        $orgsPosts['data'] = $this->user_model->getOrgsPosts(); 
+        $this->load->view('admin_control', $orgsPosts);
+    }
+
+    public function orgpost(){
+
+        $this->form_validation->set_rules('post','Post','required');
+		$this->form_validation->set_rules('status1','Status','required');
+
+        if($this->form_validation->run()==TRUE)
+		{
+
+            $orgpadmin_id = $this->session->userdata('id');
+            $org_post = $this->input->post('post');
+            $org_published_date = $this->input->post('published_date');
+            $org_status = $this->input->post('status1');
+                        
+            // PUT THE INPUT NAME VALUE IN A DATABASE VARIABLES
+            $data = array(
+                'orgpadmin_id'		   => $orgpadmin_id,
+                'org_post'			   => $org_post,
+                'org_published_date'   => $org_published_date,
+                'org_status'           => $org_status
+            );
+
+            if($this->user_model->saveorgsPosts($data)){ 
+                return redirect('admin/admincontrol');
+            }
+        }else{
+            $this->admincontrol();
+        }
+    }
 
 
 }

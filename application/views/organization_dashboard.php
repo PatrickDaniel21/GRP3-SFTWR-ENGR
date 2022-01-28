@@ -104,10 +104,6 @@
         margin-right: 15px;
         border-radius: 50%;
     }
-    .imp-links{
-        width: 115%;
-        border-bottom: 1px solid #ccc;
-    }
 
 
 
@@ -219,7 +215,7 @@
     }
 
     .button2{
-        background-color: #905152;
+        background-color: rgba(204,153,153,.5);
         color: white;
         padding: 4px 180px;
         text-align: center;
@@ -229,9 +225,6 @@
         border-radius: 50px;
         letter-spacing: 2px;
         transform: translate(-5%, 50%);
-    }
-    .button2:hover{
-        background-color: #763739;
     }
 
     .form-label{
@@ -398,7 +391,7 @@
         }
     }
     .button1{
-        background-color: #905152;
+        background-color: rgba(204,153,153,.5);
         color: white;
         padding: 4px 32px;
         text-align: center;
@@ -408,9 +401,7 @@
         border-radius: 50px;
         transform: translate(155%, -180%);
     }
-    .button1:hover{
-        background-color: #763739;
-    }
+
     .post-text{
         color: #9a9a9a;
         margin: 10px 0;
@@ -603,7 +594,7 @@
 	}
     .img-display {
         padding-top:5px;
-        transform: translateX(20%);
+        transform: translateX(35%);
     }
     .img-display img{
         border-radius: 50%; 
@@ -617,9 +608,82 @@
     .mcontainer{
         transform: translateX(5%);
     }
-    .main-content{
-        margin-right: 30px;
+    .approved1 a{
+        border: 1px solid #AED67A; 
+        background-color: #092509; 
+        color: #fff; 
+        text-decoration: none; 
+        font-size: 14px; 
+        padding: 10px 15px; 
+        border-radius: 10px; 
     }
+    .approved a{
+        border: 1px solid #AED67A; 
+        background-color: #576B3D; 
+        color: #fff; 
+        text-decoration: none; 
+        font-size: 14px; 
+        padding: 10px 15px; 
+        border-radius: 10px; 
+    }
+    .approved a:hover{
+        background-color: #263D2E;
+        border: 1px solid #AED67A; 
+    }
+    .pending a{
+        border: 1px solid  #360000; 
+        background-color:#610500;
+        color: #fff; 
+        text-decoration: none; 
+        font-size: 14px; 
+        padding: 10px 15px; 
+        border-radius: 10px; margin-top: 100px;
+    }
+    .pending a:hover{
+        background-color: #893333; 
+        border: 1px solid #360000;  
+    }
+    .report ion-icon{
+        color: #e06750; 
+        text-decoration: none; 
+        font-size: 40px; 
+        font-weight:bold;
+    }
+    .delete ion-icon{
+        font-size: 30px;
+        color: #DFC7C8;
+      
+    }
+    .delete ion-icon:hover{
+        color: #CAA2A3;
+    }
+
+    .row-center td{
+        text-align: center;
+    }
+
+    .panel-body{
+        color: #F4ECED;
+    }
+    .panel-body h3 ion-icon{
+        font-size: 50px;
+        transform: translateY(23%);
+    }
+    .table{
+        background-image: url( <?= base_url() ?>assets/img/bg2.jpg );
+        background-repeat: no-repeat;
+		background-size: cover;
+        border-radius: 10px;
+        border: none;
+        margin: 20px 40px 20px 0;
+        color: #DFC7C8;
+    }
+    .table tbody td{
+        font-size: 14px;
+    }.red{
+        color: #ff7070;
+    }
+ 
     
     </style>
     
@@ -650,7 +714,7 @@
                 <div class="btn-group" style="float:right;">
 
                     <div class="profile">
-                        <a href=<?php echo base_url('/admin');?>>
+                        <a href=<?php echo base_url('/user');?>>
                             <?php if($this->session->userdata('image') == ""){
                             ?>
                                 <img src=<?= base_url('assets/img/default_dp.png')?>          
@@ -694,243 +758,101 @@
         </div>
     </nav>
 
-    
-
     <div class="container">
-        <div class="left-sidebar">
-            <div class="imp-links mt-3">
-                <a href="#"><ion-icon name="people-circle"></ion-icon>Freedom Wall</a>
-                <a href="#"><ion-icon name="library"></ion-icon>Organizations</a>
+         
+        <div class="panel-body">
+            <h3><ion-icon name="construct-outline"></ion-icon> Admin Controller - User Post</h3>
+            <table class="table">
+                <thread>
+                    <tr>
+                        <th style="text-align: center;">Full Name</th>
+                        <th style="text-align: center;">Tup Id</th>
+                        <th style="text-align: center;">Name of Organization</th>
+                        <th style="text-align: center;">Organization Presidents</th>
+                        <th style="text-align: center;">Contact Email</th>
+                        <th style="text-align: center;">About the Organization</th>
+                        <th style="text-align: center;">Approved / Reject</th>
+                        <th style="text-align: center;">Actions</th>  
+                    </tr>
+                </thread>
 
-            </div>
+                <tbody>
+                <?php  
+                 if(count($data) > 0){  
+                        foreach($data as $row){
+                ?>
+                            <tr class="row-center">
+                                <td>
+                                    <?php echo $row->org_representative;?>  
+                                </td>
+                                <td>
+                                    <?php echo $row->org_reptupid;?>  
+                                </td>
+                                <td>
+                                    <?php echo $row->org_name;?>  
+                                </td>
+                                <td>
+                                    <?php echo $row->org_president;?>  
+                                </td>
+                                <td>
+                                    <?php echo $row->org_contact;?>  
+                                </td>
+                                <td>
+                                    <?php echo $row->org_about;?>  
+                                </td>
+                                <td style="text-align: center; padding: 22px 40px; ">
+                                    <?php if($row->org_status == "1")
+                                        {   
+                                    ?>
+											<div class="row approved1">
+                                                <a class="4"href='#'>
+                                                    Approved
+                                                </a>
+                                            </div>
+                                   <?php 
+                                        }
+                                    ?>
+                            
+                                    <?php if($row->org_status == "0")
+                                        {   
+                                    ?>      
+                                            <div class="row">
+                                            <div class="approved col-6" style="padding-right: 80px">
+                                                <a href='<?=base_url('admin/orgpending/'.$row->org_id.'/'.$row->orgadmin_id) ?>'>
+                                                    Approve
+                                                </a>
+                                            </div>
+											<div class="pending col-6" >
+                                                <a href="<?=base_url('admin/orgreport/'.$row->org_id.'/'.$row->orgadmin_id) ?>">
+                                                    Reject
+                                                </a>
+                                            </div>
+                                            </div>
+                                    <?php 
+                                        }
+                                    ?> 
+                                </td>
+
+                                <td>
+                                    <div class="delete" style="padding: 10px 30px;">
+                                        <a href="<?=base_url('admin/orgreport/'.$row->org_id.'/'.$row->orgadmin_id) ?>">
+                                             <ion-icon name="trash"></ion-icon>
+                                        </a>
+                                    </div>
+                                </td>
+                           
+                            </tr>
+                            
+                    <?php 
+                        }
+                    }
+                    ?>
+                </tbody>                
+            </table>
         </div>
-       
-        <div class="mcontainer container">                        
-        <div class="container-fluid">
-
-            <?php
-                            
-                    if($this->uri->segment(2) == "validimage"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-            
-                        echo '
-                        <div class="alert alert-success"> 
-                            <span>Profile Picture is Successfully Changed</span>
-                        </div>';
-                    }
-            ?>
-
-            <?php
-                            
-                    if($this->uri->segment(2) == "notvalidimage"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validimage
-                        // user = segment(1)
-                        // validavalidimagetion1 - segment(2)
-            
-                        echo '
-                        <div class="alert alert-danger"> 
-                            <span>Profile Picture is Unsuccessfully Changed</span>
-                        </div>';
-                    }
-            ?>
-
-            
-    
-   
-            <div class="setting">
-                 <p id="logo">Change Username</p> <hr>
-
-                 <?php
-                        
-                if($this->uri->segment(2) == "validation"){
-                    // base url - http://localhost/cilogin/
-                    // redirect url - http://localhost/cilogin/user/validation
-                    // user = segment(1)
-                    // validation - segment(2)
-        
-                    echo '
-                    <div class="alert alert-success"> 
-                        <span>Username is Successfully Changed</span>
-                    </div>';
-                }
-                ?>
-
-                <?php
-                            
-                    if($this->uri->segment(2) == "validation1"){
-                        // base url - http://localhost/cilogin/
-                        // redirect url - http://localhost/cilogin/user/validation1
-                        // user = segment(1)
-                        // validation1 - segment(2)
-            
-                        echo '
-                        <div class="alert alert-danger"> 
-                            <span>Username is Unsuccessfully Changed</span>
-                        </div>';
-                    }
-                ?>
-
-                 <form method="post" autocomplete="off" action="<?=base_url('admin/changeusername')?>">
-
-						<!-- Kung anong input name sa signup, ganun din dapat sa login -->
-						
-						<div class="row">
-                            <span class="input input--kuro">
-                                <input class="input__field input__field--kuro" type="text" id="input-7" name="username" />
-                                <label class="input__label input__label--kuro" for="input-7">
-                                <span class="input__label-content input__label-content--kuro">Username</span>
-                                </label>
-                            </span>
-
-							<!-- LOGIN BUTTON -->
-							<div class="rounded-0 text-center mb-5">
-								<button type="submit" class="button1">Update</button>
-							</div>
-						</div>		
-				</form>
-            </div>
-
-            <div id ="changepass" class="setting1">
-                 <p id="logo">Change Password</p> <hr>
-
-                 <?php
-                        
-                    if($this->uri->segment(2) == "error"){
-                    // base url - http://localhost/cilogin/
-                    // redirect url - http://localhost/cilogin/user/error
-                    // user = segment(1)
-                    // error - segment(2)
-        
-                    echo '
-                    <div class="alert alert-danger"> 
-                        <span>Password does not match</span>
-                    </div>';
-                }
-                ?>
-
-                <?php
-                        
-                    if($this->uri->segment(2) == "error1"){
-                    // base url - http://localhost/cilogin/
-                    // redirect url - http://localhost/cilogin/user/error1
-                    // user = segment(1)
-                    // error1 - segment(2)
-        
-                    echo '
-                    <div class="alert alert-danger"> 
-                        <span>Current Password does not match</span>
-                    </div>';
-                }
-                ?>
-
-                <?php
-                        
-                    if($this->uri->segment(2) == "valid"){
-                    // base url - http://localhost/cilogin/
-                    // redirect url - http://localhost/cilogin/user/error1
-                    // user = segment(1)
-                    // error1 - segment(2)
-        
-                    echo '
-                    <div class="alert alert-success"> 
-                        <span>Password is Successfully Changed</span>
-                    </div>';
-                }
-                ?>
-
-                 <form method="post" autocomplete="off" action="<?=base_url('admin/changepass')?>">
-
-						<!-- Kung anong input name sa signup, ganun din dapat sa login -->
-						
-						<div class="row">
-                            <div class="mb-3">
-								
-                                <input type="password" id="password" name="password" placeholder="Enter Your Current Password" autocomplete="off" required />
-                                <label for="username">Current Password</label>
-
-								<span class="text-danger"><?php echo form_error("password")?></span>
-							</div>
-
-                            <div class="mb-3">
-								
-                                <input type="password" id="password" name="newpassword1" placeholder="Enter Your New Password" autocomplete="off" required />
-                                <label for="username">New Password</label>
-
-								<span class="text-danger"><?php echo form_error("password")?></span>
-							</div>
-
-                            <div class="mb-3">
-								
-                                <input type="password" id="password" name="newpassword2" placeholder="Confrim Your New Password" autocomplete="off" required />
-                                <label for="username">Confirm New Password</label>
-
-								<span class="text-danger"><?php echo form_error("password")?></span>
-							</div>
-
-							<!-- LOGIN BUTTON -->
-							<div class="rounded-0 text-center mb-5">
-								<button type="submit" class="button2">Change Password</button>
-							</div>
-						</div>		
-					</form>
-            </div>
-        </div>
-
-        
     </div>
 
-    
-
-        <div class="main-content">
-
-            
-
-            <?php if($this->session->userdata('image') == "")
-                {
-            ?>
-                    <div class="img-display">
-                        <img src=<?= base_url('assets/img/default_dp.png')?>>
-                    </div>
-            <?php
-                }else{
-            ?>
-                    <div class="img-display">
-                        <img src=<?= base_url('upload/'.($this->session->userdata('image')))?>>
-                    </div>
-            <?php
-                }
-            ?>
-            <div class="update-form">
-                <form action="<?=base_url('admin/insertimage')?>" method="post" enctype="multipart/form-data">
-                    <div class="mt-5">
-
-                            <div class="profile-img">
-                                <div class="file btn btn-lg btn-primary">
-                                    <ion-icon class="icon" name="camera-outline"></ion-icon>
-                                    <input type="file" name="image">
-                                </div>
-                            </div>
-                        
-                    </div>   
-                    <div class="button-upload">
-                    <input type="submit" value="Change Profile" class="button-upload1">
-                    </div>     
-                </form>
-
-                
-            </div>
-
-           
-            
-        </div>     
-
-        
-    </div>
-
+  
     
      
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

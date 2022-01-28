@@ -107,13 +107,7 @@
 
                             <h1 style="font-size: 25px;">Successfully Verified</h1>
                             <p class="icon"><ion-icon name="shield-checkmark-outline"></ion-icon></p>
-                            <p>You successfully verify your C.L.I.K.I.T. account</p>
-
-                            <p class="button">
-                                <a class="button2" href="<?=base_url('welcome/login')?>">
-                                    Got it
-                                </a>
-                            </p>
+                            <p>You successfully joined your new member</p>
                         </center>
                         
                     </div>
@@ -131,14 +125,7 @@
 
                                 <h1 style="font-size: 25px;">Invalid Link</h1>
                                 <p class="icon1"><ion-icon name="alert-circle-outline"></ion-icon></p>
-                                <p>Your verification email has passed its <br> expiration date.</p>
-
-                                <p class="button">
-                                    <a class="button1" href="<?=base_url()?>">
-                                        Got it
-                                    </a>
-
-                                </p>
+                                <p>You unsuccessfully joined your new member</p>
                             </center>
                             
                         </div>

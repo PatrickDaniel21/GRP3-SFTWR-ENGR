@@ -17,7 +17,9 @@
         box-sizing: border-box;
     }
     body{
-        background: #4A2324;
+        background: url('assets/img/bg10.jpg');	
+        background-repeat: no-repeat;
+		background-size: cover;
     }
     ion-icon{
         font-size: 1.5rem;
@@ -27,11 +29,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #181818;
-        padding: 7px 7%;
+        background: #1E0E0E;
+        padding: 13px 7%;
         position: sticky;
         top: 0;
         z-index: 100;
+        margin-bottom: 10px;
     }
     .nav-left p{
         width: 160px;
@@ -573,6 +576,9 @@
     .logo{
         text-decoration: none;
     }
+    .logo img{
+        width: 20%;
+    }
     .btn{
 		color: #fff;
 		text-align: center;
@@ -588,7 +594,7 @@
 	}
     .img-display {
         padding-top:5px;
-        transform: translateX(20%);
+        transform: translateX(35%);
     }
     .img-display img{
         border-radius: 50%; 
@@ -602,12 +608,21 @@
     .mcontainer{
         transform: translateX(5%);
     }
+    .approved1 a{
+        border: 1px solid #AED67A; 
+        background-color: #092509; 
+        color: #fff; 
+        text-decoration: none; 
+        font-size: 14px; 
+        padding: 10px 15px; 
+        border-radius: 10px; 
+    }
     .approved a{
         border: 1px solid #AED67A; 
         background-color: #576B3D; 
         color: #fff; 
         text-decoration: none; 
-        font-size: 15px; 
+        font-size: 14px;
         padding: 10px 15px; 
         border-radius: 10px; 
     }
@@ -616,24 +631,58 @@
         border: 1px solid #AED67A; 
     }
     .pending a{
-        border: 1px solid #ea8900; 
-        background-color:#9e5c00; 
+        border: 1px solid  #360000; 
+        background-color:#610500;
         color: #fff; 
         text-decoration: none; 
-        font-size: 15px; 
+        font-size: 14px; 
         padding: 10px 15px; 
         border-radius: 10px; margin-top: 100px;
     }
     .pending a:hover{
-        background-color: #823400;
-        border: 1px solid #ea8900; 
+        background-color: #893333; 
+        border: 1px solid #360000;  
     }
     .report ion-icon{
-        color: #e06750; 
+        color: #ffa07a; 
         text-decoration: none; 
         font-size: 40px; 
         font-weight:bold;
     }
+    .delete ion-icon{
+        font-size: 30px;
+        color: #DFC7C8;
+      
+    }
+    .delete ion-icon:hover{
+        color: #CAA2A3;
+    }
+    .row-center td{
+        text-align: center;
+    }
+    .panel-body{
+        color: #F4ECED;
+    }
+    .panel-body h3 ion-icon{
+        font-size: 50px;
+        transform: translateY(23%);
+    }
+
+    .table{
+        background-image: url( <?= base_url() ?>assets/img/bg2.jpg );
+        background-repeat: no-repeat;
+		background-size: cover;
+        border-radius: 10px;
+        border: none;
+        margin: 20px 40px 20px 0;
+        color: #DFC7C8;
+    }
+    .table tbody td{
+        font-size: 14px;
+    }.red{
+        color: #ffa07a;
+    }
+ 
  
     
     </style>
@@ -651,7 +700,9 @@
 
         <nav>
         <div class="nav-left">
-            <a class="logo" href="<?=base_url('admin')?>"><p>CLIKIT</p></a>
+             <a class="logo" href="<?=base_url('index.php/user')?>">
+                <img src=<?= base_url('assets/img/DEN-LOGO.png')?>> 
+            </a>
         </div>
         <div class="nav-right">
             
@@ -692,7 +743,8 @@
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?=base_url('admin')?>">Controller</a></li>
+                        <li><a class="dropdown-item" href="<?=base_url('admin')?>">Post Controller</a></li>
+                        <li><a class="dropdown-item" href="<?=base_url('admin/organization')?>">Organization Controller</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="<?=base_url('admin/editprofileadmin')?>">View Profile</a></li>
                         <li><a class="dropdown-item" href="<?=base_url('admin/editprofileadmin#changepass')?>">Change Password</a></li>
@@ -707,17 +759,21 @@
     </nav>
 
     <div class="container">
+
+         
         <div class="panel-body">
-            <table class="table table-bordered table-dark">
+             <h3><ion-icon name="construct-outline"></ion-icon> Admin Controller - User Post</h3>
+
+            <table class="table">
                 <thread>
                     <tr>
                         <th style="text-align: center;">Profile Picture</th>
                         <th style="text-align: center;">Username</th>
                         <th style="text-align: center;">Post</th>
                         <th style="text-align: center;">Post Status</th>
-                        <th style="text-align: center;">Approved / Pending</th>
-                        <th style="text-align: center;">Report</th>
-                        <th style="text-align: center;">Bugs / Feedback</th>
+                        <th style="text-align: center;">Approved / Reject</th>
+                        <th class="red" style="text-align: center;">Report</th>
+                        <th class="red" style="text-align: center;">Bugs / Feedback</th>
                         <th style="text-align: center;">Actions</th>  
                     </tr>
                 </thread>
@@ -732,13 +788,13 @@
                                         {
                                     ?>
                                             <div class="img-display">
-                                                <img src=<?= base_url('assets/img/default_dp.png')?> class="profileImg" style="width: 50px; height: 50px; margin-right: 30px;" alt="Profile Picture">
+                                                <img src=<?= base_url('assets/img/default_dp.png')?> class="profileImg" style="width: 50px; height: 50px;" alt="Profile Picture">
                                             </div>
                                     <?php
                                         }else{
                                     ?>
                                             <div class="img-display">
-                                                <img src=<?= base_url('upload/'.($row->image))?> class="profileImg" style="width: 50px; height: 50px; margin-right: 30px;" alt="Profile Picture">
+                                                <img src=<?= base_url('upload/'.($row->image))?> class="profileImg" style="width: 50px; height: 50px;" alt="Profile Picture">
                                             </div>
                                     <?php
                                         }
@@ -757,12 +813,12 @@
                                     <?php echo $row->status1;?>  
                                 </td>
 
-                                <td>
+                                <td style="text-align: center; padding: 22px 30px; ">
                                     <?php if($row->status_post == "1")
                                         {   
                                     ?>
-											<div class="approved" style="padding: 16px 30px">
-                                                <a href='#'>
+											<div class="row approved1">
+                                                <a class="4"href='#'>
                                                     Approved
                                                 </a>
                                             </div>
@@ -772,23 +828,30 @@
                             
                                     <?php if($row->status_post == "0")
                                         {   
-                                    ?>
-											<div class="pending" style="padding: 16px 32px;">
-                                                <a href="<?=base_url('admin/pending/'.$row->id.'/'.$row->post_id) ?>">
-                                                    Pending
+                                    ?>      
+                                            <div class="row">
+                                            <div class="approved col-6" style="padding-right: 80px">
+                                                <a href='<?=base_url('admin/pending/'.$row->id.'/'.$row->post_id) ?>'>
+                                                    Approve
                                                 </a>
+                                            </div>
+											<div class="pending col-6" >
+                                                <a href="<?=base_url('admin/report/'.$row->id.'/'.$row->post_id) ?>">
+                                                    Reject
+                                                </a>
+                                            </div>
                                             </div>
                                    <?php 
                                         }
                                     ?>
                                 </td>
 
-                                <td>
+                                <td class="red">
 
                                     <?php if($row->report == "1")
                                         {   
                                     ?>
-											<div class="report" style="padding: 16px 30px">
+											<div class="report" style="padding: 16px 20px">
                                                 <a href='#'>
                                                     <ion-icon name="warning-outline"></ion-icon>
                                                 </a>
@@ -800,7 +863,7 @@
                             
                                 </td>
 
-                                <td style="text-align: center; padding: 22px 10px;"> 
+                                <td class="red" style="text-align: center; padding: 22px 10px;"> 
                                     <?php if($row->feedback != "")
                                         {   
                                     ?>
@@ -811,8 +874,13 @@
                             
                                 </td>
 
-                                <td>
+                                <td style="padding: 0px 10px;">
 
+                                    <div class="delete" style="padding: 30px 32px;">
+                                        <a href="<?=base_url('admin/report/'.$row->id.'/'.$row->post_id) ?>">
+                                             <ion-icon name="trash"></ion-icon>
+                                        </a>
+                                    </div>
                             
                                 </td>
                            

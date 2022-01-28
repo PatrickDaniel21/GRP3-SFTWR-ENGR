@@ -24,7 +24,7 @@
 		}
 
 		body{
-			background: grey;
+			background: #2C1515;	
 			background-repeat: no-repeat;
 			background-size: cover;
 			overflow: hidden;
@@ -39,7 +39,6 @@
 			top: 50%;
 			left:50%;
 			transform: translate(-50%,-50%);
-			box-shadow: 1px 1px 100px 1px #271313;
 		}
 
 		/* SIZE OF BOX IN FORM */
@@ -49,7 +48,10 @@
 			padding: 30px;
 			padding-left: 60px;
 			padding-right: 60px;
-			background: #fff;
+			background-image: url( <?= base_url() ?>assets/img/bg2.jpg );
+			background-repeat: no-repeat;
+			background-size: cover;
+			border-radius: 0 20px 20px 0;
 		}
 
 		/* SIZE OF BOX IN LOGO */
@@ -57,18 +59,28 @@
 			width: 35%;
 			height: 100%;
 			padding: 30px;
-			background:maroon;
+			background-image: url( <?= base_url() ?>assets/img/bg5.jpg );
 			background-repeat: no-repeat;
 			background-size: cover;
+			border-radius: 20px 0 0 20px ;
+		}
+
+		.wrapper .left img{
+			width: 100%;
+			transform: translate(1%,250%);
 		}
 
 		/* FORM GREETINGS */
 		.wrapper .right h3{
+			font-size: 2.5rem;
+			color: #fff3f2;
 			font-weight: 600;
 			line-height: 72px;
 			letter-spacing: 1px;
 			word-spacing: 2px;
 			text-align: center;
+			margin-bottom: 20px;
+			margin-top: 10px;
 		}
 
 		.wrapper .right .form{
@@ -77,7 +89,8 @@
 
 		/* TITLE OF FORM QUESTIONS */
 		.wrapper .right .form label{
-			color: #4D5959;
+			color: #fff3f2;
+			letter-spacing: 1px;
 			margin-top: 3px;
 			font-weight: 500;
 			font-size: 14px;
@@ -85,7 +98,8 @@
 
 		/* LOGIN QUESTION TEXT */
 		.wrapper .right h4{
-			padding: 20px;
+			color: #fff3f2;
+			padding: 25px;
 			font-size: small;
 			letter-spacing: 1px;
 			word-spacing: 1px;
@@ -94,9 +108,9 @@
 
 		/* LINK OF LOGIN */
 		.wrapper .right .form h4 a{
-			color: red;
+			color: #260200;
 			margin-top: 0;
-			font-weight: 500;
+			font-weight: bold;
 			font-size: 14px;
 			text-align: center;
 			text-decoration: none;
@@ -135,15 +149,22 @@
 		.wrapper .right .btn{
 			color: #fff;
 			text-align: center;
-			background:  #800000;
+			background:  #4d0400;
 			width: 250px;
 			height: 35px;
-			transform: translate(0%,110%);
+			transform: translate(0%,70%);
+			margin-top: 20px;
 		}
 
 		.wrapper .right .btn:hover{
-			background-color: #522020;
+			background-color: #260200;
 		}
+		.alert{
+			font-size: 15px;
+			height: 10%;
+			padding-bottom: 5px;
+		}
+
 	</style>
   </head>
   <body>
@@ -165,7 +186,8 @@
 			?>
 
 			<!-- LOGO SECTION -->
-			<div class="left">        
+			<div class="left">  
+				<img src=<?= base_url('assets/img/DEN-LOGO.png')?>>      
 			</div>
 
 			<!-- FORM SECTION -->
@@ -242,14 +264,34 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<label for="exampleInputEmail1" class="form-label">Full Name</label>
-								<input type="text" placeholder="Enter your Name here" name="fullname" class="form-control" id="fullname" aria-describedby="name" value="<?php echo set_value('fullname'); ?>">
+								<input 
+									type="text" 
+									placeholder="Enter your full name" 
+									name="fullname" 
+									required 
+									oninvalid="this.setCustomValidity('Enter Full Name Here')" 
+									oninput="this.setCustomValidity('')"
+									class="form-control" id="fullname" 
+									aria-describedby="name" 
+									value="<?php echo set_value('fullname'); ?>" 
+								>
 
 								<span class="text-danger"><?php echo form_error("fullname")?></span>
 							</div>
 
 							<div class="col-lg-6">
-							<label for="exampleInputEmail1" class="form-label">Username</label>
-								<input type="text" placeholder="Enter your username here" name="username" class="form-control" id="name" aria-describedby="name" value="<?php echo set_value('username'); ?>">
+								<label for="exampleInputEmail1" class="form-label">Username</label>
+								<input 
+									type="text" 
+									placeholder="Enter your username" 
+									name="username" 
+									required
+									oninvalid="this.setCustomValidity('Enter Username Here')" 
+									oninput="this.setCustomValidity('')" 
+									class="form-control" 
+									id="name" 
+									aria-describedby="name" 
+									value="<?php echo set_value('username'); ?>">
 
 								<span class="text-danger"><?php echo form_error("username")?></span>
 							</div>
@@ -259,7 +301,17 @@
 						<div class="row pt-2">
 							<div class="col-lg-6">
 								<label for="exampleInputEmail1" class="form-label">TUP Address</label>
-								<input type="email"  placeholder="Enter your TUP Email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo set_value('email'); ?>">
+								<input 
+									type="email"  
+									placeholder="Enter your tup email" 
+									name="email"  
+									required
+									oninvalid="this.setCustomValidity('Enter TUP Email Here')" 
+									oninput="this.setCustomValidity('')" 
+									class="form-control" 
+									id="exampleInputEmail1" 
+									aria-describedby="emailHelp" 
+									value="<?php echo set_value('email'); ?>">
 
 								<span class="text-danger"><?php echo form_error("email")?></span>
 							</div>
@@ -269,21 +321,38 @@
 						<div class="row pt-4">
 							<div class="col-lg-6">
 								<label for="exampleInputPassword1" class="form-label">Password</label>
-								<input type="password" name="password"  placeholder="Enter your Password"  class="form-control" id="exampleInputPassword1" value="<?php echo set_value('password'); ?>">
+								<input 
+									type="password" 
+									name="password" 
+									required  
+									oninvalid="this.setCustomValidity('Enter Password Here')" 
+									oninput="this.setCustomValidity('')"
+									placeholder="Enter your password"  
+									class="form-control" 
+									id="exampleInputPassword1" 
+									value="<?php echo set_value('password'); ?>">
 
 								<span class="text-danger"><?php echo form_error("password")?></span>
 							</div>
 
 							<div class="col-lg-6">
 								<label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-								<input type="password" name="password1"  placeholder="Re-enter Password"  class="form-control" id="exampleInputPassword2">
+								<input 
+									type="password" 
+									name="password1" 
+									required 
+									oninvalid="this.setCustomValidity('Enter Confirm Password Here')" 
+									oninput="this.setCustomValidity('')"
+									placeholder="Confirm your password"  
+									class="form-control" 
+									id="exampleInputPassword2">
 
 								<span class="text-danger"><?php echo form_error("password1")?></span>
 							</div>
 						</div>
 
 						<!-- CREATE ACCOUNT BUTTON -->
-						<div class="rounded-0 text-center mb-4">
+						<div class="rounded-0 text-center mb-1">
 							<button type="submit" class="btn">Create Account</button>
 						</div>	
 

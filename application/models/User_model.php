@@ -99,7 +99,19 @@ class User_model extends CI_Model {
 
 		// TRUE IF THE CODE IS IN DATABASE
 		if($query->num_rows()==1){
-			// RETURN THE ROW OF CODE
+
+			$this->db->where('code_verification', $code);
+			$query2 = $this->db->get('users');
+
+			if($query2->num_rows() > 0){
+				$data = array(
+					'code_verification' => ""
+				);
+				
+				$this->db->where('code_verification', $code);
+				$this->db->update('users',$data);
+			}
+
 			return $query->row();
 		}
 		// FALSE IF NOT
@@ -116,15 +128,28 @@ class User_model extends CI_Model {
 		$this->db->where('username', $username);
 		$query = $this->db->get('users');
 
-		if($query->num_rows() > 0){
+		
+
+	}
+
+	public function changepassvalue($password, $id){
+
+		$this->db->where('id', $id);
+		$query = $this->db->get('users');
+
+		if($query->num_rows() == 1){
 			$data = array(
-				'code_verification' => ""
+				'password'=> $password,
 			);
 			
-			$this->db->where('email', $email);
+			$this->db->where('id', $id);
 			$this->db->update('users',$data);
-		}
 
+			return true;
+
+		}else{
+			return false;
+		}
 	}
 
 	//EDIT PROFILE
@@ -151,7 +176,6 @@ class User_model extends CI_Model {
 		$this->db->order_by("posts.published_date", "DESC");
 		$users = $this->db->get();
 		return $users->result();
-
 	}
 
 	public function chkPersonalInfo($id){
@@ -209,6 +233,7 @@ class User_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from("posts");
 		$this->db->join("users", "users.id = posts.id");
+		$this->db->join("orgs", "orgs.orgadmin_id = users.id", "left");
 		$this->db->order_by("posts.published_date", "DESC");
 		return $this->db->get();
 	}
@@ -273,6 +298,39 @@ class User_model extends CI_Model {
 		}
 	}
 
+	public function report($user_id, $post_id){
+
+		if($this->db->delete('posts', array('id' => $user_id, 'post_id' => $post_id))){
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public function reports($user_id, $post_id){
+
+		$this->db->where('id', $user_id);
+		$this->db->where('post_id', $post_id);
+		$query = $this->db->get('posts');
+
+		if($query->num_rows () > 0){
+			$data = array(
+				'report' => '1'
+			);
+
+			$this->db->where('id', $user_id);
+			$this->db->where('post_id', $post_id);
+			$this->db->update('posts', $data);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	public function feedback($user_id, $post_id, $data){
 
 		$this->db->where('id', $user_id);
@@ -291,6 +349,103 @@ class User_model extends CI_Model {
 			return false;
 		}
 	}
-   
+
+
+	// ORGANIZATION
+	function registerNow($data){
+		$this->db->insert('orgs',$data);
+		return $this->db->insert_id();
+	}
+
+	public function allorgs(){
+		$this->db->select('*');
+		$this->db->from("orgs");
+		$this->db->order_by("orgs.orgadmin_id", "DESC");
+		$users = $this->db->get();
+		return $users->result();
+	}
+
+	public function orgpending($org_id, $orgadmin_id){
+
+		$this->db->where('org_id', $org_id);
+		$this->db->where('orgadmin_id', $orgadmin_id);
+		$query = $this->db->get('orgs');
+
+		if($query->num_rows () > 0){
+			$data = array(
+				'org_status' => '1'
+			);
+
+			$this->db->where('org_id', $org_id);
+			$this->db->where('orgadmin_id', $orgadmin_id);	
+			$this->db->update('orgs', $data);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public function orgreport($org_id, $orgadmin_id){
+
+		if($this->db->delete('orgs', array('org_id' => $org_id, 'orgadmin_id' => $orgadmin_id))){
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	// FETCH POST IN DATABASE
+	public function getOrgsPosts (){
+		$this->db->select('*');
+		$this->db->from("orgs");
+		$this->db->join("org_member", "org_member.orgm_id = orgs.org_id", "left");
+		$this->db->join("orgs_posts", "orgs_posts.orgpadmin_id = orgs.orgadmin_id", "left");
+		$this->db->order_by("orgs_posts.org_published_date", "DESC");
+		return $this->db->get();
+	}
+
+	public function saveorgsPosts($data){
+		return $this->db->insert('orgs_posts', $data);
+ 	}
+
+	public function getOrgs (){
+		$this->db->select('*');
+		$this->db->from("orgs");
+		$this->db->order_by("orgs.org_name", "DESC");
+		return $this->db->get();
+	} 
+
+	function joinorgs($data){
+		$this->db->insert('org_member',$data);
+		return $this->db->insert_id();
+	}
+
+	function verify_joined($orgmember_id, $orgm_id){
+    	$this->db->where('orgmember_id', $orgmember_id);
+		$this->db->where('orgm_id', $orgm_id);
+		$query = $this->db->get('org_member');
+
+		if($query->num_rows () > 0){
+			$data = array(
+				'orgmember_status' => '1',
+			);
+
+			$this->db->where('orgmember_id', $orgmember_id);
+			$this->db->where('orgm_id', $orgm_id);
+			$this->db->update('org_member', $data);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+
 
 }

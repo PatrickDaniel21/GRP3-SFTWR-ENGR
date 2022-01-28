@@ -24,10 +24,9 @@
 		}
 
 		body{
-			background: #2C1515;	
-			background-repeat: no-repeat;
+			background-image: url( <?= base_url() ?>assets/img/bg10.jpg );
+        	background-repeat: no-repeat;
 			background-size: cover;
-			overflow: hidden;
 		}
 
 		/* WRAPPER FOR LOGO AND FORM */
@@ -48,7 +47,7 @@
 			padding: 30px;
 			padding-left: 60px;
 			padding-right: 60px;
-			background: url('../assets/img/bg2.jpg');
+			background: #632626;
 			background-repeat: no-repeat;
 			background-size: cover;
 			border-radius: 0 20px 20px 0;
@@ -59,7 +58,7 @@
 			width: 35%;
 			height: 100%;
 			padding: 30px;
-			background: url('../assets/img/bg5.jpg');	
+			background-image: url( <?= base_url() ?>assets/img/bg5.jpg );
 			background-repeat: no-repeat;
 			background-size: cover;
 			border-radius: 20px 0 0 20px ;
@@ -79,7 +78,7 @@
 			letter-spacing: 1px;
 			word-spacing: 2px;
 			text-align: center;
-			margin-bottom: 30px;
+			margin-bottom: 15px;
 			margin-top: 10px;
 		}
 
@@ -99,19 +98,17 @@
 		/* LOGIN QUESTION TEXT */
 		.wrapper .right h4{
 			color: #fff3f2;
-			padding: 25px;
 			font-size: small;
 			letter-spacing: 1px;
 			word-spacing: 1px;
 			text-align: center;
 		}
 
-
 		/* INPUT BOX */
 		.wrapper .right .input{
 			width: 100%;
-			padding: 10px 15px;
-			border: 5px;
+			padding: 3px;
+			border: 3px;
 			font-size: 13px;
 			background:  #EFF0F2;
 		}
@@ -142,10 +139,10 @@
 		.wrapper .right .btn{
 			color: #fff;
 			text-align: center;
-			background:  #4d0400;
+			background:  #8E5758;
 			width: 250px;
 			height: 35px;
-			transform: translate(70%,390%);
+			transform: translate(0%,110%);
 		}
 
 		.wrapper .right .btn:hover{
@@ -157,79 +154,92 @@
 	<div class="wrapper">
 
 			<!-- LOGO SECTION -->
-			<div class="left">     
-				<img src=<?= base_url('assets/img/DEN-LOGO.png')?>>   
+			<div class="left">  
+				<img src=<?= base_url('assets/img/DEN-LOGO.png')?>> 
 			</div>
 
 
 			<!-- FORM SECTION -->
 			<div class="right">
-			<h3>Forgot Password</h3>
+				<center>
+			<h3>Contact Us</h3>
+      		<h4>Feel free to contact us and we will get back to you as soon as we can. </h4>
+			  </center>
 				<div class="form">
-
-                    <!-- ALERT FOR INCOMPLETE FORMS -->
-                    <?php
-                        // CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
-                        // HELP RETRIEVE INFORMATION FROM "uri" STRINGS
-
-                        if($this->uri->segment(2) == "ferror"){
-                            // base url - http://localhost/cilogin/
-                            // redirect url - http://localhost/cilogin/welcome/ferror
-                            // welcome = segment(1)
-                            // ferror - segment(2)
-        
-                            echo '
-                            <div class="alert alert-danger"> 
-                                <span>Please fill in all the required fields</span>
-                            </div>';
-                        }
-                    ?>
-
-                    <!-- ALERT WWHEN EMAIL IS NOT REGISTERED -->
-                    <?php
-                        // CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
-                        // HELP RETRIEVE INFORMATION FROM "uri" STRINGS
-
-                        if($this->uri->segment(2) == "notemail"){
-                            // base url - http://localhost/cilogin/
-                            // redirect url - http://localhost/cilogin/welcome/notemail
-                            // welcome = segment(1)
-                            // notemail - segment(2)
-        
-                            echo '
-                            <div class="alert alert-danger"> 
-                                <span>Please wait while we verify your email</span>
-                            </div>';
-                        }
-                    ?>
-
 					<!-- MAIN FORM -->
-					<form method="post" autocomplete="off" action="<?=base_url('welcome/forgotpassword')?>">
+
+					<?php
+					foreach($data->result() as $row)
+					{
+						
+						if($row->org_id == $this->uri->segment(3))
+						{
+					?>
+					
+					<form id="form" method="post" autocomplete="off" action="<?=base_url('orgs/sendcontact')?>">
 
 						<!-- Kung anong input name sa signup, ganun din dapat sa login -->
 						
 						<div class="row">
-							<!-- GET EMAIL -->
-							<div class="mb-3 mt-4">
-								<label for="exampleInputEmail1" class="form-label">TUP Email</label>
-								<input 
-									type="email"  
-									placeholder="Enter your tup email" 
-									required 
-									oninvalid="this.setCustomValidity('Enter Full Name Here')" 
-									oninput="this.setCustomValidity('')"
-									name="email" class="form-control" 
-									id="exampleInputEmail1" aria-describedby="emailHelp">
+							<!-- Message -->
+							<div class="mt-4">
+								<label for="email">Email</label>
+          				 		 <input 
+									type="text" 
+									class="form-control" 
+									id="email" 
+									name="email"
+									placeholder="Enter your email" 
+									required
+									oninvalid="this.setCustomValidity('Enter Email Here')" 
+									oninput="this.setCustomValidity('')" 
+								>
 							</div>
 
-							<!-- LOGIN BUTTON -->
-							<div class="rounded-0 text-center mb-5 mt-5 pt-5">
-								<button type="submit" class="btn">Send Verification Link</button>
+                            <div class="mt-3">
+								<label for="Subject">Subject</label>
+      						      <input 
+									type="text" 
+									class="form-control" 
+									id="subject" 
+									name="subject"
+									placeholder="Enter subject of the email" 
+									required
+									oninvalid="this.setCustomValidity('Enter Subject Here')" 
+									oninput="this.setCustomValidity('')" 
+								>
 							</div>
-		
+
+							<div class="mb-3 mt-3">
+								<label for="Message">Message</label>
+           						 <textarea 
+									class="form-control" 
+									name="message" 
+									id="message"
+									required
+									oninvalid="this.setCustomValidity('Enter Messages Here')" 
+									oninput="this.setCustomValidity('')" 
+								 >
+								 </textarea>
+							</div>
+
+							<input type="hidden" id="1" name="org_contact" value=<?php echo $row->org_contact?>>
+            				<input type="hidden" id="2" name="org_name" value=<?php echo $row->org_name?>>
+
+
+							<!-- SEND BUTTON -->
+							<div class="rounded-0 text-center mb-5 ">
+								<button type="submit" class="btn">Send</button>
+							</div>
 
 						</div>		
 					</form>
+
+					<?php
+							break;
+						}
+					}
+					?>
 				</div>
 			</div>
 	</div>

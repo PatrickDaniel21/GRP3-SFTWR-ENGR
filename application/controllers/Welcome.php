@@ -231,7 +231,8 @@ class Welcome extends CI_Controller {
 					$username = $status1->username;
 					$email 	  = $status1->email;
 					$status   = $status1->status;
-					$image   = $status1->image;
+					$image   =  $status1->image;
+					$fullname 	  = $status1->fullname;
 
 					// STORE AS AN ARRAY IN $session_data  
 					$session_data = array(
@@ -240,6 +241,7 @@ class Welcome extends CI_Controller {
 						'id'	   => $id,
 						'status'   => $status,	
 						'image'    => $image,
+						'fullname'    => $fullname,
 					);
 
 					// SET THE $session_data TO UserLoginSession
@@ -250,7 +252,7 @@ class Welcome extends CI_Controller {
 						redirect('admin');
 					}
 					else{
-						redirect('user');
+						redirect('index.php/user');
 					}
 
 					
@@ -355,22 +357,22 @@ class Welcome extends CI_Controller {
 							</body>
 						</html>	
 					";
-			
+
 					$config = array(
 						'protocol'		=> 'smtp',
 						'smtp_host'     => 'ssl://smtp.gmail.com',
 						'smtp_port' 	=>  465,
-						'smtp_user'     => 'clikit01@gmail.com',
-						'smtp_pass'		=> 'kozqjgymkkoeecmo',
+						'smtp_user'     => 'clikitstuff@gmail.com',
+						'smtp_pass'		=> 'sbigavnmutuoikgo',
 						'smtp_timeout'	=> '60',
 						'mailtype' 		=> 'html',
 						'charset'		=> 'iso-8859-1',
 						'wordwrap'		=> 	TRUE
 					);
-			
+
 					$this->email->initialize($config);
 					$this->email->set_newline("\r\n");
-					$this->email->from('clikit01@gmail.com','Clikit Admin');
+					$this->email->from('clikitstuff@gmail.com','Clikit Admin');
 					$this->email->to($email);
 					$this->email->subject($subject);
 					$this->email->message($message);
@@ -440,23 +442,32 @@ class Welcome extends CI_Controller {
 				// GO TO DASHBOARD VIEW IF STATEMENT IS TRUE
 				if($status!=false){
 
-					// TRANSFER THE DATABASE VALUE IN VARIABLES
-					$username = $status->username;
-					$email = $status->email;
 
 					$this->user_model->reset_code($email, $username);
 
+					// TRANSFER THE DATABASE VALUE IN VARIABLES
+					$username 	= $status->username;
+					$email 		= $status->email;
+					$id 		= $status->id;
+					$status 	= $status->status;
+					$image 		= $status->image;
+					$fullname 	= $status->fullname;
+
 					// STORE AS AN ARRAY IN $session_data  
 					$session_data = array(
-						'username'=>$username,
-						'email' => $email,
+						'username' => $username,
+						'email'    => $email,
+						'id'	   => $id,
+						'status'   => $status,	
+						'image'    => $image,
+						'fullname' => $fullname,
 					);
 
 					// SET THE $session_data TO UserLoginSession
-					$this->session->set_userdata('UserLoginSession',$session_data);
+					$this->session->set_userdata($session_data);
 
 					// LINK TO Welcome/Dashboard.php
-					redirect('user');
+					redirect('welcome/changepass');
 				}
 				else {
 					// MAKE AN ALERT FOR NOT MATCHING CODE
@@ -470,6 +481,56 @@ class Welcome extends CI_Controller {
 			}
 		}		
 	}
+
+	public function changepass()
+	{
+		$this->load->view('changepass');
+	}
+
+	public function changepassvalue()
+	{
+		if($_SERVER['REQUEST_METHOD']=='POST')
+		{	
+			// MAKE AN ALERTS OR SET ERRORS FOR UNWANTED INPUT
+			$this->form_validation->set_rules('password1','Password','required');
+            $this->form_validation->set_rules('password2','Password','required');
+
+			// VERIFY IF ERRORS ARE NOT OCCUR
+			if($this->form_validation->run()==TRUE)
+			{
+                if($this->input->post('password1') === $this->input->post('password2')){
+
+                    $id = $this->session->userdata('id');
+                    $password = sha1($this->input->post('password1'));
+
+                    $status = $this->user_model->changepassvalue($password, $id);
+
+                    if($status){
+						$this->session->unset_userdata('id');
+                        redirect(base_url('welcome/accept'));
+                    }else{
+						$this->session->unset_userdata('id');
+                        redirect(base_url('welcome/notaccept'));     
+                    }
+
+                }else{
+					
+                    redirect(base_url('welcome/changepass/error'));   
+                }
+
+                
+			}
+		}
+	}
+
+	function accept(){
+		$this->login();
+	}
+
+	function notaccept(){
+		$this->login();
+	}
+
 
 	// ALERT FOR INCOMPELETE FORM
 	function fcode(){
