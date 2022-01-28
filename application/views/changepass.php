@@ -155,111 +155,54 @@
 			<div class="left">        
 			</div>
 
+
 			<!-- FORM SECTION -->
 			<div class="right">
 			<h3>Welcome to C.L.I.K.I.T</h3>
 				<div class="form">
 
-					<!-- ERROR MESSAGES FOR INCOMPLETE FORM -->
-					<?php
-						// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
-						// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
-						if($this->uri->segment(2) == "validation1"){
-							// base url - http://localhost/cilogin/
-							// redirect url - http://localhost/cilogin/welcome/validation1
-							// welcome = segment(1)
-							// validation1 - segment(2)
-		
-							echo '
-							<div class="alert alert-danger"> 
-								<span>Please fill in all the required fields</span>
-							</div>';
-						}
-					?>
 
-					<!-- ERROR MESSAGES FOR WRONG PASSWORD AND EMAIL -->
-					<?php
-						// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
-						// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
-						if($this->uri->segment(2) == "validation"){
-							// base url - http://localhost/cilogin/
-							// redirect url - http://localhost/cilogin/welcome/validation
-							// welcome = segment(1)
-							// validation - segment(2)
-		
-							echo '
-							<div class="alert alert-danger"> 
-								<span>Incorrect password or email</span>
-							</div>';
-						}
-					?>
+                    <!-- ALERT WWHEN EMAIL IS NOT REGISTERED -->
+                    <?php
+                        // CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
+                        // HELP RETRIEVE INFORMATION FROM "uri" STRINGS
 
-					<?php
-						// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
-						// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
-						if($this->uri->segment(3) == "accept"){
-							// base url - http://localhost/cilogin/
-							// redirect url - http://localhost/cilogin/welcome/validation
-							// welcome = segment(1)
-							// validation - segment(2)
-		
-							echo '
-							<div class="alert alert-success"> 
-								<span>Password change Sucessfully</span>
-							</div>';
-						}
-					?>
-
-					<?php
-						// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
-						// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
-						if($this->uri->segment(3) == "notaccept"){
-							// base url - http://localhost/cilogin/
-							// redirect url - http://localhost/cilogin/welcome/validation
-							// welcome = segment(1)
-							// validation - segment(2)
-		
-							echo '
-							<div class="alert alert-danger"> 
-								<span>Password change Unsucessfully</span>
-							</div>';
-						}
-					?>
+                        if($this->uri->segment(3) == "error"){
+                            // base url - http://localhost/cilogin/
+                            // redirect url - http://localhost/cilogin/welcome/notemail
+                            // welcome = segment(1)
+                            // notemail - segment(2)
+        
+                            echo '
+                            <div class="alert alert-danger"> 
+                                <span>Password does not match</span>
+                            </div>';
+                        }
+                    ?>
 
 					<!-- MAIN FORM -->
-					<form method="post" autocomplete="off" action="<?=base_url('welcome/loginnow')?>">
+					<form method="post" autocomplete="off" action="<?=base_url('welcome/changepassvalue')?>">
 
 						<!-- Kung anong input name sa signup, ganun din dapat sa login -->
 						
 						<div class="row">
 							<!-- GET EMAIL -->
-							<div class="mb-3">
-								<label for="exampleInputEmail1" class="form-label">TUP Email</label>
-								<input type="email"  placeholder="Enter your TUP Email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-
-								<span class="text-danger"><?php echo form_error("email")?></span>
+							<div class="mb-3 mt-4">
+								<label for="exampleInputEmail1" class="form-label">New Password</label>
+								<input type="password"  placeholder="Enter your TUP Email" name="password1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 							</div>
 
-							<!-- GET PASSWORD -->
-							<div class="mb-3">
-								<label for="exampleInputPassword1" class="form-label">Password</label>
-								<input type="password" name="password"  placeholder="Enter your Password"  class="form-control" id="exampleInputPassword1">
-
-								<span class="text-danger"><?php echo form_error("password")?></span>
+                            <div class="mb-3 mt-4">
+								<label for="exampleInputEmail1" class="form-label">Confirm Password</label>
+								<input type="password"  placeholder="Enter your TUP Email" name="password2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 							</div>
 
 							<!-- LOGIN BUTTON -->
-							<div class="rounded-0 text-center mb-5">
-								<button type="submit" class="btn">Login</button>
+							<div class="rounded-0 text-center mb-5 ">
+								<button type="submit" class="btn">Change Password</button>
 							</div>
-							
-							<!-- LINK TO LOGIN -->
-							<h4>Don't have an account? 
-								<a class="" href="<?=base_url()?>">Signup</a> <br>
-								<div class="pt-3">
-									<a class="" href="<?=base_url('welcome/forgot')?>">Forgot Password?</a>	
-								</div>
-							</h4> 
+		
+
 						</div>		
 					</form>
 				</div>

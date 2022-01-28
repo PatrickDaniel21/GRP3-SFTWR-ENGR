@@ -62,7 +62,7 @@
 
         .button2:hover{
             color: #fff; 
-            background-color: #576B3D
+            background-color: #576B3D;
         }
 
         /* ERROR */

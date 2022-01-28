@@ -212,9 +212,9 @@
 					// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
 					if($this->uri->segment(2) == "failed"){
 						// base url - http://localhost/cilogin/
-						// redirect url - http://localhost/cilogin/welcome/failedform
+						// redirect url - http://localhost/cilogin/welcome/failed
 						// welcome = segment(1)
-						// failedform - segment(2)
+						// failed - segment(2)
 	
 						echo '
 						<div class="alert alert-danger"> 
