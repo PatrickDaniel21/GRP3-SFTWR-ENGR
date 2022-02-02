@@ -20,7 +20,15 @@ class Orgs extends CI_Controller {
         $this->load->view('orgsreg_dashboard', $orgsreg);
    }
 
+    public function orgsprof(){
+        $orgsPosts['data'] = $this->user_model->getOrgsPosts(); 
+        $this->load->view('orgsprof',  $orgsPosts);
+   }
 
+
+    public function orgsprofile($org_id, $orgadmin_id){      
+        redirect(base_url('orgs/orgsprof/'.$org_id.'/'.$orgadmin_id));
+    }
 
 
 }

@@ -272,12 +272,13 @@ class User_model extends CI_Model {
 	}
 
 
-	// ORGANIZATION
-	function registerNow($data){
-		$this->db->insert('orgs',$data);
-		return $this->db->insert_id();
+	public function allorgs(){
+		$this->db->select('*');
+		$this->db->from("orgs");
+		$this->db->order_by("orgs.orgadmin_id", "DESC");
+		$users = $this->db->get();
+		return $users->result();
 	}
-
 
 
 	// FETCH POST IN DATABASE
@@ -289,7 +290,16 @@ class User_model extends CI_Model {
 		return $this->db->get();
 	}
 
+	public function saveorgsPosts($data){
+		return $this->db->insert('orgs_posts', $data);
+ 	}
 
+	public function getOrgs (){
+		$this->db->select('*');
+		$this->db->from("orgs");
+		$this->db->order_by("orgs.org_name", "DESC");
+		return $this->db->get();
+	} 
 
 
 
