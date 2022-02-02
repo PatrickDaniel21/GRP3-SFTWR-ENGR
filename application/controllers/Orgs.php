@@ -212,13 +212,6 @@ class Orgs extends CI_Controller {
 		}
 	}
 
-   function emailcontact(){
-    	$this->index();
-   }
-   function failedemailcontact(){
-        $this->index();
-   }
-
    public function aboutus(){
 	$this->load->view('aboutus');
 }
