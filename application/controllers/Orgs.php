@@ -212,6 +212,172 @@ class Orgs extends CI_Controller {
 		}
 	}
 
+	public function contact(){
+		$orgsreg['data'] = $this->user_model->getOrgs(); 
+        $this->load->view('contact', $orgsreg);
+   }
+
+   function sendcontact(){
+
+	$subject = $this->input->post('subject');
+
+	$message = "
+		<html>
+			<body style=\"color: #000; 
+						font-size: 16px; 
+						text-decoration: none; 
+						font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+						justify-content: center; 
+						background-color: #F2E7E8;\">
+				
+				<div style=\"max-width: 600px; 
+							margin: auto auto; 
+							padding: 20px;\">
+					
+						
+					<div style=\"font-size: 14px; 
+								padding: 25px; 
+								background-color: #E5CFD0;
+								moz-border-radius: 10px; 
+								-webkit-border-radius: 10px; 
+								border-radius: 10px; 
+								-khtml-border-radius: 10px;
+								border-color: #7B1114; 
+								border-width: 4px 1px; 
+								border-style: solid;\">
+								
+						<h1 style=\"font-size: 22px;\">
+							<center>Messages to ".$this->input->post('org_name')."</center>
+						</h1>
+
+						<p>
+							<p>".$this->input->post('message')."</p>
+						</p>
+						
+						<p>
+							<p>Looking forward to hearing from you. <br>
+							You can Email Me Here: ".$this->input->post('email')."</p>
+						</p>
+					</div>
+				</div>
+			</body>
+		</html>	
+	";
+
+	$config = array(
+		'protocol'		=> 'smtp',
+		'smtp_host'     => 'ssl://smtp.gmail.com',
+		'smtp_port' 	=>  465,
+		'smtp_user'     => 'clikitstuff@gmail.com',
+		'smtp_pass'		=> 'sbigavnmutuoikgo',
+		'smtp_timeout'	=> '60',
+		'mailtype' 		=> 'html',
+		'charset'		=> 'iso-8859-1',
+		'wordwrap'		=> 	TRUE
+	);
+
+	$this->email->initialize($config);
+	$this->email->set_newline("\r\n");
+	$this->email->from('clikitstuff@gmail.com','Clikit Admin');
+	$this->email->to($this->input->post('org_contact'));
+	$this->email->subject($subject);
+	$this->email->message($message);
+
+	if($this->email->send())
+	{
+		
+		$subject = "Contact Us Update";
+
+		$message = "
+			<html>
+				<body style=\"color: #000; 
+							font-size: 16px; 
+							text-decoration: none; 
+							font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+							justify-content: center; 
+							background-color: #F2E7E8;\">
+					
+					<div style=\"max-width: 600px; 
+								margin: auto auto; 
+								padding: 20px;\">
+						
+							
+						<div style=\"font-size: 14px; 
+									padding: 25px; 
+									background-color: #E5CFD0;
+									moz-border-radius: 10px; 
+									-webkit-border-radius: 10px; 
+									border-radius: 10px; 
+									-khtml-border-radius: 10px;
+									border-color: #7B1114; 
+									border-width: 4px 1px; 
+									border-style: solid;\">
+									
+							<h1 style=\"font-size: 22px;\">
+								<center
+									Contact Us Update
+								</center>
+							</h1>
+
+							<p>	
+								<h4>Hi,Thank you for contacting us, we have received your email and <br>
+								we'll be in touch as soon as possible.</h4>
+								Your Email is Successfully Sent to: <br>
+								Organization Name: ".$this->input->post('org_name')." <br>
+								Organization Email: ".$this->input->post('org_contact')."<br><br>
+
+								Your Subject: ".$this->input->post('subject')." <br>
+								Your Messages: ".$this->input->post('message')." <br>
+
+
+							</p>
+						</div>
+					</div>
+				</body>
+			</html>	
+		";
+		
+		$config = array(
+			'protocol'		=> 'smtp',
+			'smtp_host'     => 'ssl://smtp.gmail.com',
+			'smtp_port' 	=>  465,
+			'smtp_user'     => 'clikitstuff@gmail.com',
+			'smtp_pass'		=> 'sbigavnmutuoikgo',
+			'smtp_timeout'	=> '60',
+			'mailtype' 		=> 'html',
+			'charset'		=> 'iso-8859-1',
+			'wordwrap'		=> 	TRUE
+		);
+
+		$this->email->initialize($config);
+		$this->email->set_newline("\r\n");
+		$this->email->from('clikitstuff@gmail.com','Clikit Admin');
+		$this->email->to($this->input->post('email'));
+		$this->email->subject($subject);
+		$this->email->message($message);
+
+		if($this->email->send())
+		{
+			
+			redirect(base_url('orgs/emailcontact'));
+		}
+		else{
+			redirect(base_url('orgs/failedemailcontact'));
+		}
+
+   } else{
+		redirect(base_url('orgs/failedemailcontact'));
+	}
+
+   }
+
+   function emailcontact(){
+    	$this->index();
+   }
+   function failedemailcontact(){
+        $this->index();
+   }
+
    public function aboutus(){
 	$this->load->view('aboutus');
 }
