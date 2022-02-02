@@ -226,35 +226,39 @@ class Welcome extends CI_Controller {
 				// GO TO DASHBOARD VIEW IF STATEMENT IS TRUE
 				if($status1!=false){
 
-					// TRANSFER THE DATABASE VALUE IN VARIABLES
-					$id 	  = $status1->id;
-					$username = $status1->username;
-					$email 	  = $status1->email;
-					$status   = $status1->status;
-					$image   =  $status1->image;
-					$fullname 	  = $status1->fullname;
+					
+						// TRANSFER THE DATABASE VALUE IN VARIABLES
+						$id 	  = $status1->id;
+						$username = $status1->username;
+						$email 	  = $status1->email;
+						$status   = $status1->status;
+						$image   =  $status1->image;
+						$fullname 	  = $status1->fullname;
 
-					// STORE AS AN ARRAY IN $session_data  
-					$session_data = array(
-						'username' => $username,
-						'email'    => $email,
-						'id'	   => $id,
-						'status'   => $status,	
-						'image'    => $image,
-						'fullname'    => $fullname,
-					);
+						// STORE AS AN ARRAY IN $session_data  
+						$session_data = array(
+							'username' => $username,
+							'email'    => $email,
+							'id'	   => $id,
+							'status'   => $status,	
+							'image'    => $image,
+							'fullname'    => $fullname,
+						);
 
-					// SET THE $session_data TO UserLoginSession
-					$this->session->set_userdata($session_data);
-					$status = $this->session->userdata('status');
+						// SET THE $session_data TO UserLoginSession
+						$this->session->set_userdata($session_data);
+						$status = $this->session->userdata('status');
 
-					if($status == '1'){
-						redirect('admin');
+					if($status1->rules_regulations == '1'){
+						if($status == '1'){
+							redirect('admin');
+						}
+						else{
+							redirect('index.php/user');
+						}
+					}else{
+						redirect(base_url('welcome/rules_regulations'));
 					}
-					else{
-						redirect('user');
-					}
-
 					
 				}
 				else {
@@ -507,10 +511,10 @@ class Welcome extends CI_Controller {
 
                     if($status){
 						$this->session->unset_userdata('id');
-                        redirect(base_url('welcome/login/accept'));
+                        redirect(base_url('welcome/accept'));
                     }else{
 						$this->session->unset_userdata('id');
-                        redirect(base_url('welcome/login/notaccept'));     
+                        redirect(base_url('welcome/notaccept'));     
                     }
 
                 }else{
@@ -521,6 +525,14 @@ class Welcome extends CI_Controller {
                 
 			}
 		}
+	}
+
+	function accept(){
+		$this->login();
+	}
+
+	function notaccept(){
+		$this->login();
 	}
 
 

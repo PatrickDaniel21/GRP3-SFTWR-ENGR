@@ -16,7 +16,9 @@
         box-sizing: border-box;
     }
     body{
-        background: #4A2324;
+        background: url('../assets/img/bg10.jpg');	
+        background-repeat: no-repeat;
+		background-size: cover;
     }
     ion-icon{
         font-size: 1.5rem;
@@ -26,11 +28,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #181818;
-        padding: 7px 7%;
+        background: #1E0E0E;
+        padding: 13px 7%;
         position: sticky;
         top: 0;
         z-index: 100;
+        margin-bottom: 10px;
     }
     .nav-left p{
         width: 160px;
@@ -84,16 +87,20 @@
         top: 70px;
         align-self: flex-start;
         color: #800;
+        padding-right: 15px;
     }
     .right-sidebar{
         flex-basis: 25%;
         position: sticky;
         top: 70px;
         align-self: flex-start;
-        background: #F5F5F5;
+        background: url('../assets/img/bg1.jpg');
         padding: 20px;
         border-radius: 4px;
-        color: #626262;
+        color: #2C1515;
+        letter-spacing: 0.5px;
+        margin-left:10px;
+        margin-top: 8px;
     }
     .main-content{
         flex-basis: 47%;
@@ -122,9 +129,17 @@
         margin-bottom: 18px;
     }
     .right-sidebar h4{
+        color: #59292B;
+        letter-spacing: 1px;
         font-weight: 600;
         font-size: 16px;
     }
+
+    .right-sidebar h3{
+        color: #3B1C1C;
+        font-weight: 600;
+    }
+    
     .sidebar-title a{
         text-decoration: none;
         color: #1876f2;
@@ -136,6 +151,7 @@
         margin-bottom: 20px;
     }
     .left-event{
+        background: white;
         border-radius: 10px;
         height: 65px;
         width: 65px;
@@ -159,7 +175,7 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        background: #1876f2;
+        background: #3B1C1C;
         color: #F5F5F5;
         font-size: 10px;
         padding: 4px 0;
@@ -257,7 +273,7 @@
         margin: 20px 0;
     }
     .post-text{
-        color: #9a9a9a;
+        color: #606162;
         margin: 15px 0;
         font-size: 15px;
     }
@@ -333,10 +349,13 @@
     .logo{
         text-decoration: none;
     }
+    .logo img{
+        width: 20%;
+    }
     .btn{
 		color: #fff;
 		text-align: center;
-		background:  #800000;
+		background:  #4d0400;
 		width: 450px;
 		height: 35px;
 		transform: translateX(-5.5%);
@@ -344,7 +363,7 @@
 
 	.btn:hover{
         color: #fff;
-		background-color: #522020;
+		background-color: #260200;
 	}
     .btn-group ion-icon{
         color: #55504E;
@@ -395,6 +414,8 @@
     </style>
 </head>
 <body>
+
+
     
     <!-- <?php 
     // if($this->session->userdata('UserLoginSession')){
@@ -406,7 +427,9 @@
 
         <nav>
         <div class="nav-left">
-            <a class="logo" href="<?=base_url('user')?>"><p>CLIKIT</p></a>
+            <a class="logo" href="<?=base_url('index.php/user')?>">
+                <img src=<?= base_url('assets/img/DEN-LOGO.png')?>> 
+            </a>
         </div>
         <div class="nav-right">
 
@@ -443,7 +466,7 @@
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?=base_url('user')?>">Go to Freedom Wall</a></li>
+                        <li><a class="dropdown-item" href="<?=base_url('index.php/user')?>">Go to Freedom Wall</a></li>
                         <li><a class="dropdown-item" href="<?=base_url('orgs')?>">Go to Organization</a></li>
                         <li><a class="dropdown-item" href="<?=base_url('orgs/createorg')?>">Create Organization</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -462,14 +485,9 @@
     <div class="container">
     
         <div class="left-sidebar">
-            <div class="imp-links">
-                <a href="<?=base_url('user')?>"><ion-icon name="people-circle"></ion-icon>Freedom Wall</a>
+            <div class="imp-links mt-3">
+                <a href="<?=base_url('index.php/user')?>"><ion-icon name="people-circle"></ion-icon>Freedom Wall</a>
                 <a href="<?=base_url('orgs')?>"><ion-icon name="library"></ion-icon>Organizations</a>
-                <div class="search-box">
-                    <p><i class="fas fa-search"></i></p>
-                    <input type="text" placeholder="Search orgs...">
-                </div>
-
             </div>
         </div>
         <div class="main-content">
@@ -664,6 +682,7 @@
                                         <span class="visually-hidden">Toggle Dropdown</span>
                                     </button>
                                     <ul class="dropdown-menu1 dropdown-menu">
+                                        
                                         <li><a class="dropdown-item" href="<?=base_url('user/report/'.$row->id.'/'.$row->post_id)?>">Report</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         
@@ -694,8 +713,7 @@
         </div>
         <div class="right-sidebar">
             <div class="sidebar-title">
-                <h4>Events/Activities</h4>
-                <a href="#">See All</a>
+                <h4>Events / Activities</h4>
             </div>
             <div class="event">
                 <div class="left-event">
@@ -705,7 +723,6 @@
                 <div class="right-event">
                     <h4>Org 1 Event</h4>
                     <p>Summarized words that fit in a few words</p>
-                    <a href="#">More Info</a>
                 </div>
             </div>
             <div class="event">
@@ -716,12 +733,10 @@
                 <div class="right-event">
                     <h4>Org 2 Event</h4>
                     <p>Summarized words that fit in a few words</p>
-                    <a href="#">More Info</a>
                 </div>
             </div>
             <div class="sidebar-title">
                 <h4>Org Advertisements</h4>
-                <a href="#">See All</a>
             </div>
             <img src="images/advertisement.png" class="sidebar-ads">
         </div>

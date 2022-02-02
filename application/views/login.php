@@ -24,8 +24,8 @@
 		}
 
 		body{
-			background: grey;
-			background-repeat: no-repeat;
+			background-image: url( <?= base_url() ?>assets/img/bg10.jpg );
+            background-repeat: no-repeat;
 			background-size: cover;
 			overflow: hidden;
 		}
@@ -39,7 +39,6 @@
 			top: 50%;
 			left:50%;
 			transform: translate(-50%,-50%);
-			box-shadow: 1px 1px 100px 1px #271313;
 		}
 
 		/* SIZE OF BOX IN FORM */
@@ -49,7 +48,10 @@
 			padding: 30px;
 			padding-left: 60px;
 			padding-right: 60px;
-			background: #fff;
+			background: url('../assets/img/bg2.jpg');
+			background-repeat: no-repeat;
+			background-size: cover;
+			border-radius: 0 20px 20px 0;
 		}
 
 		/* SIZE OF BOX IN LOGO */
@@ -57,18 +59,28 @@
 			width: 35%;
 			height: 100%;
 			padding: 30px;
-			background:maroon;
+			background: url('../assets/img/bg5.jpg');	
 			background-repeat: no-repeat;
 			background-size: cover;
+			border-radius: 20px 0 0 20px ;
+		}
+
+		.wrapper .left img{
+			width: 100%;
+			transform: translate(1%,250%);
 		}
 
 		/* FORM GREETINGS */
 		.wrapper .right h3{
+			font-size: 2.5rem;
+			color: #fff3f2;
 			font-weight: 600;
 			line-height: 72px;
 			letter-spacing: 1px;
 			word-spacing: 2px;
 			text-align: center;
+			margin-bottom: 30px;
+			margin-top: 10px;
 		}
 
 		.wrapper .right .form{
@@ -77,7 +89,8 @@
 
 		/* TITLE OF FORM QUESTIONS */
 		.wrapper .right .form label{
-			color: #4D5959;
+			color: #fff3f2;
+			letter-spacing: 1px;
 			margin-top: 3px;
 			font-weight: 500;
 			font-size: 14px;
@@ -85,7 +98,8 @@
 
 		/* LOGIN QUESTION TEXT */
 		.wrapper .right h4{
-			padding: 20px;
+			color: #fff3f2;
+			padding: 6px;
 			font-size: small;
 			letter-spacing: 1px;
 			word-spacing: 1px;
@@ -94,9 +108,9 @@
 
 		/* LINK OF LOGIN AND FORGOT PASSWORD */
 		.wrapper .right .form h4 a{
-			color: red;
+			color: #260200;
 			margin-top: 0;
-			font-weight: 500;
+			font-weight: bold;
 			font-size: 14px;
 			text-align: center;
 			text-decoration: none;
@@ -137,14 +151,14 @@
 		.wrapper .right .btn{
 			color: #fff;
 			text-align: center;
-			background:  #800000;
+			background:  #4d0400;
 			width: 250px;
 			height: 35px;
 			transform: translate(0%,110%);
 		}
 
 		.wrapper .right .btn:hover{
-			background-color: #522020;
+			background-color: #260200;
 		}
 	</style>
   </head>
@@ -153,6 +167,7 @@
 
 			<!-- LOGO SECTION -->
 			<div class="left">        
+				<img src=<?= base_url('assets/img/DEN-LOGO.png')?>>     
 			</div>
 
 			<!-- FORM SECTION -->
@@ -197,7 +212,7 @@
 					<?php
 						// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
 						// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
-						if($this->uri->segment(3) == "accept"){
+						if($this->uri->segment(2) == "accept"){
 							// base url - http://localhost/cilogin/
 							// redirect url - http://localhost/cilogin/welcome/validation
 							// welcome = segment(1)
@@ -213,7 +228,7 @@
 					<?php
 						// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
 						// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
-						if($this->uri->segment(3) == "notaccept"){
+						if($this->uri->segment(2) == "notaccept"){
 							// base url - http://localhost/cilogin/
 							// redirect url - http://localhost/cilogin/welcome/validation
 							// welcome = segment(1)
@@ -235,7 +250,17 @@
 							<!-- GET EMAIL -->
 							<div class="mb-3">
 								<label for="exampleInputEmail1" class="form-label">TUP Email</label>
-								<input type="email"  placeholder="Enter your TUP Email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+								<input 
+									type="email"  
+									placeholder="Enter your tup email" 
+									name="email" class="form-control" 
+									required
+									oninvalid="this.setCustomValidity('Enter TUP Email Here')" 
+									oninput="this.setCustomValidity('')"
+									id="exampleInputEmail1" 
+									aria-describedby="emailHelp"
+
+								>
 
 								<span class="text-danger"><?php echo form_error("email")?></span>
 							</div>
@@ -243,7 +268,16 @@
 							<!-- GET PASSWORD -->
 							<div class="mb-3">
 								<label for="exampleInputPassword1" class="form-label">Password</label>
-								<input type="password" name="password"  placeholder="Enter your Password"  class="form-control" id="exampleInputPassword1">
+								<input 
+									type="password" 
+									name="password"  
+									required
+									oninvalid="this.setCustomValidity('Enter Password Here')" 
+									oninput="this.setCustomValidity('')"
+									placeholder="Enter your password"  
+									class="form-control" 
+									id="exampleInputPassword1"
+								>
 
 								<span class="text-danger"><?php echo form_error("password")?></span>
 							</div>
@@ -256,7 +290,7 @@
 							<!-- LINK TO LOGIN -->
 							<h4>Don't have an account? 
 								<a class="" href="<?=base_url()?>">Signup</a> <br>
-								<div class="pt-3">
+								<div class="pt-2">
 									<a class="" href="<?=base_url('welcome/forgot')?>">Forgot Password?</a>	
 								</div>
 							</h4> 

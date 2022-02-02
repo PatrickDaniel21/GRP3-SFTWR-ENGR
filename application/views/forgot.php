@@ -24,8 +24,8 @@
 		}
 
 		body{
-			background: grey;
-			background-repeat: no-repeat;
+			background-image: url( <?= base_url() ?>assets/img/bg10.jpg );
+            background-repeat: no-repeat;
 			background-size: cover;
 			overflow: hidden;
 		}
@@ -39,7 +39,6 @@
 			top: 50%;
 			left:50%;
 			transform: translate(-50%,-50%);
-			box-shadow: 1px 1px 100px 1px #271313;
 		}
 
 		/* SIZE OF BOX IN FORM */
@@ -49,7 +48,10 @@
 			padding: 30px;
 			padding-left: 60px;
 			padding-right: 60px;
-			background: #fff;
+			background: url('../assets/img/bg2.jpg');
+			background-repeat: no-repeat;
+			background-size: cover;
+			border-radius: 0 20px 20px 0;
 		}
 
 		/* SIZE OF BOX IN LOGO */
@@ -57,18 +59,28 @@
 			width: 35%;
 			height: 100%;
 			padding: 30px;
-			background:maroon;
+			background: url('../assets/img/bg5.jpg');	
 			background-repeat: no-repeat;
 			background-size: cover;
+			border-radius: 20px 0 0 20px ;
+		}
+
+		.wrapper .left img{
+			width: 100%;
+			transform: translate(1%,250%);
 		}
 
 		/* FORM GREETINGS */
 		.wrapper .right h3{
+			font-size: 2.5rem;
+			color: #fff3f2;
 			font-weight: 600;
 			line-height: 72px;
 			letter-spacing: 1px;
 			word-spacing: 2px;
 			text-align: center;
+			margin-bottom: 30px;
+			margin-top: 10px;
 		}
 
 		.wrapper .right .form{
@@ -77,7 +89,8 @@
 
 		/* TITLE OF FORM QUESTIONS */
 		.wrapper .right .form label{
-			color: #4D5959;
+			color: #fff3f2;
+			letter-spacing: 1px;
 			margin-top: 3px;
 			font-weight: 500;
 			font-size: 14px;
@@ -85,22 +98,14 @@
 
 		/* LOGIN QUESTION TEXT */
 		.wrapper .right h4{
-			padding: 20px;
+			color: #fff3f2;
+			padding: 25px;
 			font-size: small;
 			letter-spacing: 1px;
 			word-spacing: 1px;
 			text-align: center;
 		}
 
-		/* LINK OF LOGIN AND FORGOT PASSWORD */
-		.wrapper .right .form h4 a{
-			color: red;
-			margin-top: 0;
-			font-weight: 500;
-			font-size: 14px;
-			text-align: center;
-			text-decoration: none;
-		}
 
 		/* INPUT BOX */
 		.wrapper .right .input{
@@ -137,14 +142,14 @@
 		.wrapper .right .btn{
 			color: #fff;
 			text-align: center;
-			background:  #800000;
+			background:  #4d0400;
 			width: 250px;
 			height: 35px;
-			transform: translate(0%,110%);
+			transform: translate(70%,390%);
 		}
 
 		.wrapper .right .btn:hover{
-			background-color: #522020;
+			background-color: #260200;
 		}
 	</style>
   </head>
@@ -152,13 +157,14 @@
 	<div class="wrapper">
 
 			<!-- LOGO SECTION -->
-			<div class="left">        
+			<div class="left">     
+				<img src=<?= base_url('assets/img/DEN-LOGO.png')?>>   
 			</div>
 
 
 			<!-- FORM SECTION -->
 			<div class="right">
-			<h3>Welcome to C.L.I.K.I.T</h3>
+			<h3>Forgot Password</h3>
 				<div class="form">
 
                     <!-- ALERT FOR INCOMPLETE FORMS -->
@@ -206,7 +212,14 @@
 							<!-- GET EMAIL -->
 							<div class="mb-3 mt-4">
 								<label for="exampleInputEmail1" class="form-label">TUP Email</label>
-								<input type="email"  placeholder="Enter your TUP Email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+								<input 
+									type="email"  
+									placeholder="Enter your tup email" 
+									required 
+									oninvalid="this.setCustomValidity('Enter Full Name Here')" 
+									oninput="this.setCustomValidity('')"
+									name="email" class="form-control" 
+									id="exampleInputEmail1" aria-describedby="emailHelp">
 							</div>
 
 							<!-- LOGIN BUTTON -->

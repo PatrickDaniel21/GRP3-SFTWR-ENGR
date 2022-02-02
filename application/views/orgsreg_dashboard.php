@@ -16,7 +16,9 @@
         box-sizing: border-box;
     }
     body{
-        background: #4A2324;
+        background-image: url( <?= base_url() ?>assets/img/bg10.jpg );
+        background-repeat: no-repeat;
+		background-size: cover;
     }
     ion-icon{
         font-size: 1.5rem;
@@ -26,11 +28,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #181818;
-        padding: 7px 7%;
+        background: #1E0E0E;
+        padding: 13px 7%;
         position: sticky;
         top: 0;
         z-index: 100;
+        margin-bottom: 10px;
     }
     .nav-left p{
         width: 160px;
@@ -335,6 +338,9 @@
     .logo{
         text-decoration: none;
     }
+    .logo img{
+        width: 20%;
+    }
     .btn{
 		color: #fff;
 		text-align: center;
@@ -399,6 +405,42 @@
         color: white;
     }
 
+    .flex-container {
+        display: flex;
+        flex-wrap: nowrap;       
+    }
+    .orgcontainer{
+        background-image: url( <?= base_url() ?>assets/img/bg1.jpg );
+        background-repeat: no-repeat;
+		background-size: cover;
+        padding: 40px;
+        border-radius: 4px;
+        color: #2C1515;
+        letter-spacing: 0.5px; 
+        margin-left:30px;
+        margin-top: 10px;  
+        height: 20rem;
+        text-align: center;
+    }
+    .orgcontainer .orgreg img{
+        margin-top: 30px;
+        height: 50%;
+    }
+
+    .orgcontainer .orgreg p{
+        font-size: 20px;
+        color: #2C1515;
+        letter-spacing: 1px;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    .alert{
+        margin-left: 65%;
+        padding: 20px 70px 20px 70px;
+    }
+
+
    
     
     </style>
@@ -415,7 +457,9 @@
 
         <nav>
         <div class="nav-left">
-            <a class="logo" href="<?=base_url('user')?>"><p>CLIKIT</p></a>
+            <a class="logo" href="<?=base_url('index.php/user')?>">
+                <img src=<?= base_url('assets/img/DEN-LOGO.png')?>> 
+            </a>
         </div>
         <div class="nav-right">
 
@@ -452,7 +496,7 @@
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?=base_url('user')?>">Go to Freedom Wall</a></li>
+                        <li><a class="dropdown-item" href="<?=base_url('index.php/user')?>">Go to Freedom Wall</a></li>
                         <li><a class="dropdown-item" href="<?=base_url('orgs')?>">Go to Organization</a></li>
                         <li><a class="dropdown-item" href="<?=base_url('orgs/createorg')?>">Create Organization</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -469,9 +513,70 @@
     </nav>
 
     <div class="container">
-    
-       <div style="margin-right: 10px;">
+        <?php
+                            
+                    if($this->uri->segment(2) == "email"){
+                        // base url - http://localhost/cilogin/
+                        // redirect url - http://localhost/cilogin/user/validimage
+                        // user = segment(1)
+                        // validavalidimagetion1 - segment(2)
+            
+                        echo '
+                        <div class="alert alert-success"> 
+                            <span>Join Request is Successfully Sent</span>
+                        </div>';
+                    }
+            ?>
 
+             <?php
+                            
+                    if($this->uri->segment(2) == "failedemail"){
+                        // base url - http://localhost/cilogin/
+                        // redirect url - http://localhost/cilogin/user/validimage
+                        // user = segment(1)
+                        // validavalidimagetion1 - segment(2)
+            
+                        echo '
+                        <div class="alert alert-danger"> 
+                            <span>Join Request is Unsuccessfully Sent</span>
+                        </div>';
+                    }
+            ?>
+            <?php
+                            
+                    if($this->uri->segment(2) == "emailcontact"){
+                        // base url - http://localhost/cilogin/
+                        // redirect url - http://localhost/cilogin/user/validimage
+                        // user = segment(1)
+                        // validavalidimagetion1 - segment(2)
+            
+                        echo '
+                        <div class="alert alert-success"> 
+                            <span>Contact Us is Successfully Sent</span>
+                        </div>';
+                    }
+            ?>
+
+             <?php
+                            
+                    if($this->uri->segment(2) == "failedemailcontact"){
+                        // base url - http://localhost/cilogin/
+                        // redirect url - http://localhost/cilogin/user/validimage
+                        // user = segment(1)
+                        // validavalidimagetion1 - segment(2)
+            
+                        echo '
+                        <div class="alert alert-danger"> 
+                            <span>Contact Us is Unsuccessfully Sent</span>
+                        </div>';
+                    }
+            ?>
+    </div>
+
+    <div class="container">
+        
+    
+       <div class="flex-container" style="margin-right: 10px;">
        
        <?php
                 foreach($data->result() as $row)
@@ -482,26 +587,27 @@
                         
                         if($row->org_image == ""){
                         ?>  
-
+                                <div class="orgcontainer" > 
                                 <a class="orgreg" href="<?=base_url('orgs/orgsprofile/'.$row->org_id.'/'.$row->orgadmin_id)?>">
                                     <img src=<?= base_url('assets/img/orgs_logo.png')?>          
-                                        style="height: 35px;
-                                        width: 35px;
+                                        style="
                                         border-radius: 50%; I
-                                        display: table-cell;margin: e auto;" alt="Profile image">
-                                     <span style="margin-right: 50px;"> <?php echo $row->org_name?> </span>
+                                        display: table-cell;margin: e auto;" alt="Profile image"> <br>
+                                     <p > <?php echo $row->org_name?> </p>
                                 </a>
+                                </div>
                         <?php
                         }else{
                             ?>
+                                <div class="orgcontainer" >
                                 <a class="orgreg" href="<?=base_url('orgs/orgsprofile/'.$row->org_id.'/'.$row->orgadmin_id)?>">
                                     <img src=<?= base_url('upload/'.$row->org_image)?>          
-                                        style="height: 35px;
-                                        width: 35px;
+                                        style="
                                         border-radius: 50%; I
-                                        display: table-cell;margin: e auto;" alt="Profile image">
-                                      <span style="margin-right: 50px;"> <?php echo $row->org_name?> </span>
+                                        display: table-cell;margin: e auto;" alt="Profile image"> <br>
+                                      <p > <?php echo $row->org_name?> </p>
                                 </a>
+                                </div>
                             <?php
                             }
                             ?>

@@ -15,7 +15,9 @@
             font-size: 16px; 
             text-decoration: none; 
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            background-color: #efefef;
+            background-image: url( <?= base_url() ?>assets/img/bg10.jpg );
+            background-repeat: no-repeat;
+			background-size: cover;
         }
 		#wrapper{
             max-width: 600px; 
@@ -110,7 +112,7 @@
                             <p>You successfully verify your C.L.I.K.I.T. account</p>
 
                             <p class="button">
-                                <a class="button2" href="<?=base_url('welcome/login')?>" target="_blank">
+                                <a class="button2" href="<?=base_url('welcome/login')?>">
                                     Got it
                                 </a>
                             </p>
@@ -134,7 +136,7 @@
                                 <p>Your verification email has passed its <br> expiration date.</p>
 
                                 <p class="button">
-                                    <a class="button1" href="<?=base_url()?>" target="_blank">
+                                    <a class="button1" href="<?=base_url()?>">
                                         Got it
                                     </a>
 

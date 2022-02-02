@@ -16,7 +16,14 @@
         box-sizing: border-box;
     }
     body{
-        background: #4A2324;
+        background-image: url( <?= base_url() ?>assets/img/bg10.jpg );
+        	background-repeat: no-repeat;
+			background-size: cover;
+    }
+    .background{
+        position: absolute;
+        height: 100%;
+        width: 100%;
     }
     ion-icon{
         font-size: 1.5rem;
@@ -26,11 +33,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #181818;
-        padding: 7px 7%;
+        background: #1E0E0E;
+        padding: 13px 7%;
         position: sticky;
         top: 0;
         z-index: 100;
+        margin-bottom: 10px;
     }
     .nav-left p{
         width: 160px;
@@ -84,16 +92,20 @@
         top: 70px;
         align-self: flex-start;
         color: #800;
+        padding-right: 15px;
     }
     .right-sidebar{
         flex-basis: 25%;
         position: sticky;
         top: 70px;
         align-self: flex-start;
-        background: #F5F5F5;
+        background-image: url( <?= base_url() ?>assets/img/bg1.jpg );
         padding: 20px;
         border-radius: 4px;
-        color: #626262;
+        color: #2C1515;
+        letter-spacing: 0.5px;
+        margin-left:10px;
+        margin-top: 8px;
     }
     .main-content{
         flex-basis: 47%;
@@ -106,7 +118,7 @@
         color: #efefef;
         width: fit-content;
     }
-    .imp-links a img{
+    .imp-links a img, .imp-linkss a img{
         width: 25px;
         height: 25px;
         margin-right: 15px;
@@ -115,6 +127,27 @@
     .imp-links{
         border-bottom: 1px solid #ccc;
     }
+
+    .imp-linkss a{
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        color: #efefef;
+        width: fit-content;
+    }
+
+    .imp-linkss{
+        background:#905152;
+        width: 80%;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .imp-linkss:hover{
+        background:#683032;
+        width: 80%;
+        border-radius: 10px;
+    }
+    
     .sidebar-title{
         display: flex;
         align-items: center;
@@ -122,13 +155,19 @@
         margin-bottom: 18px;
     }
     .right-sidebar h4{
+        color: #59292B;
+        letter-spacing: 1px;
         font-weight: 600;
         font-size: 16px;
     }
+
+    .right-sidebar h3{
+        color: #3B1C1C;
+        font-weight: 600;
+    }
     .sidebar-title a{
-        text-decoration: none;
-        color: #1876f2;
-        font-size: 12px;
+        color: #3B1C1C;
+        font-weight: 600;
     }
     .event{
         display: flex;
@@ -136,6 +175,7 @@
         margin-bottom: 20px;
     }
     .left-event{
+        background: white;
         border-radius: 10px;
         height: 65px;
         width: 65px;
@@ -159,7 +199,7 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        background: #1876f2;
+        background: #3B1C1C;
         color: #F5F5F5;
         font-size: 10px;
         padding: 4px 0;
@@ -249,6 +289,7 @@
         margin-right: 10px;
     }
     .post-container{
+        position: relative;
         width: 100%;
         background: #F5F5F5;
         border-radius: 6px;
@@ -257,7 +298,7 @@
         margin: 20px 0;
     }
     .post-text{
-        color: #9a9a9a;
+        color: #606162;
         margin: 15px 0;
         font-size: 15px;
     }
@@ -333,6 +374,9 @@
     .logo{
         text-decoration: none;
     }
+    .logo img{
+        width: 20%;
+    }
     .btn{
 		color: #fff;
 		text-align: center;
@@ -393,20 +437,42 @@
     .book{
         color:#ff9e14;
         position: absolute;
-        transform: translateX(1200%);
+        transform: translateX(1270%);
     }
     .book ion-icon{
         color:#ff9e14;
     }
     .orgpic{
+        position: relative;
         width: 60px;
         height: 60px;
         border-radius: 50%;
         margin-right: 15px;
+        margin-bottom: 13px;
     }
     .orgname{
+        position: relative;
         color: white;
         font-size: 35px;
+    }
+    .join{
+        text-decoration: none;
+        color: white;
+        float: right;
+        margin: 20px 10px;
+    }
+    .join:hover{
+        color: white;
+    }
+    .join1{
+        background-color: #52D452;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        padding: 7px;
+        float: right;
+        margin: 20px 10px;
+        
     }
    
     
@@ -424,7 +490,9 @@
 
         <nav>
         <div class="nav-left">
-            <a class="logo" href="<?=base_url('user')?>"><p>CLIKIT</p></a>
+            <a class="logo" href="<?=base_url('index.php/user')?>">
+                <img src=<?= base_url('assets/img/DEN-LOGO.png')?>> 
+            </a>
         </div>
         <div class="nav-right">
 
@@ -461,7 +529,7 @@
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?=base_url('user')?>">Go to Freedom Wall</a></li>
+                        <li><a class="dropdown-item" href="<?=base_url('index.php/user')?>">Go to Freedom Wall</a></li>
                         <li><a class="dropdown-item" href="<?=base_url('orgs')?>">Go to Organization</a></li>
                         <li><a class="dropdown-item" href="<?=base_url('orgs/createorg')?>">Create Organization</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -480,16 +548,19 @@
     <div class="container">
     
         <div class="left-sidebar">
-            <div class="imp-links">
-                <a href="<?=base_url('user')?>"><ion-icon name="people-circle"></ion-icon>Freedom Wall</a>
-                <a href="#"><ion-icon name="library"></ion-icon>Organizations</a>
-                <div class="search-box">
-                    <p><i class="fas fa-search"></i></p>
-                    <input type="text" placeholder="Search orgs...">
-                </div>
+            <div class="imp-links mt-3">
+                <a href="<?=base_url('index.php/user')?>"><ion-icon name="people-circle"></ion-icon>Freedom Wall</a>
+                <a href="<?=base_url('orgs')?>"><ion-icon name="library"></ion-icon>Organizations</a>
+            </div>   
 
-            </div>
+            <div class="imp-linkss mt-5">
+                <a href="<?=base_url('orgs/contact/'.$this->uri->segment(3))?>"><ion-icon name="call"></ion-icon>Contact Us</a>
+            </div> 
+            <div class="imp-linkss mt-3">
+                <a href="<?=base_url('orgs/aboutus')?>"><ion-icon name="call"></ion-icon>About</a>
+            </div>   
         </div>
+        
         <div class="main-content">
             <div class="mt-2 mb-2">
         
@@ -498,7 +569,7 @@
             <?php
                 foreach($data->result() as $row)
                 {
-                    if($this->uri->segment(3) == $row->	org_id){
+                    if($this->uri->segment(3) == $row->org_id){
             ?>
 
                 <?php if($row->org_image == ""){
@@ -511,8 +582,24 @@
                 <?php
                     }
                 ?>
-
+                
                 <span class="orgname"><?php echo $row->org_name?></span>
+
+                
+
+                <?php if(($row->orgadmin_id == $this->session->userdata('id')) || 
+                         ($row->orgmember_id == $this->session->userdata('id') && $row->orgmember_status == '1' && $this->uri->segment(3) == $row->orgm_id)){
+                ?>
+                    <button style="position: relative;"  type="submit" class="join1">Joined</button>
+                <?php
+                }else{
+                ?>
+                    <a style="position: relative;" class="join" href="<?=base_url('orgs/orgjoined/'.$row->org_id)?>">Join / Register</a>
+                <?php
+                }
+                ?>
+
+               
 
             <?php
                     break;
@@ -520,11 +607,14 @@
                 }
             ?>
 
+            
+
             <?php
                 foreach($data->result() as $row)
                 {
                     if($this->uri->segment(3) == $row->	org_id){
             ?>
+
                 <div class="post-container">
                     
                     <div class="post-row">
@@ -551,13 +641,14 @@
 
                                 <p><?php echo $row->org_name?></p>
                                 <span><?php echo $row->org_published_date ?></span>
-
+                                
                             </div>
                         </div>
                         <a href="#"><i class="fas fa-ellipsis-v"></i></a>
                     </div>
 
                     <p class="post-text"><?php echo $row->org_post?></p>
+
                 </div>
 
             <?php
@@ -568,8 +659,7 @@
         </div>
         <div class="right-sidebar">
             <div class="sidebar-title">
-                <h4>Events/Activities</h4>
-                <a href="#">See All</a>
+                <h4>Events / Activities</h4>
             </div>
             <div class="event">
                 <div class="left-event">
@@ -579,7 +669,6 @@
                 <div class="right-event">
                     <h4>Org 1 Event</h4>
                     <p>Summarized words that fit in a few words</p>
-                    <a href="#">More Info</a>
                 </div>
             </div>
             <div class="event">
@@ -590,12 +679,10 @@
                 <div class="right-event">
                     <h4>Org 2 Event</h4>
                     <p>Summarized words that fit in a few words</p>
-                    <a href="#">More Info</a>
                 </div>
             </div>
             <div class="sidebar-title">
                 <h4>Org Advertisements</h4>
-                <a href="#">See All</a>
             </div>
             <img src="images/advertisement.png" class="sidebar-ads">
         </div>

@@ -59,7 +59,7 @@ class User extends CI_Controller {
                     $returndata = $this->user_model->savePosts($data);
 
                     if($returndata != false){ 
-                        return redirect('user');
+                        return redirect('index.php/user');
                     }
 			}
 			else{
@@ -172,7 +172,7 @@ class User extends CI_Controller {
 	}
 
     public function report($user_id, $post_id){
-        if($this->user_model->report($user_id, $post_id)){  
+        if($this->user_model->reports($user_id, $post_id)){  
             redirect(base_url('user/reports'));   
         }else{
             redirect(base_url('user/reporterror'));   
