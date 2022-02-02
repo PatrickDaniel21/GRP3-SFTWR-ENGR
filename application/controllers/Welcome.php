@@ -274,6 +274,31 @@ class Welcome extends CI_Controller {
 		}
 	}
 
+	function rules_regulations(){
+		$this->load->view('rules_regulations');
+	}
+
+	function rules(){
+		
+		$id = $this->session->userdata('id');
+
+		if($this->user_model->rules($id)){
+
+				if($this->session->userdata('status') == '1'){
+					redirect('admin');
+				}
+				else{
+					redirect('index.php/user');
+				}
+		
+			
+		}
+		else {
+			// MAKE AN ALERT FOR NOT MATCHING PASSWORD AND EMAIL
+			redirect(base_url('welcome/validation'));
+		}
+	}
+
 	// ALERT FOR NOT MATCHING PASSWORD AND EMAIL
 	function validation(){
 		$this->login();
