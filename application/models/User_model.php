@@ -232,45 +232,4 @@ class User_model extends CI_Model {
 		$this->db->order_by("posts.published_date", "DESC");
 		return $this->db->get();
 	}
-
-	public function cusername($username, $id){
-
-		$this->db->where('id', $id);
-		$query = $this->db->get('users');
-
-		if($query->num_rows() > 0){
-			$data = array(
-				'username'=> $username,
-			);
-			
-			$this->db->where('id', $id);
-			$this->db->update('users',$data);
-
-			return true;
-		}
-	}
-
-	public function cpass($password, $newpassword2, $id){
-
-		$this->db->where('id', $id);
-		$this->db->where('password', $password);
-		$query = $this->db->get('users');
-
-		if($query->num_rows() == 1){
-			$data = array(
-				'password'=> $newpassword2,
-			);
-			
-			$this->db->where('id', $id);
-			$this->db->update('users',$data);
-
-			return true;
-
-		}else{
-			return false;
-		}
-	}
-
-
-
 }
