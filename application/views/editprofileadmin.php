@@ -699,9 +699,8 @@
     <div class="container">
         <div class="left-sidebar">
             <div class="imp-links mt-3">
-                <a href="#"><ion-icon name="people-circle"></ion-icon>Freedom Wall</a>
-                <a href="#"><ion-icon name="library"></ion-icon>Organizations</a>
-
+                <a href="<?=base_url('admin')?>"><ion-icon name="people-circle"></ion-icon>Freedomwall Post</a>
+                <a href="<?=base_url('admin/organization')?>"><ion-icon name="library"></ion-icon>Organization</a>
             </div>
         </div>
        
@@ -718,7 +717,7 @@
             
                         echo '
                         <div class="alert alert-success"> 
-                            <span>Profile Picture is Successfully Changed</span>
+                            <span>Profile picture is changed.</span>
                         </div>';
                     }
             ?>
@@ -733,18 +732,12 @@
             
                         echo '
                         <div class="alert alert-danger"> 
-                            <span>Profile Picture is Unsuccessfully Changed</span>
+                            <span>Profile picture is unchanged.</span>
                         </div>';
                     }
             ?>
 
-            
-    
-   
-            <div class="setting">
-                 <p id="logo">Change Username</p> <hr>
-
-                 <?php
+            <?php
                         
                 if($this->uri->segment(2) == "validation"){
                     // base url - http://localhost/cilogin/
@@ -754,7 +747,7 @@
         
                     echo '
                     <div class="alert alert-success"> 
-                        <span>Username is Successfully Changed</span>
+                        <span>Username is changed.</span>
                     </div>';
                 }
                 ?>
@@ -769,10 +762,61 @@
             
                         echo '
                         <div class="alert alert-danger"> 
-                            <span>Username is Unsuccessfully Changed</span>
+                            <span>Username is unchanged.</span>
                         </div>';
                     }
                 ?>
+
+                 <?php
+                        
+                    if($this->uri->segment(2) == "error"){
+                    // base url - http://localhost/cilogin/
+                    // redirect url - http://localhost/cilogin/user/error
+                    // user = segment(1)
+                    // error - segment(2)
+        
+                    echo '
+                    <div class="alert alert-danger"> 
+                        <span>Password does not match.</span>
+                    </div>';
+                }
+                ?>
+
+                <?php
+                        
+                    if($this->uri->segment(2) == "error1"){
+                    // base url - http://localhost/cilogin/
+                    // redirect url - http://localhost/cilogin/user/error1
+                    // user = segment(1)
+                    // error1 - segment(2)
+        
+                    echo '
+                    <div class="alert alert-danger"> 
+                        <span>Password does not match.</span>
+                    </div>';
+                }
+                ?>
+
+                <?php
+                        
+                    if($this->uri->segment(2) == "valid"){
+                    // base url - http://localhost/cilogin/
+                    // redirect url - http://localhost/cilogin/user/error1
+                    // user = segment(1)
+                    // error1 - segment(2)
+        
+                    echo '
+                    <div class="alert alert-success"> 
+                        <span>Password is changed.</span>
+                    </div>';
+                }
+                ?>
+
+            
+    
+   
+            <div class="setting">
+                 <p id="logo">Change Username</p> <hr>
 
                  <form method="post" autocomplete="off" action="<?=base_url('admin/changeusername')?>">
 
@@ -797,50 +841,6 @@
             <div id ="changepass" class="setting1">
                  <p id="logo">Change Password</p> <hr>
 
-                 <?php
-                        
-                    if($this->uri->segment(2) == "error"){
-                    // base url - http://localhost/cilogin/
-                    // redirect url - http://localhost/cilogin/user/error
-                    // user = segment(1)
-                    // error - segment(2)
-        
-                    echo '
-                    <div class="alert alert-danger"> 
-                        <span>Password does not match</span>
-                    </div>';
-                }
-                ?>
-
-                <?php
-                        
-                    if($this->uri->segment(2) == "error1"){
-                    // base url - http://localhost/cilogin/
-                    // redirect url - http://localhost/cilogin/user/error1
-                    // user = segment(1)
-                    // error1 - segment(2)
-        
-                    echo '
-                    <div class="alert alert-danger"> 
-                        <span>Current Password does not match</span>
-                    </div>';
-                }
-                ?>
-
-                <?php
-                        
-                    if($this->uri->segment(2) == "valid"){
-                    // base url - http://localhost/cilogin/
-                    // redirect url - http://localhost/cilogin/user/error1
-                    // user = segment(1)
-                    // error1 - segment(2)
-        
-                    echo '
-                    <div class="alert alert-success"> 
-                        <span>Password is Successfully Changed</span>
-                    </div>';
-                }
-                ?>
 
                  <form method="post" autocomplete="off" action="<?=base_url('admin/changepass')?>">
 

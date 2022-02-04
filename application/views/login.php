@@ -204,7 +204,7 @@
 		
 							echo '
 							<div class="alert alert-danger"> 
-								<span>Incorrect password or email</span>
+								<span>Incorrect password or email.</span>
 							</div>';
 						}
 					?>
@@ -220,7 +220,7 @@
 		
 							echo '
 							<div class="alert alert-success"> 
-								<span>Password change Sucessfully</span>
+								<span>Password changed sucessfully.</span>
 							</div>';
 						}
 					?>
@@ -236,7 +236,7 @@
 		
 							echo '
 							<div class="alert alert-danger"> 
-								<span>Password change Unsucessfully</span>
+								<span>Password changed unsucessfully.</span>
 							</div>';
 						}
 					?>

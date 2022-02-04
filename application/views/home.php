@@ -206,7 +206,7 @@
 	
 						echo '
 						<div class="alert alert-success"> 
-							<span>A verification link has been sent to your email account</span>
+							<span>A verification link has been sent to your email account.</span>
 						</div>';
 					}
 				?>
@@ -240,7 +240,7 @@
 	
 						echo '
 						<div class="alert alert-danger"> 
-							<span>Email must be TUP registered</span>
+							<span>Only registered TUP Emails are accepted.</span>
 						</div>';
 					}
 				?>
@@ -257,7 +257,7 @@
 	
 						echo '
 						<div class="alert alert-danger"> 
-							<span>Password does not match</span>
+							<span>Password does not match.</span>
 						</div>';
 					}
 				?>
@@ -317,7 +317,7 @@
 						<!-- EMAIL ADDRESS -->
 						<div class="row pt-2">
 							<div class="col-lg-6">
-								<label for="exampleInputEmail1" class="form-label">TUP Address</label>
+								<label for="exampleInputEmail1" class="form-label">TUP Email</label>
 								<input 
 									type="email"  
 									placeholder="Enter your tup email" 

@@ -499,16 +499,13 @@ class Welcome extends CI_Controller {
 				// GO TO DASHBOARD VIEW IF STATEMENT IS TRUE
 				if($status!=false){
 
-
-					$this->user_model->reset_code($email, $username);
-
 					// TRANSFER THE DATABASE VALUE IN VARIABLES
 					$username 	= $status->username;
 					$email 		= $status->email;
 					$id 		= $status->id;
 					$status 	= $status->status;
-					$image 		= $status->image;
-					$fullname 	= $status->fullname;
+
+					$this->user_model->reset_code($email);
 
 					// STORE AS AN ARRAY IN $session_data  
 					$session_data = array(
@@ -516,8 +513,6 @@ class Welcome extends CI_Controller {
 						'email'    => $email,
 						'id'	   => $id,
 						'status'   => $status,	
-						'image'    => $image,
-						'fullname' => $fullname,
 					);
 
 					// SET THE $session_data TO UserLoginSession
@@ -572,12 +567,16 @@ class Welcome extends CI_Controller {
 
                 }else{
 					
-                    redirect(base_url('welcome/changepass/error'));   
+                    redirect(base_url('welcome/error'));   
                 }
 
                 
 			}
 		}
+	}
+
+	function error(){
+		$this->changepass();
 	}
 
 	function accept(){

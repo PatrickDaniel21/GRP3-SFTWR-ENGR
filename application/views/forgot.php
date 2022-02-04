@@ -145,7 +145,7 @@
 			background:  #4d0400;
 			width: 250px;
 			height: 35px;
-			transform: translate(70%,390%);
+			transform: translate(70%,200%);
 		}
 
 		.wrapper .right .btn:hover{
@@ -198,7 +198,7 @@
         
                             echo '
                             <div class="alert alert-danger"> 
-                                <span>Please wait while we verify your email</span>
+                                <span>Please verify your registered email first.</span>
                             </div>';
                         }
                     ?>
@@ -216,7 +216,7 @@
 									type="email"  
 									placeholder="Enter your tup email" 
 									required 
-									oninvalid="this.setCustomValidity('Enter Full Name Here')" 
+									oninvalid="this.setCustomValidity('Enter Email Here')" 
 									oninput="this.setCustomValidity('')"
 									name="email" class="form-control" 
 									id="exampleInputEmail1" aria-describedby="emailHelp">

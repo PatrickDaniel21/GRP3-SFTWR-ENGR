@@ -120,19 +120,6 @@ class User_model extends CI_Model {
 
 		// TRUE IF THE CODE IS IN DATABASE
 		if($query->num_rows()==1){
-
-			$this->db->where('code_verification', $code);
-			$query2 = $this->db->get('users');
-
-			if($query2->num_rows() > 0){
-				$data = array(
-					'code_verification' => ""
-				);
-				
-				$this->db->where('code_verification', $code);
-				$this->db->update('users',$data);
-			}
-
 			return $query->row();
 		}
 		// FALSE IF NOT
@@ -143,14 +130,22 @@ class User_model extends CI_Model {
 	}
 
 	// RESET THE CODE_VERIFICATION
-	function reset_code($email, $username){
+	function reset_code($email){
 
 		$this->db->where('email', $email);
-		$this->db->where('username', $username);
+		$this->db->where('is_email_verified', 'yes');
 		$query = $this->db->get('users');
 
-		
+		if($query->num_rows() > 0){
+			$data = array(
+				'code_verification' => ""
+			);
+			
+			$this->db->where('email', $email);
+			$this->db->update('users',$data);
+		}
 
+		return $query->row();
 	}
 
 	public function changepassvalue($password, $id){

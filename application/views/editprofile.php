@@ -805,7 +805,7 @@
             
                         echo '
                         <div class="alert alert-success"> 
-                            <span>Profile Picture is Successfully Changed</span>
+                            <span>Profile picture is changed.</span>
                         </div>';
                     }
             ?>
@@ -820,7 +820,7 @@
             
                         echo '
                         <div class="alert alert-danger"> 
-                            <span>Profile Picture is Unsuccessfully Changed</span>
+                            <span>Profile picture is unchanged.</span>
                         </div>';
                     }
             ?>
@@ -835,7 +835,7 @@
         
                     echo '
                     <div class="alert alert-success"> 
-                        <span>Username is Successfully Changed</span>
+                        <span>Username is changed.</span>
                     </div>';
                 }
                 ?>
@@ -850,7 +850,7 @@
             
                         echo '
                         <div class="alert alert-danger"> 
-                            <span>Username is Unsuccessfully Changed</span>
+                            <span>Username is unchanged.</span>
                         </div>';
                     }
                 ?>
@@ -865,7 +865,7 @@
         
                     echo '
                     <div class="alert alert-danger"> 
-                        <span>Password does not match</span>
+                        <span>Password does not match.</span>
                     </div>';
                 }
                 ?>
@@ -880,7 +880,7 @@
         
                     echo '
                     <div class="alert alert-danger"> 
-                        <span>Current Password does not match</span>
+                        <span>Password does not match.</span>
                     </div>';
                 }
                 ?>
@@ -895,7 +895,7 @@
         
                     echo '
                     <div class="alert alert-success"> 
-                        <span>Password is Successfully Changed</span>
+                        <span>Password is changed.</span>
                     </div>';
                 }
                 ?>

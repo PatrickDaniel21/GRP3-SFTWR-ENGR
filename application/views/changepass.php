@@ -143,7 +143,7 @@
 			background:  #4d0400;
 			width: 250px;
 			height: 35px;
-			transform: translate(70%,330%);
+			transform: translate(70%,150%);
 		}
 
 		.wrapper .right .btn:hover{
@@ -179,7 +179,7 @@
         
                             echo '
                             <div class="alert alert-danger"> 
-                                <span>Password does not match</span>
+                                <span>Password does not match.</span>
                             </div>';
                         }
                     ?>
