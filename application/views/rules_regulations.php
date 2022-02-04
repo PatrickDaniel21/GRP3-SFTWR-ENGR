@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>C.L.I.K.I.T</title>
+    <title>Clikit | Rules and Regulations</title>
 
 	<!-- CSS STYLE FOR SIGN UP -->
 	<style type="text/css">
@@ -44,6 +44,7 @@
 
 		/* SIZE OF BOX IN FORM */
 		.wrapper .right{
+			text-align: justify;
 			width: 65%;
 			height: 100%;
 			padding: 30px;
@@ -183,22 +184,16 @@
 						<div class="row">
 								<div>
                                     <ul>
-                                        <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, ullam.</li>
-                                        <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, ullam.</li>
-                                        <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, ullam.</li>
-                                        <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, ullam.</li>
-                                        <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, ullam.</li>
-                                        <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, ullam.</li>
-                                        <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, ullam.</li>
-                                        <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, ullam.</li>
-                                        <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, ullam.</li>
-                                        <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, ullam.</li>
-                                        <li class="mb-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, ullam.</li>
+                                        <li class="mb-1">A.	Only Students of Technological University of the Philippines are allowed to use this website. </li>
+                                        <li class="mb-1">B.	Admin will remove post if: has foul Language, has illicit pictures, suspicious links, has 5 reports or more, it is a spam, & hate speech/bullying.</li>
+                                        <li class="mb-1">C.	CLIKIT will maintain the confidentiality of all user communications which contain personal user information.</li>
+                                        <li class="mb-1">D.	Users of CLIKIT pages submit to the jurisdiction of the Philippine courts and the website is governed by Philippine law.</li>
+                                        <li class="mb-1">E.	When changing your profile picture, kindly log-out then log-in again to observe the corresponding changes.</li>
                                     </ul>
                                 </div>
                                 <div>
                                     <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" required>
-                                    <label for="vehicle1"> I Accept Lorem, ipsum dolor sit amet consecteert erttth wefgdf loujren</label>
+                                    <label for="vehicle1"> I have read and accepted the presented Rules and Regulations.</label>
                                 </div>
 
 							<!-- LOGIN BUTTON -->

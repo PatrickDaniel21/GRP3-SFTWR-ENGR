@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2022 at 09:28 AM
+-- Generation Time: Feb 02, 2022 at 02:24 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -71,7 +71,6 @@ CREATE TABLE `orgs_posts` (
 INSERT INTO `orgs_posts` (`orgpost_id`, `orgpadmin_id`, `org_post`, `org_published_date`, `org_postimage`, `org_status`) VALUES
 (12, 83, 'This Announcement is for sample test only', '2022-01-21 14:02:28', '', 1),
 (13, 83, 'This Post is for sample test only\r\n', '2022-01-21 14:02:59', '', 2),
-(14, 83, 'Another sample post for the test', '2022-01-21 14:03:52', '', 2),
 (15, 84, 'This post is for sample test only\r\n', '2022-01-21 14:18:55', '', 2),
 (16, 84, 'This announcement is for sample test only\r\n', '2022-01-21 14:19:14', '', 1),
 (17, 83, 'This Second Announcement is for sample test only', '2022-01-27 13:51:27', '', 1),
@@ -135,6 +134,7 @@ CREATE TABLE `users` (
   `status` varchar(50) NOT NULL,
   `verification_key` varchar(250) NOT NULL,
   `is_email_verified` enum('no','yes') NOT NULL,
+  `rules_regulations` int(1) NOT NULL,
   `code_verification` varchar(10) NOT NULL,
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -143,10 +143,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `fullname`, `username`, `email`, `password`, `status`, `verification_key`, `is_email_verified`, `code_verification`, `image`) VALUES
-(79, 'admin', 'ADMIN01', 'clikitstuff@gmail.com', 'afe3ffbfccb0470513dbf3411f7002e6dac1f378', '1', '9db7798fa3adcbebe2e88d7d82537dcf', 'yes', '', 'logo.jpg'),
-(83, 'Aliana M. Caballero', 'ooo', 'aliana.caballero@gmail.com', '679da235956418c84f0bd9966ff40fd84bd535ba', '0', '8ae142b0b05ccd2d9ec0c0428c5f3e37', 'yes', '', 'aliana_-_square3.jpg'),
-(84, 'Jersey M. Sodela', 'Aye', 'jerseymadrenian19@gmail.com', '4bde128ae0f744743ddcabfdc203ff7597b055cf', '0', 'c4f54cdbc096360f1d8c94e9485a859c', 'yes', '', 'Adobe.jpg');
+INSERT INTO `users` (`id`, `fullname`, `username`, `email`, `password`, `status`, `verification_key`, `is_email_verified`, `rules_regulations`, `code_verification`, `image`) VALUES
+(79, 'admin', 'ADMIN01', 'clikitstuff@gmail.com', 'afe3ffbfccb0470513dbf3411f7002e6dac1f378', '1', '9db7798fa3adcbebe2e88d7d82537dcf', 'yes', 1, '', 'logo.jpg'),
+(83, 'Aliana M. Caballero', 'ooo', 'aliana.caballero@gmail.com', '679da235956418c84f0bd9966ff40fd84bd535ba', '0', '8ae142b0b05ccd2d9ec0c0428c5f3e37', 'yes', 1, '', 'aliana_-_square3.jpg'),
+(84, 'Jersey M. Sodela', 'Aye', 'jerseymadrenian19@gmail.com', '679da235956418c84f0bd9966ff40fd84bd535ba', '0', 'c4f54cdbc096360f1d8c94e9485a859c', 'yes', 1, '', 'aliana.jpg'),
+(87, 'Aliana Caballero', 'Ali', 'caballero.aliana@gmail.com', '7b21848ac9af35be0ddb2d6b9fc3851934db8420', '0', '60300c6945f7980048396e89c4d4d25a', 'yes', 1, '', 'aliana_-_square4.jpg');
 
 --
 -- Indexes for dumped tables
@@ -214,7 +215,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

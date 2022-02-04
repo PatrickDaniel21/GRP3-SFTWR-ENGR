@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>C.L.I.K.I.T</title>
+    <title>Clikit | Otp Code</title>
 
 	<!-- CSS STYLE FOR SIGN UP -->
 	<style type="text/css">
@@ -180,7 +180,7 @@
         
                             echo '
                             <div class="alert alert-success"> 
-                                <span>A verification code has been sent to your email account</span>
+                                <span>Kindly check the verification code sent to your email.</span>
                             </div>';
                         }
                     ?>
@@ -197,7 +197,7 @@
         
                             echo '
                             <div class="alert alert-danger"> 
-                                <span>The email verification was not sent successfully.</span>
+                                <span>Verification email was unsuccessfully sent.</span>
                             </div>';
                         }
                     ?>
@@ -233,7 +233,7 @@
         
                             echo '
                             <div class="alert alert-danger"> 
-                                <span>Invalid Verification Code</span>
+                                <span>Invalid verification code.</span>
                             </div>';
                         }
                     ?>

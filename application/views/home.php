@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>C.L.I.K.I.T</title>
+    <title>Clikit | Signup</title>
 
 	<!-- CSS STYLE FOR SIGN UP -->
 	<style type="text/css">
@@ -224,6 +224,23 @@
 						echo '
 						<div class="alert alert-danger"> 
 							<span>The email verification was not sent successfully.</span>
+						</div>';
+					}
+				?>
+
+				<!-- ERROR MESSAGES FOR UNSENT EMAIL -->
+				<?php
+					// CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
+					// HELP RETRIEVE INFORMATION FROM "uri" STRINGS
+					if($this->uri->segment(2) == "emailfailed"){
+						// base url - http://localhost/cilogin/
+						// redirect url - http://localhost/cilogin/welcome/failedemail
+						// welcome = segment(1)
+						// failedemail - segment(2)
+	
+						echo '
+						<div class="alert alert-danger"> 
+							<span>Email must be TUP registered</span>
 						</div>';
 					}
 				?>

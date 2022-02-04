@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>C.L.I.K.I.T.</title>
+    <title>Clikit | Freedom Wall</title>
 
     <style type="text/css">
     *{
@@ -501,7 +501,7 @@
                         
                         echo '
                         <div class="alert alert-success"> 
-                            <span>Reported Successfully</span>
+                            <span>Report has been delivered.</span>
                         </div>';
                     }
                 ?>
@@ -515,7 +515,7 @@
                         
                         echo '
                         <div class="alert alert-danger"> 
-                            <span>Reported Unsuccessfully</span>
+                            <span>Report was not delivered.</span>
                         </div>';
                     }
                 ?>
@@ -529,7 +529,7 @@
                         
                         echo '
                         <div class="alert alert-success"> 
-                            <span>Bugs / Feedback is Successfully Sent</span>
+                            <span>Bugs / Feedback has been delivered.</span>
                         </div>';
                     }
                 ?>
@@ -543,7 +543,7 @@
                         
                         echo '
                         <div class="alert alert-danger"> 
-                            <span>Bugs / Feedback is Unsuccessfully Sent</span>
+                            <span>Bugs / Feedback was not delivered.</span>
                         </div>';
                     }
                 ?>
@@ -557,7 +557,7 @@
                         
                         echo '
                         <div class="alert alert-success"> 
-                            <span>Organization Form Sent Successfully</span>
+                            <span>Organization Form has been delivered.</span>
                         </div>';
                     }
                 ?>
@@ -571,7 +571,7 @@
                         
                         echo '
                         <div class="alert alert-danger"> 
-                            <span>Organization Form Sent Unsuccessfully</span>
+                            <span>Organization Form was not delivered.</span>
                         </div>';
                     }
                 ?>

@@ -7,7 +7,7 @@
 	<meta name="viewport" content=
 		"width=device-width, initial-scale=1.0">
 	<title>
-		Create Organization Form
+		Clikit | Create Organization Form
 	</title>
 
 	<style type="text/css">

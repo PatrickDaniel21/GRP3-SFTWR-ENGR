@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>C.L.I.K.I.T.</title>
+    <title>Clikit | Organization</title>
 
     <style type="text/css">
     *{
@@ -523,7 +523,7 @@
             
                         echo '
                         <div class="alert alert-success"> 
-                            <span>Join Request is Successfully Sent</span>
+                            <span>Join request sent successfully.</span>
                         </div>';
                     }
             ?>
@@ -538,7 +538,7 @@
             
                         echo '
                         <div class="alert alert-danger"> 
-                            <span>Join Request is Unsuccessfully Sent</span>
+                            <span>Join request unsuccessful.</span>
                         </div>';
                     }
             ?>
@@ -552,7 +552,7 @@
             
                         echo '
                         <div class="alert alert-success"> 
-                            <span>Contact Us is Successfully Sent</span>
+                            <span>Contact sent successfully.</span>
                         </div>';
                     }
             ?>
@@ -567,7 +567,7 @@
             
                         echo '
                         <div class="alert alert-danger"> 
-                            <span>Contact Us is Unsuccessfully Sent</span>
+                            <span>Contact sent unsuccessfully.</span>
                         </div>';
                     }
             ?>
