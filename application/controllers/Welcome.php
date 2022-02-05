@@ -43,11 +43,7 @@ class Welcome extends CI_Controller {
 				$email = isset($_POST['email']) ? trim($_POST['email']) : null;
 
 				// List of allowed domains
-				$allowed = [
-					'tup.edu.ph',
-					'tup.edu.ph',
-					'tup.edu.ph'
-				];
+				$allowed = ['tup.edu.ph'];
 
 				// Make sure the address is valid
 				if (filter_var($email, FILTER_VALIDATE_EMAIL))
@@ -91,68 +87,20 @@ class Welcome extends CI_Controller {
 							if($id > 0){
 								
 								$subject = "Email Verification";
-
-								$message = "
-									<html>
-										<body style=\"color: #000; 
-													font-size: 16px; 
-													text-decoration: none; 
-													font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-													justify-content: center; 
-													background-color: #F2E7E8;\">
-											
-											<div style=\"max-width: 600px; 
-														margin: auto auto; 
-														padding: 20px;\">
-												
-													
-												<div style=\"font-size: 14px; 
-															padding: 25px; 
-															background-color: #E5CFD0;
-															moz-border-radius: 10px; 
-															-webkit-border-radius: 10px; 
-															border-radius: 10px; 
-															-khtml-border-radius: 10px;
-															border-color: #7B1114; 
-															border-width: 4px 1px; 
-															border-style: solid;\">
-									
-													<h1 style=\"font-size: 22px;\">
-														<center>Hi ".$this->input->post('fullname').", Thanks for your registration!</center>
-													</h1>
-													
-													<center>
-														<p><b>You're almost ready to start enjoying C.L.I.K.I.T.</b></p>
-														<p>Please verify that your email address is ".$this->input->post('email')."<br> Simply click the button below to verify your email address.</p>
-													</center>
-
-													<p style=\"display: flex; 
-															justify-content: center; 
-															margin-top: 10px;\">
-
-															
-															
-														<center>
-															<a href='".base_url()."welcome/verify_email/". $verification_key."'style=\"border: 1px solid #620E10; background-color: #3E090A; color: #fff; text-decoration: none; font-size: 16px; padding: 10px 20px; border-radius: 10px;\">
-																
-																	Verify email address
-
-															</a>
-														</center>
-													</p>
-													
-												</div>
-											</div>
-										</body>
-									</html>	
-								";
+								
+								$data = array(
+									'email' => $this->input->post('email'),
+									'fullname' => $this->input->post('fullname'),
+									'verification_key' => $verification_key
+								);
+								$message = $this->load->view('email_registered',$data,true);
 
 								$config = array(
 									'protocol'		=> 'smtp',
 									'smtp_host'     => 'ssl://smtp.gmail.com',
 									'smtp_port' 	=>  465,
 									'smtp_user'     => 'clikitstuff@gmail.com',
-									'smtp_pass'		=> 'sbigavnmutuoikgo',
+									'smtp_pass'		=> 'vtbugatfxorjgyro',
 									'smtp_timeout'	=> '60',
 									'mailtype' 		=> 'html',
 									'charset'		=> 'iso-8859-1',
@@ -369,58 +317,18 @@ class Welcome extends CI_Controller {
 					$status = $this->user_model->code_verification($email, $code);
 
 					$subject = "Forgot Password";
-					$message = "
-						<html>
-							<body style=\"color: #000; 
-										font-size: 16px; 
-										text-decoration: none; 
-										font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-										justify-content: center; 
-										background-color: #F2E7E8;\">
-								
-								<div style=\"max-width: 600px; 
-											margin: auto auto; 
-											padding: 20px;\">
-									
-										
-									<div style=\"font-size: 14px; 
-												padding: 25px; 
-												background-color: #E5CFD0;
-												moz-border-radius: 10px; 
-												-webkit-border-radius: 10px; 
-												border-radius: 10px; 
-												-khtml-border-radius: 10px;
-												border-color: #7B1114; 
-												border-width: 4px 1px; 
-												border-style: solid;\">
-						
-										<h1 style=\"font-size: 22px;\">
-											<center>Verification Code</center>
-										</h1>
-			
-										<p style=\"display: flex; 
-												justify-content: center; 
-												margin-top: 10px;\">	
-											<center>
-												<p style=\"border: 1px solid #620E10; background-color: #3E090A; color: #fff; text-decoration: none; font-size: 16px; padding: 10px 20px; border-radius: 10px;\">
-													
-														".$code."
-												</p>
-											</center>
-										</p>
-										
-									</div>
-								</div>
-							</body>
-						</html>	
-					";
+
+					$data = array(
+						'code' => $code,
+					);
+					$message = $this->load->view('email_forgot',$data,true);
 
 					$config = array(
 						'protocol'		=> 'smtp',
 						'smtp_host'     => 'ssl://smtp.gmail.com',
 						'smtp_port' 	=>  465,
 						'smtp_user'     => 'clikitstuff@gmail.com',
-						'smtp_pass'		=> 'sbigavnmutuoikgo',
+						'smtp_pass'		=> 'vtbugatfxorjgyro',
 						'smtp_timeout'	=> '60',
 						'mailtype' 		=> 'html',
 						'charset'		=> 'iso-8859-1',

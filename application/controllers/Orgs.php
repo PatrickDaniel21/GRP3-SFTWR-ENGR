@@ -80,6 +80,10 @@ class Orgs extends CI_Controller {
         $this->load->view('orgjoin', $orgsreg);
     }
 
+	public function email_receivedcontact(){
+        $this->load->view('email_receivedcontact');
+    }
+
     public function joinorgs($org_id){
 
         $orgmember_fullname   = $this->input->post('orgmember_fullname');
@@ -103,86 +107,43 @@ class Orgs extends CI_Controller {
 
             $subject = "Join Organization";
 
-							$message = "
-								<html>
-									<body style=\"color: #000; 
-												font-size: 16px; 
-												text-decoration: none; 
-												font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-												justify-content: center; 
-												background-color: #F2E7E8;\">
-										
-										<div style=\"max-width: 600px; 
-													margin: auto auto; 
-													padding: 20px;\">
-											
-												
-											<div style=\"font-size: 14px; 
-														padding: 25px; 
-														background-color: #E5CFD0;
-														moz-border-radius: 10px; 
-														-webkit-border-radius: 10px; 
-														border-radius: 10px; 
-														-khtml-border-radius: 10px;
-														border-color: #7B1114; 
-														border-width: 4px 1px; 
-														border-style: solid;\">
-                                                        
-                                                <h1 style=\"font-size: 22px;\">
-                                                    <center>Hi ".$this->input->post('org_name')." , I'd like to become a member of your organization. </center>
-                                                </h1>
+			$data1 = array(
+				'orgmember_fullname'			=>$orgmember_fullname,
+				'orgmember_section'			    =>$orgmember_section,
+				'orgmember_college'				=>$orgmember_college,
+				'orgmember_id'			        =>$orgmember_id,
+				'orgm_id'				        =>$orgm_id,
+				'org_name'						=> $this->input->post('org_name')
+			);
+			$message = $this->load->view('email_joinorg',$data1,true);
+			
+			
 
-												<p>
-                                                    <p><b>Here's my information</b></p>
-													<p>Full Name: ".$this->input->post('orgmember_fullname')."</p>
-													<p>Section: ".$this->input->post('orgmember_section')."</p>
-													<p>College: ".$this->input->post('orgmember_college')."</p>
-												</p>	
-                                                
-                                                <p style=\"display: flex; 
-														justify-content: center; 
-														margin-top: 10px;\">
-	
-													<center>
-														<a href='".base_url()."orgs/verify_joined/". $orgmember_id.'/'.$orgm_id."'style=\"border: 1px solid #620E10; background-color: #3E090A; color: #fff; text-decoration: none; font-size: 16px; padding: 10px 20px; border-radius: 10px;\">
-															
-                                                            Add member
+			$config = array(
+				'protocol'		=> 'smtp',
+				'smtp_host'     => 'ssl://smtp.gmail.com',
+				'smtp_port' 	=>  465,
+				'smtp_user'     => 'clikitstuff@gmail.com',
+				'smtp_pass'		=> 'vtbugatfxorjgyro',
+				'smtp_timeout'	=> '60',
+				'mailtype' 		=> 'html',
+				'charset'		=> 'iso-8859-1',
+				'wordwrap'		=> 	TRUE
+			);
 
-														</a>
-													</center>
-												</p>
-											</div>
-										</div>
-									</body>
-								</html>	
-							";
+			$this->email->initialize($config);
+			$this->email->set_newline("\r\n");
+			$this->email->from('clikitstuff@gmail.com','Clikit Admin');
+			$this->email->to($this->input->post('org_contact'));
+			$this->email->subject($subject);
+			$this->email->message($message);
 
-							$config = array(
-								'protocol'		=> 'smtp',
-								'smtp_host'     => 'ssl://smtp.gmail.com',
-								'smtp_port' 	=>  465,
-								'smtp_user'     => 'clikitstuff@gmail.com',
-								'smtp_pass'		=> 'sbigavnmutuoikgo',
-								'smtp_timeout'	=> '60',
-								'mailtype' 		=> 'html',
-								'charset'		=> 'iso-8859-1',
-								'wordwrap'		=> 	TRUE
-							);
-
-							$this->email->initialize($config);
-							$this->email->set_newline("\r\n");
-							$this->email->from('clikitstuff@gmail.com','Clikit Admin');
-							$this->email->to($this->input->post('org_contact'));
-							$this->email->subject($subject);
-							$this->email->message($message);
-
-							if($this->email->send())
-							{
-								redirect(base_url('orgs/email'));
-							}
-							else{
-								redirect(base_url('orgs/failedemail'));
-							}
+			if($this->email->send()){
+				redirect(base_url('orgs/email'));
+			}
+			else{
+				redirect(base_url('orgs/failedemail'));
+			}
 
 
         }
@@ -221,55 +182,21 @@ class Orgs extends CI_Controller {
 
 	$subject = $this->input->post('subject');
 
-	$message = "
-		<html>
-			<body style=\"color: #000; 
-						font-size: 16px; 
-						text-decoration: none; 
-						font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-						justify-content: center; 
-						background-color: #F2E7E8;\">
-				
-				<div style=\"max-width: 600px; 
-							margin: auto auto; 
-							padding: 20px;\">
-					
-						
-					<div style=\"font-size: 14px; 
-								padding: 25px; 
-								background-color: #E5CFD0;
-								moz-border-radius: 10px; 
-								-webkit-border-radius: 10px; 
-								border-radius: 10px; 
-								-khtml-border-radius: 10px;
-								border-color: #7B1114; 
-								border-width: 4px 1px; 
-								border-style: solid;\">
-								
-						<h1 style=\"font-size: 22px;\">
-							<center>Messages to ".$this->input->post('org_name')."</center>
-						</h1>
+	$data1 = array(
+		'email'			        		=>$this->input->post('email'),
+		'message'				        =>$this->input->post('message'),
+		'org_name'						=> $this->input->post('org_name')
+	);
 
-						<p>
-							<p>".$this->input->post('message')."</p>
-						</p>
-						
-						<p>
-							<p>Looking forward to hearing from you. <br>
-							You can Email Me Here: ".$this->input->post('email')."</p>
-						</p>
-					</div>
-				</div>
-			</body>
-		</html>	
-	";
+	$message = $this->load->view('email_contact',$data1,true);
+
 
 	$config = array(
 		'protocol'		=> 'smtp',
 		'smtp_host'     => 'ssl://smtp.gmail.com',
 		'smtp_port' 	=>  465,
 		'smtp_user'     => 'clikitstuff@gmail.com',
-		'smtp_pass'		=> 'sbigavnmutuoikgo',
+		'smtp_pass'		=> 'vtbugatfxorjgyro',
 		'smtp_timeout'	=> '60',
 		'mailtype' 		=> 'html',
 		'charset'		=> 'iso-8859-1',
@@ -288,61 +215,21 @@ class Orgs extends CI_Controller {
 		
 		$subject = "Contact Us Update";
 
-		$message = "
-			<html>
-				<body style=\"color: #000; 
-							font-size: 16px; 
-							text-decoration: none; 
-							font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-							justify-content: center; 
-							background-color: #F2E7E8;\">
-					
-					<div style=\"max-width: 600px; 
-								margin: auto auto; 
-								padding: 20px;\">
-						
-							
-						<div style=\"font-size: 14px; 
-									padding: 25px; 
-									background-color: #E5CFD0;
-									moz-border-radius: 10px; 
-									-webkit-border-radius: 10px; 
-									border-radius: 10px; 
-									-khtml-border-radius: 10px;
-									border-color: #7B1114; 
-									border-width: 4px 1px; 
-									border-style: solid;\">
-									
-							<h1 style=\"font-size: 22px;\">
-								<center
-									Contact Us Update
-								</center>
-							</h1>
+		$data1 = array(
+			'subject'			        		=>$this->input->post('subject'),
+			'message'				        =>$this->input->post('message'),
+			'org_name'						=> $this->input->post('org_name')
+		);
+	
+		$message = $this->load->view('email_receivedcontact',$data1,true);
 
-							<p>	
-								<h4>Hi,Thank you for contacting us, we have received your email and <br>
-								we'll be in touch as soon as possible.</h4>
-								Your Email is Successfully Sent to: <br>
-								Organization Name: ".$this->input->post('org_name')." <br>
-								Organization Email: ".$this->input->post('org_contact')."<br><br>
-
-								Your Subject: ".$this->input->post('subject')." <br>
-								Your Messages: ".$this->input->post('message')." <br>
-
-
-							</p>
-						</div>
-					</div>
-				</body>
-			</html>	
-		";
 		
 		$config = array(
 			'protocol'		=> 'smtp',
 			'smtp_host'     => 'ssl://smtp.gmail.com',
 			'smtp_port' 	=>  465,
 			'smtp_user'     => 'clikitstuff@gmail.com',
-			'smtp_pass'		=> 'sbigavnmutuoikgo',
+			'smtp_pass'		=> 'vtbugatfxorjgyro',
 			'smtp_timeout'	=> '60',
 			'mailtype' 		=> 'html',
 			'charset'		=> 'iso-8859-1',
