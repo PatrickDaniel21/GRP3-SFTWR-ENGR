@@ -24,6 +24,13 @@ class Welcome extends CI_Controller {
 		$this->load->view('home');
 	}
 
+	public function password_check($str)
+	{
+		if (!(preg_match('#[0-9]#', $str) && preg_match('#[a-zA-Z]#', $str))) {
+			redirect(base_url('welcome/password'));
+		}
+	}
+
 	// FORM VALIDATION
 	function registerNow()
 	{
@@ -36,32 +43,29 @@ class Welcome extends CI_Controller {
 			$this->form_validation->set_rules('email','Email','required|valid_emails|is_unique[users.email]');
 			$this->form_validation->set_rules('password','Password','required');
 			$this->form_validation->set_rules('password1','Confirm Password','required');
+			
+			
 
 			// VERIFY IF ERRORS ARE NOT OCCUR
 			if($this->form_validation->run()==TRUE)
 			{
-				$email = isset($_POST['email']) ? trim($_POST['email']) : null;
+				$re = '/[a-zA-Z](@tup.edu.ph)/';
+				$str = $this->input->post('email');
 
-				// List of allowed domains
-				$allowed = ['tup.edu.ph'];
-
-				// Make sure the address is valid
-				if (filter_var($email, FILTER_VALIDATE_EMAIL))
-				{
-					// Separate string by @ characters (there should be only one)
-					$parts = explode('@', $email);
-
-					// Remove and return the last part, which should be the domain
-					$domain = array_pop($parts);
-
-				// Check if the domain is in our list
-				if ( ! in_array($domain, $allowed)){
+				if ( !preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0)){
 					redirect(base_url('welcome/emailfailed'));
 				}
 				
 				//CHECK IF THE ENTER PASSWORD IS THE SAME
 				if($this->input->post('password') === $this->input->post('password1')){
 
+					$this->form_validation->set_rules('password1', 'Password', 'required|min_length[8]|alpha_numeric');
+
+					if(
+						($this->form_validation->run()==TRUE) && 
+					    (preg_match('#[0-9]#', $this->input->post('password1')) && 
+					   	preg_match('#[a-zA-Z]#', $this->input->post('password1')))
+					){
 						// USED FOR EMAIL VERIFICATION
 						$verification_key = md5(rand());
 
@@ -95,19 +99,7 @@ class Welcome extends CI_Controller {
 								);
 								$message = $this->load->view('email_registered',$data,true);
 
-								$config = array(
-									'protocol'		=> 'smtp',
-									'smtp_host'     => 'ssl://smtp.gmail.com',
-									'smtp_port' 	=>  465,
-									'smtp_user'     => 'clikitstuff@gmail.com',
-									'smtp_pass'		=> 'vtbugatfxorjgyro',
-									'smtp_timeout'	=> '60',
-									'mailtype' 		=> 'html',
-									'charset'		=> 'iso-8859-1',
-									'wordwrap'		=> 	TRUE
-								);
-
-								$this->email->initialize($config);
+								$this->email->initialize($this->config->item('email'));
 								$this->email->set_newline("\r\n");
 								$this->email->from('clikitstuff@gmail.com','Clikit Admin');
 								$this->email->to($this->input->post('email'));
@@ -123,12 +115,16 @@ class Welcome extends CI_Controller {
 								}
 														
 							}
+						}
+						else{
+							redirect(base_url('welcome/password'));
+						}
 					}
 					// IF NOT THE SAME: MAKE AN ERROR MESSAGES
 					else{
 						redirect(base_url('welcome/failed'));
 					}
-				}
+				
 			}
 			else{
 				$this->index();
@@ -140,6 +136,10 @@ class Welcome extends CI_Controller {
 
 	// ALERT FOR NOT MATCH PASSWORD
 	public function failed(){
+		$this->index();
+	}
+
+	public function password(){
 		$this->index();
 	}
 
@@ -323,19 +323,7 @@ class Welcome extends CI_Controller {
 					);
 					$message = $this->load->view('email_forgot',$data,true);
 
-					$config = array(
-						'protocol'		=> 'smtp',
-						'smtp_host'     => 'ssl://smtp.gmail.com',
-						'smtp_port' 	=>  465,
-						'smtp_user'     => 'clikitstuff@gmail.com',
-						'smtp_pass'		=> 'vtbugatfxorjgyro',
-						'smtp_timeout'	=> '60',
-						'mailtype' 		=> 'html',
-						'charset'		=> 'iso-8859-1',
-						'wordwrap'		=> 	TRUE
-					);
-
-					$this->email->initialize($config);
+					$this->email->initialize($this->config->item('email'));
 					$this->email->set_newline("\r\n");
 					$this->email->from('clikitstuff@gmail.com','Clikit Admin');
 					$this->email->to($email);

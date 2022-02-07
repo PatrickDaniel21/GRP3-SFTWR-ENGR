@@ -116,22 +116,8 @@ class Orgs extends CI_Controller {
 				'org_name'						=> $this->input->post('org_name')
 			);
 			$message = $this->load->view('email_joinorg',$data1,true);
-			
-			
 
-			$config = array(
-				'protocol'		=> 'smtp',
-				'smtp_host'     => 'ssl://smtp.gmail.com',
-				'smtp_port' 	=>  465,
-				'smtp_user'     => 'clikitstuff@gmail.com',
-				'smtp_pass'		=> 'vtbugatfxorjgyro',
-				'smtp_timeout'	=> '60',
-				'mailtype' 		=> 'html',
-				'charset'		=> 'iso-8859-1',
-				'wordwrap'		=> 	TRUE
-			);
-
-			$this->email->initialize($config);
+			$this->email->initialize($this->config->item('email'));
 			$this->email->set_newline("\r\n");
 			$this->email->from('clikitstuff@gmail.com','Clikit Admin');
 			$this->email->to($this->input->post('org_contact'));
@@ -190,20 +176,7 @@ class Orgs extends CI_Controller {
 
 	$message = $this->load->view('email_contact',$data1,true);
 
-
-	$config = array(
-		'protocol'		=> 'smtp',
-		'smtp_host'     => 'ssl://smtp.gmail.com',
-		'smtp_port' 	=>  465,
-		'smtp_user'     => 'clikitstuff@gmail.com',
-		'smtp_pass'		=> 'vtbugatfxorjgyro',
-		'smtp_timeout'	=> '60',
-		'mailtype' 		=> 'html',
-		'charset'		=> 'iso-8859-1',
-		'wordwrap'		=> 	TRUE
-	);
-
-	$this->email->initialize($config);
+	$this->email->initialize($this->config->item('email'));
 	$this->email->set_newline("\r\n");
 	$this->email->from('clikitstuff@gmail.com','Clikit Admin');
 	$this->email->to($this->input->post('org_contact'));
@@ -223,20 +196,7 @@ class Orgs extends CI_Controller {
 	
 		$message = $this->load->view('email_receivedcontact',$data1,true);
 
-		
-		$config = array(
-			'protocol'		=> 'smtp',
-			'smtp_host'     => 'ssl://smtp.gmail.com',
-			'smtp_port' 	=>  465,
-			'smtp_user'     => 'clikitstuff@gmail.com',
-			'smtp_pass'		=> 'vtbugatfxorjgyro',
-			'smtp_timeout'	=> '60',
-			'mailtype' 		=> 'html',
-			'charset'		=> 'iso-8859-1',
-			'wordwrap'		=> 	TRUE
-		);
-
-		$this->email->initialize($config);
+		$this->email->initialize($this->config->item('email'));
 		$this->email->set_newline("\r\n");
 		$this->email->from('clikitstuff@gmail.com','Clikit Admin');
 		$this->email->to($this->input->post('email'));
