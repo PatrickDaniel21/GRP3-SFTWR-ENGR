@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 02, 2022 at 02:24 PM
+-- Generation Time: Feb 11, 2022 at 10:43 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -114,7 +114,6 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `id`, `post`, `published_date`, `status_post`, `status1`, `report`, `feedback`) VALUES
-(23, 84, 'Another sample anonymous post for different user :)) ', '2022-01-21 13:37:44', 1, 'anonymous', 0, ''),
 (24, 83, 'Be sure the content you\'re writing for your post is valuable and will connect with your audience.', '2022-01-21 13:28:28', 1, 'public', 0, ''),
 (26, 83, 'Sample post from no one', '2022-01-27 14:11:03', 0, 'anonymous', 0, ''),
 (27, 83, 'Literally No one', '2022-01-27 14:12:45', 1, 'anonymous', 0, '');
@@ -146,8 +145,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `fullname`, `username`, `email`, `password`, `status`, `verification_key`, `is_email_verified`, `rules_regulations`, `code_verification`, `image`) VALUES
 (79, 'admin', 'ADMIN01', 'clikitstuff@gmail.com', 'afe3ffbfccb0470513dbf3411f7002e6dac1f378', '1', '9db7798fa3adcbebe2e88d7d82537dcf', 'yes', 1, '', 'logo.jpg'),
 (83, 'Aliana M. Caballero', 'ooo', 'aliana.caballero@gmail.com', '679da235956418c84f0bd9966ff40fd84bd535ba', '0', '8ae142b0b05ccd2d9ec0c0428c5f3e37', 'yes', 1, '', 'aliana_-_square3.jpg'),
-(84, 'Jersey M. Sodela', 'Aye', 'jerseymadrenian19@gmail.com', '679da235956418c84f0bd9966ff40fd84bd535ba', '0', 'c4f54cdbc096360f1d8c94e9485a859c', 'yes', 1, '', 'aliana.jpg'),
-(87, 'Aliana Caballero', 'Ali', 'caballero.aliana@gmail.com', '7b21848ac9af35be0ddb2d6b9fc3851934db8420', '0', '60300c6945f7980048396e89c4d4d25a', 'yes', 1, '', 'aliana_-_square4.jpg');
+(84, 'Jersey M. Sodela', 'Aye', 'jerseymadrenian19@gmail.com', 'cea1ade0db5049af570ae297422c14e9e688281b', '0', 'c4f54cdbc096360f1d8c94e9485a859c', 'yes', 1, '', 'aliana.jpg');
 
 --
 -- Indexes for dumped tables
@@ -191,31 +189,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `orgs`
 --
 ALTER TABLE `orgs`
-  MODIFY `org_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `org_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `orgs_posts`
 --
 ALTER TABLE `orgs_posts`
-  MODIFY `orgpost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `orgpost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `org_member`
 --
 ALTER TABLE `org_member`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `post_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
