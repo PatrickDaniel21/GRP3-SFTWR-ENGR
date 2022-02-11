@@ -184,6 +184,23 @@
                         }
                     ?>
 
+					<?php
+                        // CHECK THE URL IF THERE IS "FAILED FUNCTION" FOUND IN URL : 'Yung Function nasa Controllers/Welcome.php
+                        // HELP RETRIEVE INFORMATION FROM "uri" STRINGS
+
+                        if($this->uri->segment(2) == "fferror"){
+                            // base url - http://localhost/cilogin/
+                            // redirect url - http://localhost/cilogin/welcome/notemail
+                            // welcome = segment(1)
+                            // notemail - segment(2)
+        
+                            echo '
+                            <div class="alert alert-danger"> 
+                                <span>Password must be at least 8 characters contain A-Z, a-z, and 0-9 </span>
+                            </div>';
+                        }
+                    ?>
+
 					<!-- MAIN FORM -->
 					<form method="post" autocomplete="off" action="<?=base_url('welcome/changepassvalue')?>">
 

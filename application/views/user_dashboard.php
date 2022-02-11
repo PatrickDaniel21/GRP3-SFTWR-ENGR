@@ -688,7 +688,7 @@
                                         
                                         <form method="post" autocomplete="off" action="<?=base_url('user/feedback/'.$row->id.'/'.$row->post_id)?>">
 
-                                            <textarea class="report-feedback" rows="2" name="post" placeholder="What's your bugs / feedback about the post, <?php echo $this->session->userdata('username');?>?"></textarea>
+                                            <textarea class="report-feedback" rows="2" name="post" placeholder="What's your bugs / feedback about the post, <?php echo $this->session->userdata('username');?>?" required></textarea>
 
                                             <div class="rounded-0 text-center">
                                                 <button type="submit" class="btnf">Send Bugs / Feedback</button>

@@ -172,7 +172,7 @@
 			<div class="right">
 				<center>
 			<h3>Join Organization</h3>
-      		<h4>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti, accusantium?</h4>
+      		<h4>Please fill-up the necessary details in joining the organization.</h4>
 			  </center>
 				<div class="form">
 					<!-- MAIN FORM -->

@@ -342,7 +342,6 @@ class Welcome extends CI_Controller {
 					// MAKE AN ALERT FOR NOT MATCHING EMAIL
 					redirect(base_url('welcome/notemail'));
 				}
-				
 
 			}
 			else{
@@ -441,10 +440,14 @@ class Welcome extends CI_Controller {
 		{	
 			// MAKE AN ALERTS OR SET ERRORS FOR UNWANTED INPUT
 			$this->form_validation->set_rules('password1','Password','required');
-            $this->form_validation->set_rules('password2','Password','required');
+			$this->form_validation->set_rules('password2', 'Password', 'required|min_length[8]|alpha_numeric');
 
 			// VERIFY IF ERRORS ARE NOT OCCUR
-			if($this->form_validation->run()==TRUE)
+			if(($this->form_validation->run()==TRUE) &&
+				(preg_match('#[0-9]#', $this->input->post('password2')) && 
+				preg_match('#[a-zA-Z]#', $this->input->post('password2')))
+			
+			)
 			{
                 if($this->input->post('password1') === $this->input->post('password2')){
 
@@ -467,6 +470,8 @@ class Welcome extends CI_Controller {
                 }
 
                 
+			}else{
+				redirect(base_url('welcome/fferror'));
 			}
 		}
 	}
@@ -474,6 +479,10 @@ class Welcome extends CI_Controller {
 	function error(){
 		$this->changepass();
 	}
+	function fferror(){
+		$this->changepass();
+	}
+
 
 	function accept(){
 		$this->login();
